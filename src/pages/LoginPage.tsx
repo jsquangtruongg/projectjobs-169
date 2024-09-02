@@ -1,4 +1,4 @@
-import { LoginGoogle } from "../Login/LoginGoogle/LoginGoogle";
+import { LoginPageComponent } from "../components/Auth/LoginUser/LoginUser";
 export default function LoginPage() {
-  return <LoginGoogle />;
+  return <LoginPageComponent />;
 }

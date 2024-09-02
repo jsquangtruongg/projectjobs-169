@@ -1,5 +1,5 @@
-import { LoginGoogle } from "../Login/LoginGoogle/LoginGoogle";
-function GooglePage() {
+import { LoginGoogle } from "../components/Auth/LoginGoogle/LoginGoogle";
+function LoginGooglePage() {
   return <LoginGoogle />;
 }
-export default GooglePage;
+export default LoginGooglePage;

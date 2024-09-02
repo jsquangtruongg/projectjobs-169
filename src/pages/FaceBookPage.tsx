@@ -1,4 +1,4 @@
-import { LoginFaceBook } from "../Login/LoginFaceBook/LoginFaceBook";
+import { LoginFaceBook } from "../components/Auth/LoginFaceBook/LoginFaceBook";
 
 function FaceBookPage() {
   return <LoginFaceBook />;

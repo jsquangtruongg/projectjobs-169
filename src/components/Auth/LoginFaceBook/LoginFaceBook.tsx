@@ -1,32 +1,34 @@
-import styles from "./Logingoogle.module.css";
-import iconGoogle from "../../assets/imgs/icons_google.png";
-import line from "../../assets/imgs/Vector 6.png";
-import {
-  InputcomponentPassWord,
-  InputFromEmail,
-} from "../../components/Inputcomponents";
+import styles from "./LoginFaceBook.module.css";
+import iconFaceBook from "../../../assets/imgs/logos_facebook.png";
+
+import line from "../../../assets/imgs/Vector 6.png";
 import { ChangeEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {
+  InputComponentPassWord,
+  InputFromEmail,
+} from "../../common/InputComponent/InputComponents";
 
 interface FormData {
   username: string;
-  lastname: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
 interface Errors {
   username?: string;
-  lastname?: string;
+  lastName?: string;
   email?: string;
   password?: string;
 }
-export const LoginGoogle = () => {
+
+export const LoginFaceBook = () => {
   const [showPassword, SetShowPassword] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     username: "",
-    lastname: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -69,15 +71,13 @@ export const LoginGoogle = () => {
     SetShowPassword((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <div className={styles.heading_form}>
-      <h3 className={styles.create_account}>Login Google Account</h3>
+    <>
+      <h3 className={styles.create_account}>Create Account FaceBook</h3>
       <form onSubmit={handleSubmit}>
-        <div className={styles.btn_center}>
-          <button className={styles.btn_sign}>
-            <img src={iconGoogle} alt="" className={styles.icons_google} />
-            Sign up with Google
-          </button>
-        </div>
+        <button className={styles.btn_sign}>
+          <img src={iconFaceBook} alt="" className={styles.icons_google} />
+          Sign up with Facebook
+        </button>
         <div className={styles.form_line}>
           <img src={line} alt="" className={styles.icon_line} />
           <span className={styles.text_or}>or</span>
@@ -90,7 +90,7 @@ export const LoginGoogle = () => {
           onChange={onChangeHandler}
           error={errors.email}
         />
-        <InputcomponentPassWord
+        <InputComponentPassWord
           name="Password"
           id="password"
           type={showPassword ? "text" : "password"}
@@ -110,6 +110,6 @@ export const LoginGoogle = () => {
         </div>
         <button className={styles.item_click_create}>Create Account</button>
       </form>
-    </div>
+    </>
   );
 };

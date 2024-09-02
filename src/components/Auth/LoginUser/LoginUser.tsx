@@ -1,36 +1,37 @@
 import { ChangeEvent, useState } from "react";
-import styles from "./Register.module.css";
-import line from "../../assets/imgs/Vector 6.png";
-import iconGoogle from "../../assets/imgs/icons_google.png";
-import iconFaceBook from "../../assets/imgs/logos_facebook.png";
-import {
-  InputcomponentPassWord,
-  Inputcomponents,
-  InputFromEmail,
-} from "../../components/Inputcomponents";
+import styles from "./LoginUser.module.css";
+import line from "../../../assets/imgs/Vector 6.png";
+import iconGoogle from "../../../assets/imgs/icons_google.png";
+import iconFaceBook from "../../../assets/imgs/logos_facebook.png";
+
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
+import {
+  InputComponentPassWord,
+  InputFromEmail,
+  InputTextComponents,
+} from "../../common/InputComponent/InputComponents";
 
 interface FormData {
   username: string;
-  lastname: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
 interface Errors {
   username?: string;
-  lastname?: string;
+  lastName?: string;
   email?: string;
   password?: string;
 }
 
-export const Register = () => {
+export const LoginPageComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     username: "",
-    lastname: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -49,8 +50,8 @@ export const Register = () => {
     if (!formData.username.trim()) {
       newErrors.username = "Tên không được để trống";
     }
-    if (!formData.lastname.trim()) {
-      newErrors.lastname = "Họ không được để trống";
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Họ không được để trống";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email không được để trống";
@@ -70,10 +71,12 @@ export const Register = () => {
   const togglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-
+  const handleLoginClick = () => {
+    navigate("/sign-up");
+  };
   const navigate = useNavigate();
   const handleGoogleClick = () => {
-    navigate("/GooglePage");
+    navigate("/google-login");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,19 +95,19 @@ export const Register = () => {
       <h3 className={styles.create_account}>Login Account</h3>
       <form onSubmit={handleSubmit}>
         <div className={styles.form_input}>
-          <Inputcomponents
+          <InputTextComponents
             name="First Name"
             id="username"
             onChange={onChangeHandler}
             value={formData.username}
             error={errors.username}
           />
-          <Inputcomponents
+          <InputTextComponents
             name="Last Name"
             id="lastname"
-            value={formData.lastname}
+            value={formData.lastName}
             onChange={onChangeHandler}
-            error={errors.lastname}
+            error={errors.lastName}
           />
         </div>
         <InputFromEmail
@@ -114,7 +117,7 @@ export const Register = () => {
           onChange={onChangeHandler}
           error={errors.email}
         />
-        <InputcomponentPassWord
+        <InputComponentPassWord
           name="Password"
           id="password"
           type={showPassword ? "text" : "password"}
@@ -129,7 +132,9 @@ export const Register = () => {
         </button>
         <div className={styles.form_text}>
           <p className={styles.text_account}>Already have an account?</p>
-          <p className={styles.text_login}>Login</p>
+          <p onClick={handleLoginClick} className={styles.text_login}>
+            sign up
+          </p>
         </div>
         <div className={styles.form_line}>
           <img src={line} alt="" className={styles.icon_line} />
