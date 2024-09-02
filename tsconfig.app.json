@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/Login/Registers/LoginUser.tsx"]
+  "include": ["src", "src/components/Auth/Registers/RegisterUser.tsx"]
 }

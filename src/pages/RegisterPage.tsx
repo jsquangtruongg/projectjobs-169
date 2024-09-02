@@ -1,5 +1,5 @@
-import { Register } from "../Login/LoginUser/Register";
+import RegisterPageComponent from "../components/Auth/Registers/RegisterUser";
 
 export default function RegisterPage() {
-  return <Register />;
+  return <RegisterPageComponent />;
 }

@@ -1,20 +1,21 @@
-import { useState } from "react";
-import styles from "./LoginUser.module.css";
-import { useNavigate } from "react-router-dom";
-import line from "../../assets/imgs/Vector 6.png";
-import iconGoogle from "../../assets/imgs/icons_google.png";
-import iconFaceBook from "../../assets/imgs/logos_facebook.png";
-import {
-  Inputcomponents,
-  InputFromEmail,
-  InputPassWord,
-} from "../../components/Inputcomponents";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import line from "../../../assets/imgs/Vector 6.png";
+import iconGoogle from "../../../assets/imgs/icons_google.png";
+import iconFaceBook from "../../../assets/imgs/logos_facebook.png";
+
+import styles from "./RegisterUser.module.css";
+import {
+  InputComponentPassWord,
+  InputFromEmail,
+  InputTextComponents,
+} from "../../common/InputComponent/InputComponents";
 
 interface FormData {
   username: string;
-  lastname: string;
+  lastName: string;
   email: string;
   password: string;
   rePassword: string;
@@ -22,17 +23,17 @@ interface FormData {
 
 interface Errors {
   username?: string;
-  lastname?: string;
+  lastName?: string;
   email?: string;
   password?: string;
   rePassword?: string;
 }
 
-function LoginUser() {
+function RegisterPageComponent() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     username: "",
-    lastname: "",
+    lastName: "",
     email: "",
     password: "",
     rePassword: "",
@@ -40,7 +41,7 @@ function LoginUser() {
   const [errors, setErrors] = useState<Errors>({});
 
   const usernameId = "username";
-  const lastnameId = "lastname";
+  const lastNameId = "lastname";
   const emailId = "email";
   const passwordId = "password";
   const rePasswordId = "rePassword";
@@ -64,8 +65,8 @@ function LoginUser() {
     if (!formData.username.trim()) {
       newErrors.username = "Tên không được để trống";
     }
-    if (!formData.lastname.trim()) {
-      newErrors.lastname = "Họ không được để trống";
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Họ không được để trống";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email không được để trống";
@@ -90,11 +91,11 @@ function LoginUser() {
   };
 
   const handleLoginClick = () => {
-    navigate("/RegisterPage");
+    navigate("/login");
   };
 
   const handleGoogleClick = () => {
-    navigate("/GooglePage");
+    navigate("/google-login");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -112,48 +113,50 @@ function LoginUser() {
       <h3 className={styles.create_account}>Create Account</h3>
       <form onSubmit={handleSubmit}>
         <div className={styles.form_input}>
-          <Inputcomponents
+          <InputTextComponents
             name="Last Name"
-            id={lastnameId}
+            id={lastNameId}
+            value={formData.lastName}
+            error={errors.lastName}
             onChange={onChangeHandler}
-            value={formData.lastname}
-            error={errors.lastname}
           />
-          <Inputcomponents
+          <InputTextComponents
             name="First Name"
             id={usernameId}
-            onChange={onChangeHandler}
             value={formData.username}
             error={errors.username}
+            onChange={onChangeHandler}
           />
         </div>
         <InputFromEmail
           name="Email"
           id={emailId}
           value={formData.email}
-          onChange={onChangeHandler}
           error={errors.email}
+          onChange={onChangeHandler}
         />
         <div className={styles.form_input}>
-          <InputPassWord
+          <InputComponentPassWord
             name="Password"
             id={passwordId}
+            value={formData.password}
             type={showPassword ? "text" : "password"}
             icon={showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            error={errors.password}
+            style={{ width: "40%" }}
             onIconClick={togglePassword}
             onChange={onChangeHandler}
-            value={formData.password}
-            error={errors.password}
           />
-          <InputPassWord
+          <InputComponentPassWord
             name="RePassword"
             id={rePasswordId}
+            value={formData.rePassword}
             type={showPassword ? "text" : "password"}
             icon={showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            error={errors.rePassword}
+            style={{ width: "40%" }}
             onIconClick={togglePassword}
             onChange={onChangeHandler}
-            value={formData.rePassword}
-            error={errors.rePassword}
           />
         </div>
         <button type="submit" className={styles.item_click_create}>
@@ -189,4 +192,4 @@ function LoginUser() {
   );
 }
 
-export default LoginUser;
+export default RegisterPageComponent;
