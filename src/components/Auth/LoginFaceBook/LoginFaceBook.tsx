@@ -55,16 +55,15 @@ export const LoginFaceBook = () => {
     } else if (formData.password.length < 8) {
       newErrors.password = "Mật khẩu phải có ít nhất 8 ký tự";
     }
+
     return newErrors;
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
+    setErrors(formErrors);
     if (Object.keys(formErrors).length === 0) {
-      // Submit form if no errors
-      console.log("Form submitted", formData);
-    } else {
-      setErrors(formErrors);
+      
     }
   };
   const togglePassword = () => {
@@ -108,7 +107,9 @@ export const LoginFaceBook = () => {
             <p className={styles.rules}>Đồng ý với Chính sách và Điều khoản</p>
           </div>
         </div>
-        <button className={styles.item_click_create}>Create Account</button>
+        <button type="submit" className={styles.item_click_create}>
+          Create Account
+        </button>
       </form>
     </>
   );

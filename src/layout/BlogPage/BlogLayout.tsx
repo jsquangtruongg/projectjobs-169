@@ -1,0 +1,33 @@
+import styles from "./BlogLayout.module.css";
+import logo from "../../assets/imgs/logo.png";
+import { Outlet } from "react-router-dom";
+import {
+  ButtonComponent,
+  ButtonDropComponent,
+} from "../../components/common/ButtonComponent/ButtonComponent";
+
+export const BlogLayout = () => {
+  return (
+    <div className={styles.heading_post}>
+      <div className={styles.from_heading_post}>
+        <div className={styles.from_heading_padding}>
+          <div>
+            <div className={styles.Logo}>
+              <img src={logo} alt="" />
+              <span className={styles.top_search}>Toptimviec.com</span>
+            </div>
+          </div>
+          <div className={styles.header_nav}>
+            <ButtonComponent name="Trang Chủ" />
+            <ButtonComponent name="Trắc Nghiệm" />
+            <ButtonComponent name="Phỏng Vấn" />
+            <ButtonDropComponent name="Diễn Đàn" items={["Lộ Trình"]} />
+            <ButtonDropComponent name="Đăng ký!" />
+          </div>
+
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+};

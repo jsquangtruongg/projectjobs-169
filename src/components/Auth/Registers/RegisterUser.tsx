@@ -12,6 +12,7 @@ import {
   InputFromEmail,
   InputTextComponents,
 } from "../../common/InputComponent/InputComponents";
+import axios from "axios";
 
 interface FormData {
   username: string;
@@ -39,9 +40,9 @@ function RegisterPageComponent() {
     rePassword: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-
+  const [apiError, setApiError] = useState<string | null>(null);
   const usernameId = "username";
-  const lastNameId = "lastname";
+  const lastNameId = "lastName";
   const emailId = "email";
   const passwordId = "password";
   const rePasswordId = "rePassword";
@@ -49,7 +50,7 @@ function RegisterPageComponent() {
   const navigate = useNavigate();
 
   const handleFaceBookClick = () => {
-    navigate("/FaceBookPage");
+    navigate("/facebook-login");
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +84,7 @@ function RegisterPageComponent() {
     if (formData.password !== formData.rePassword) {
       newErrors.rePassword = "Mật khẩu không khớp";
     }
+
     return newErrors;
   };
 
@@ -98,13 +100,40 @@ function RegisterPageComponent() {
     navigate("/google-login");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
+    setErrors(formErrors);
+
     if (Object.keys(formErrors).length === 0) {
-      console.log("Form submitted", formData);
-    } else {
-      setErrors(formErrors);
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/v1/auth/register",
+          {
+            firstName: formData.username,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+
+        if (response.data.err === 0) {
+          navigate("/home-page");
+        } else {
+          if (response.data.mes === "email already exists") {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: "Email đã được sử dụng",
+            }));
+          } else {
+            setApiError(response.data.mes);
+          }
+        }
+      } catch (error) {
+        // Xử lý khi có lỗi trong quá trình gửi request
+        setApiError("Đã xảy ra lỗi khi kết nối đến máy chủ.");
+        console.error("Login Error:", error);
+      }
     }
   };
 
@@ -114,17 +143,17 @@ function RegisterPageComponent() {
       <form onSubmit={handleSubmit}>
         <div className={styles.form_input}>
           <InputTextComponents
-            name="Last Name"
-            id={lastNameId}
-            value={formData.lastName}
-            error={errors.lastName}
-            onChange={onChangeHandler}
-          />
-          <InputTextComponents
             name="First Name"
             id={usernameId}
             value={formData.username}
             error={errors.username}
+            onChange={onChangeHandler}
+          />
+          <InputTextComponents
+            name="Last Name"
+            id={lastNameId}
+            value={formData.lastName}
+            error={errors.lastName}
             onChange={onChangeHandler}
           />
         </div>
@@ -135,7 +164,7 @@ function RegisterPageComponent() {
           error={errors.email}
           onChange={onChangeHandler}
         />
-        <div className={styles.form_input}>
+        <div className={styles.form_input_password}>
           <InputComponentPassWord
             name="Password"
             id={passwordId}
@@ -173,11 +202,7 @@ function RegisterPageComponent() {
           <span className={styles.text_or}>or</span>
           <img src={line} alt="" className={styles.icon_line} />
         </div>
-        <div className={styles.contact_link} onClick={handleGoogleClick}>
-          <button type="button" className={styles.btn_sign}>
-            <img src={iconGoogle} alt="" className={styles.icons_google} />
-            Sign up with Google
-          </button>
+        <div className={styles.contact_link}>
           <button
             type="button"
             className={styles.btn_sign}
@@ -185,6 +210,14 @@ function RegisterPageComponent() {
           >
             <img src={iconFaceBook} alt="" className={styles.icons_google} />
             Sign up with Facebook
+          </button>
+          <button
+            type="button"
+            className={styles.btn_sign}
+            onClick={handleGoogleClick}
+          >
+            <img src={iconGoogle} alt="" className={styles.icons_google} />
+            Sign up with Google
           </button>
         </div>
       </form>
