@@ -1,4 +1,4 @@
-import styles from "./CapacityProfile.module.css";
+import styles from "./style.module.css";
 import avatarPost from "../../../assets/imgs/avatar.jpg";
 import {
   InputTextProfileComponent,

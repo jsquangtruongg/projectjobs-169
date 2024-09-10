@@ -1,4 +1,4 @@
-import styles from "./ReadBlog.module.css";
+import styles from "./style.module.css";
 import avatarPost from "../../../assets/imgs/avatar.jpg";
 import imgPost from "../../../assets/imgs/Rectangle25.png";
 import logo from "../../../assets/imgs/logo.png";

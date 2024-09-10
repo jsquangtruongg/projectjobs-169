@@ -15,6 +15,12 @@ export const ButtonComponent: React.FC<ButtonComponentsProps> = (props) => {
     if (name.trim() === "Hồ Sơ") {
       navigate("/ProfilePage");
     }
+    if (name.trim() === "Tuyển Dụng") {
+      navigate("/JobRecruitment");
+    }
+    if (name.trim() === "Trắc Nghiệm") {
+      navigate("/InterestPage");
+    }
   };
   return (
     <label

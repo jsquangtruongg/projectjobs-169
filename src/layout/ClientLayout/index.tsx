@@ -1,4 +1,4 @@
-import styles from "./BlogLayout.module.css";
+import styles from "./style.module.css";
 import logo from "../../assets/imgs/logo.png";
 import { Outlet } from "react-router-dom";
 import {
@@ -6,7 +6,7 @@ import {
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
 
-export const BlogLayout = () => {
+export const ClientLayout = () => {
   return (
     <div className={styles.heading_post}>
       <div className={styles.from_heading_post}>

@@ -1,4 +1,4 @@
-import styles from "./Blog.module.css";
+import styles from "./style.module.css";
 import logo from "../../../assets/imgs/logo.png";
 import imgPost from "../../../assets/imgs/Rectangle25.png";
 import avatarPost from "../../../assets/imgs/avatar.jpg";

@@ -1,4 +1,4 @@
-import styles from "./HomeMain.module.css";
+import styles from "./style.module.css";
 import logo from "../../../assets/imgs/logo.png";
 import map from "../../../assets/imgs/danh_dau.png";
 import iconTrave from "../../../assets/imgs/traveloka_logo 2.png";
@@ -87,7 +87,7 @@ export const HomeMain = () => {
                 name="Diễn Đàn"
                 items={["Lộ Trình", "Blog Việc "]}
               />
-              <ButtonComponent name="Hồ Sơ"  />
+              <ButtonComponent name="Hồ Sơ" />
               <ButtonDropComponent name="Đăng ký!" />
             </div>
             <div className={styles.form_form_member}>
