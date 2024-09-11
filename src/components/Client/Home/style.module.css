@@ -66,6 +66,7 @@ body {
   align-items: center;
   border-radius: 32px;
   color: white;
+  cursor: pointer;
 }
 .icon_arrow {
   font-size: small;
@@ -212,6 +213,7 @@ body {
   color: #10b981;
   font-weight: 600;
   font-size: 17px;
+  cursor: pointer;
 }
 .from_item_employer {
   display: flex;
@@ -229,6 +231,7 @@ body {
   color: #888b97;
   font-weight: 600;
   font-size: 17px;
+  cursor: pointer;
 }
 .enter_item {
   width: 60px;
@@ -241,6 +244,7 @@ body {
 }
 .form_poster {
   width: 340px;
+  cursor: pointer;
 }
 .poster_job {
   width: 340px;
@@ -330,6 +334,7 @@ body {
   margin-left: 20px;
   color: white;
   font-weight: 800;
+  cursor: pointer;
 }
 .image_restaurant {
   width: 528px;
@@ -411,6 +416,7 @@ body {
 .item_job_apply {
   display: flex;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 .img_poster_job {
   margin-right: 20px;
@@ -429,6 +435,7 @@ body {
 }
 .form_job_apply_right {
   margin-right: 100px;
+  cursor: pointer;
 }
 .image_poster {
   margin-bottom: 30px;
@@ -499,6 +506,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #10b981;
+  cursor: pointer;
 }
 .icon_img_brand {
   border: 3px solid white;

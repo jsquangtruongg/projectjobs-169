@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./style.module.css";
 import logo from "../../../assets/imgs/logo.png";
 import map from "../../../assets/imgs/danh_dau.png";
@@ -35,7 +36,12 @@ import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../common/ButtonComponent/ButtonComponent";
+
 export const HomeMain = () => {
+  const navigate = useNavigate();
+  const handleJobRecruitmentPageClick = () => {
+    navigate("/JobRecruitment");
+  };
   return (
     <div className={styles.heading_page}>
       <div className={styles.heading_padding}>
@@ -148,7 +154,10 @@ export const HomeMain = () => {
           </div>
         </div>
         <div className={styles.form_recruitment_post}>
-          <div className={styles.form_poster}>
+          <div
+            className={styles.form_poster}
+            onClick={ handleJobRecruitmentPageClick}
+          >
             <img src={poster1} alt="" className={styles.poster_job} />
             <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
             <span className={styles.salary_received}>$ 20.000.000</span>

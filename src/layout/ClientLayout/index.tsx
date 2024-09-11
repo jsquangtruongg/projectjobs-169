@@ -1,12 +1,13 @@
 import styles from "./style.module.css";
 import logo from "../../assets/imgs/logo.png";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
 
 export const ClientLayout = () => {
+   
   return (
     <div className={styles.heading_post}>
       <div className={styles.from_heading_post}>
@@ -20,9 +21,9 @@ export const ClientLayout = () => {
           <div className={styles.header_nav}>
             <ButtonComponent name="Trang Chủ" />
             <ButtonComponent name="Trắc Nghiệm" />
-            <ButtonComponent name="Phỏng Vấn" />
-            <ButtonDropComponent name="Diễn Đàn" items={["Lộ Trình"]} />
-            <ButtonDropComponent name="Đăng ký!" />
+            <ButtonComponent name="Tuyển Dụng" />
+            <ButtonDropComponent name="Diễn Đàn" items={["Blog Việc"]} />
+            <ButtonComponent name="Hồ Sơ" />
           </div>
 
           <Outlet />

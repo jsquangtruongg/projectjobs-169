@@ -6,9 +6,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #3C4563;
+  color: #3c4563;
+  cursor: pointer;
 }
-
+.item_fun_click:hover {
+  background-color: rgb(149, 226, 226);
+}
 .dropdown {
   position: relative;
 }
@@ -35,7 +38,11 @@
   background-color: rgba(240, 243, 253, 0.2);
   border-radius: 20px;
   margin-bottom: 10px;
-  color: #3C4563;
+  color: #3c4563;
   width: 122px;
   height: 34px;
+  cursor: pointer;
+}
+.dropdown_item:hover {
+  background-color: rgb(149, 226, 226);
 }

@@ -6,6 +6,7 @@ interface ButtonComponentsProps {
   name: string;
   id?: string;
   items?: string[];
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const ButtonComponent: React.FC<ButtonComponentsProps> = (props) => {
@@ -21,6 +22,9 @@ export const ButtonComponent: React.FC<ButtonComponentsProps> = (props) => {
     if (name.trim() === "Trắc Nghiệm") {
       navigate("/InterestPage");
     }
+     if (name.trim() === "Trang Chủ") {
+       navigate("/home-page");
+     }
   };
   return (
     <label

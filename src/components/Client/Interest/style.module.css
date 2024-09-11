@@ -11,3 +11,7 @@
   display: flex;
   justify-content: center;
 }
+.from_fill_in{
+  display: flex;
+  justify-content: space-between;
+}

@@ -162,6 +162,8 @@
 }
 .item_text_information {
   margin-left: 10px;
+  flex-wrap: wrap;
+  width: 330px;
 }
 .item_describe {
   color: #696a75;
