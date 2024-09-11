@@ -6,6 +6,7 @@ interface ButtonComponentsProps {
   name: string;
   id?: string;
   items?: string[];
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const ButtonComponent: React.FC<ButtonComponentsProps> = (props) => {
@@ -13,13 +14,16 @@ export const ButtonComponent: React.FC<ButtonComponentsProps> = (props) => {
   const navigate = useNavigate();
   const handleClick = () => {
     if (name.trim() === "Hồ Sơ") {
-      navigate("/ProfilePage");
+      navigate("/profile");
     }
     if (name.trim() === "Tuyển Dụng") {
-      navigate("/JobRecruitment");
+      navigate("/job-posting");
     }
-    if (name.trim() === "Trắc Nghiệm") {
-      navigate("/InterestPage");
+    if (name.trim() === "Trang Chủ") {
+      navigate("/home");
+    }
+    if (name.trim() === "Phỏng Vấn") {
+      navigate("/home");
     }
   };
   return (
@@ -42,7 +46,7 @@ export const ButtonDropComponent: React.FC<ButtonComponentsProps> = (props) => {
   };
   const handleItemClick = (item: string) => {
     if (item.trim() === "Blog Việc") {
-      navigate("/blog");
+      navigate("/blog-category");
     }
   };
 

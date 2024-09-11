@@ -19,10 +19,9 @@ const ClientLayout = () => {
           </div>
           <div className={styles.header_nav}>
             <ButtonComponent name="Trang Chủ" />
-            <ButtonComponent name="Trắc Nghiệm" />
-            <ButtonComponent name="Phỏng Vấn" />
-            <ButtonDropComponent name="Diễn Đàn" items={["Lộ Trình"]} />
-            <ButtonDropComponent name="Đăng ký!" />
+            <ButtonComponent name="Tuyển Dụng" />
+            <ButtonDropComponent name="Diễn Đàn" items={["Blog Việc"]} />
+            <ButtonComponent name="Hồ Sơ" />
           </div>
 
           <Outlet />

@@ -118,7 +118,7 @@ function RegisterPageComponent() {
         );
 
         if (response.data.err === 0) {
-          navigate("/home-page");
+          navigate("/home");
         } else {
           if (response.data.mes === "email already exists") {
             setErrors((prevErrors) => ({

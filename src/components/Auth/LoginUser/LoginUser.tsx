@@ -99,7 +99,7 @@ export const LoginPageComponent = () => {
         );
 
         if (response.data.err === 0) {
-          navigate("/home-page");
+          navigate("/home");
         } else {
           if (response.data.mes === "email does not exist") {
             setErrors((prevErrors) => ({

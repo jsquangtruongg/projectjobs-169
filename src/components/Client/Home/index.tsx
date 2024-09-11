@@ -80,7 +80,6 @@ export const HomeComponent = () => {
         <div className={styles.heading_right}>
           <div className={styles.heading_img}>
             <div className={styles.header_nav}>
-              <ButtonComponent name="Trắc Nghiệm" />
               <ButtonComponent name="Tuyển Dụng" />
 
               <ButtonDropComponent

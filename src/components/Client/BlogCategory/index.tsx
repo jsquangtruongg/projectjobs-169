@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./style.module.css";
 import logo from "../../../assets/images/logo.png";
 import imgPost from "../../../assets/images/Rectangle25.png";
@@ -6,12 +7,47 @@ import avatarPost from "../../../assets/images/avatar.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { useNavigate } from "react-router-dom";
-
+interface BlogPost {
+  imgPost: string;
+  title: string;
+  content: string;
+  author: string;
+  date: string;
+}
+const blogs: BlogPost[] = [
+  {
+    imgPost: imgPost,
+    title: "Technology",
+    content:
+      "Những công nghệ hot nhất hiện nay trong lĩnh vực IT lương lên đến 10.000$",
+    author: "Quang Trường",
+    date: "25 August 2024",
+  },
+  {
+    imgPost: imgPost,
+    title: "Technology",
+    content:
+      "Những đổi mới trong ngành Marketing đã làm cho nhiều sinh viên có thêm nhiều việc làm",
+    author: "Quang Trường",
+    date: "25 August 2024",
+  },
+];
 export const BlogCategoryComponent = () => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterBlogs, setFilterBlogs] = useState<BlogPost[]>(blogs);
   const navigate = useNavigate();
 
   const handleReadBlogClick = () => {
-    navigate("/ReadBlogPage");
+    navigate("/blog-detail");
+  };
+  const handleSearch = () => {
+    const filtered = blogs.filter(
+      (blog: BlogPost) =>
+        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.author.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilterBlogs(filtered);
   };
   return (
     <div className={styles.heading_post}>
@@ -26,139 +62,42 @@ export const BlogCategoryComponent = () => {
                 type="text"
                 placeholder="Search"
                 className={styles.input_search}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <SearchIcon />
+              <SearchIcon onClick={handleSearch} />
             </div>
           </div>
           <p className={styles.text_new_post}>Bài Đăng Mới Nhất</p>
           <div className={styles.heading_body}>
             <div className={styles.from_blog_main}>
-              <div
-                className={styles.form_item_blog}
-                onClick={handleReadBlogClick}
-              >
-                <div>
-                  <img src={imgPost} alt="" className={styles.img_class_post} />
-                </div>
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
+              {filterBlogs.map((blog: BlogPost, index: number) => (
+                <div className={styles.form_item_blog} key={index}>
+                  <div>
                     <img
-                      src={avatarPost}
+                      src={imgPost}
                       alt=""
-                      className={styles.img_poster}
+                      className={styles.img_class_post}
+                      onClick={handleReadBlogClick}
                     />
-                    <div className={styles.text_name_member}>Quang Trường</div>
                   </div>
-                  <p className={styles.text_date}>25 August 2024</p>
-                </div>
-              </div>
-
-              <div className={styles.form_item_blog}>
-                <img src={imgPost} alt="" className={styles.img_class_post} />
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.img_poster}
-                    />
-                    <div className={styles.text_name_member}>Quang Trường</div>
+                  <div className={styles.item_click}>{blog.title}</div>
+                  <p className={styles.text_blog_hot}>{blog.content}</p>
+                  <div className={styles.item_information}>
+                    <div className={styles.from_style_contact}>
+                      <img
+                        src={avatarPost}
+                        alt=""
+                        className={styles.img_poster}
+                      />
+                      <div className={styles.text_name_member}>
+                        {blog.author}
+                      </div>
+                    </div>
+                    <p className={styles.text_date}>{blog.date}</p>
                   </div>
-                  <p className={styles.text_date}>25 August 2024</p>
                 </div>
-              </div>
-              <div className={styles.form_item_blog}>
-                <img src={imgPost} alt="" className={styles.img_class_post} />
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.img_poster}
-                    />
-                    <div className={styles.text_name_member}>Quang Trường</div>
-                  </div>
-                  <p className={styles.text_date}>25 August 2024</p>
-                </div>
-              </div>
-              <div className={styles.form_item_blog}>
-                <img src={imgPost} alt="" className={styles.img_class_post} />
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.img_poster}
-                    />
-                    <div className={styles.text_name_member}>Quang Trường</div>
-                  </div>
-                  <p className={styles.text_date}>25 August 2024</p>
-                </div>
-              </div>
-              <div className={styles.form_item_blog}>
-                <img src={imgPost} alt="" className={styles.img_class_post} />
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.img_poster}
-                    />
-                    <div className={styles.text_name_member}>Quang Trường</div>
-                  </div>
-                  <p className={styles.text_date}>25 August 2024</p>
-                </div>
-              </div>
-              <div className={styles.form_item_blog}>
-                <img src={imgPost} alt="" className={styles.img_class_post} />
-                <div className={styles.item_click}>Technology</div>
-                <p className={styles.text_blog_hot}>
-                  Những công nghệ hot nhất
-                  <br /> hiện nay trong lĩnh vực IT
-                  <br /> lương lên đến 10.000$
-                </p>
-                <div className={styles.item_information}>
-                  <div className={styles.from_style_contact}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.img_poster}
-                    />
-                    <div className={styles.text_name_member}>Quang Trường</div>
-                  </div>
-                  <p className={styles.text_date}>25 August 2024</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className={styles.form_btn_click}>
