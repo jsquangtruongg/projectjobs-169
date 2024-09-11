@@ -2,9 +2,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import line from "../../../assets/imgs/Vector 6.png";
-import iconGoogle from "../../../assets/imgs/icons_google.png";
-import iconFaceBook from "../../../assets/imgs/logos_facebook.png";
+import line from "../../../assets/images/Vector 6.png";
+import iconGoogle from "../../../assets/images/icons_google.png";
+import iconFaceBook from "../../../assets/images/logos_facebook.png";
 
 import styles from "./RegisterUser.module.css";
 import {

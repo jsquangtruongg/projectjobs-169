@@ -27,7 +27,7 @@
   justify-content: center;
 }
 .background_poster {
-  background-image: url("../../../assets/imgs/backgroundPoster.png");
+  background-image: url("../../../assets/images/backgroundPoster.png");
   background-size: cover;
   width: 1216px;
   height: 600px;

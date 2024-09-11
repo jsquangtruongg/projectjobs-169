@@ -83,7 +83,7 @@ body {
   width: 55%;
 }
 .heading_img {
-  background-image: url("../../../assets/imgs/imagehouse.png");
+  background-image: url("../../../assets/images/imagehouse.png");
   background-size: cover;
   border-bottom-left-radius: 100px;
   width: 100%;
@@ -334,7 +334,7 @@ body {
 .image_restaurant {
   width: 528px;
   height: 459px;
-  background-image: url("../../../assets/imgs/Rectangle17.png");
+  background-image: url("../../../assets/images/Rectangle17.png");
   background-size: cover;
 }
 .outstanding_job_right {
@@ -451,7 +451,7 @@ body {
 
   width: 1330px;
   height: 312px;
-  background-image: url("../../../assets/imgs/Rectangle24.png");
+  background-image: url("../../../assets/images/Rectangle24.png");
   background-size: cover;
 
   border-radius: 24px;

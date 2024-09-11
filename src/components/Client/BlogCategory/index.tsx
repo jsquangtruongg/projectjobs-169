@@ -1,13 +1,13 @@
 import styles from "./style.module.css";
-import logo from "../../../assets/imgs/logo.png";
-import imgPost from "../../../assets/imgs/Rectangle25.png";
-import avatarPost from "../../../assets/imgs/avatar.jpg";
+import logo from "../../../assets/images/logo.png";
+import imgPost from "../../../assets/images/Rectangle25.png";
+import avatarPost from "../../../assets/images/avatar.jpg";
 
 import SearchIcon from "@mui/icons-material/Search";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { useNavigate } from "react-router-dom";
 
-export const Blog = () => {
+export const BlogCategoryComponent = () => {
   const navigate = useNavigate();
 
   const handleReadBlogClick = () => {

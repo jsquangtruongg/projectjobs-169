@@ -1,20 +1,16 @@
 import styles from "./style.module.css";
-import avatarPost from "../../../assets/imgs/avatar.jpg";
+import avatarPost from "../../../assets/images/avatar.jpg";
 import {
   InputTextProfileComponent,
   SelectTextComponent,
 } from "../../common/InputProfileComponent/InputProfileComponent";
-// import line from "../../../assets/imgs/line.png"
-export const CapacityProfile = () => {
+export const ProfileComponent = () => {
   return (
     <div className={styles.from_heading_profile}>
       <div>
         <p className={styles.text_welcome}>Welcome,Quang Trường</p>
         <p className={styles.text_date}>Tue,07 June 2024</p>
       </div>
-      {/* <div className={styles.from_background}>
-        <img src={line} alt="" />
-      </div> */}
       <div className={styles.from_information_profile}>
         <div className={styles.from_img_avt_post}>
           <img src={avatarPost} alt="" className={styles.avatar_post} />

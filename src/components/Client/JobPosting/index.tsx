@@ -1,12 +1,12 @@
 import styles from "./style.module.css";
-import avatarPost from "../../../assets/imgs/avatar.jpg";
-import poster23 from "../../../assets/imgs/Rectangle23.png";
+import avatarPost from "../../../assets/images/avatar.jpg";
+import poster23 from "../../../assets/images/Rectangle23.png";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ReplySharpIcon from "@mui/icons-material/ReplySharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
-export const JobRecruitment = () => {
+export const JobPostingComponent = () => {
   return (
     <div>
       <div className={styles.form_heading_main}>

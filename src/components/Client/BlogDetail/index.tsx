@@ -1,11 +1,11 @@
 import styles from "./style.module.css";
-import avatarPost from "../../../assets/imgs/avatar.jpg";
-import imgPost from "../../../assets/imgs/Rectangle25.png";
-import logo from "../../../assets/imgs/logo.png";
+import avatarPost from "../../../assets/images/avatar.jpg";
+import imgPost from "../../../assets/images/Rectangle25.png";
+import logo from "../../../assets/images/logo.png";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
-export const ReadBlog = () => {
+export const BlogDetailComponent = () => {
   return (
     <div className={styles.from_heading}>
       <div>

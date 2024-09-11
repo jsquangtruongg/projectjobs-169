@@ -1,6 +1,6 @@
 import styles from "./Logingoogle.module.css";
-import iconGoogle from "../../../assets/imgs/icons_google.png";
-import line from "../../../assets/imgs/Vector 6.png";
+import iconGoogle from "../../../assets/images/icons_google.png";
+import line from "../../../assets/images/Vector 6.png";
 
 import { ChangeEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";

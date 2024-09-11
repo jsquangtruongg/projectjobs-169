@@ -1,5 +1,5 @@
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
-import iconBlu from "../../assets/imgs/backgroud-2.png";
+import iconBlu from "../../assets/images/backgroud-2.png";
 import styles from "./Style.module.css";
 import { Outlet } from "react-router-dom";
 
