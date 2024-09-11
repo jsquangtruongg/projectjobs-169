@@ -1,19 +1,19 @@
 import styles from "./style.module.css";
-import logo from "../../../assets/imgs/logo.png";
-import map from "../../../assets/imgs/danh_dau.png";
-import iconTrave from "../../../assets/imgs/traveloka_logo 2.png";
-import iconTicked from "../../../assets/imgs/traveloka_logo 3.png";
-import iconAirbnb from "../../../assets/imgs/traveloka_logo 4.png";
-import iconTripadvisor from "../../../assets/imgs/traveloka_logo 5.png";
-import poster18 from "../../../assets/imgs/Rectangle18.png";
-import poster19 from "../../../assets/imgs/Rectangle19.png";
-import poster20 from "../../../assets/imgs/Rectangle20.png";
-import poster22 from "../../../assets/imgs/Rectangle22.png";
-import poster23 from "../../../assets/imgs/Rectangle23.png";
-import avatarPost from "../../../assets/imgs/avatar.jpg";
-import poster1 from "../../../assets/imgs/Rectangle 15.png";
+import logo from "../../../assets/images/logo.png";
+import map from "../../../assets/images/danh_dau.png";
+import iconTrave from "../../../assets/images/traveloka_logo 2.png";
+import iconTicked from "../../../assets/images/traveloka_logo 3.png";
+import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
+import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
+import poster18 from "../../../assets/images/Rectangle18.png";
+import poster19 from "../../../assets/images/Rectangle19.png";
+import poster20 from "../../../assets/images/Rectangle20.png";
+import poster22 from "../../../assets/images/Rectangle22.png";
+import poster23 from "../../../assets/images/Rectangle23.png";
+import avatarPost from "../../../assets/images/avatar.jpg";
+import poster1 from "../../../assets/images/Rectangle 15.png";
 
-import posterJob from "../../../assets/imgs/RectangleJob.png";
+import posterJob from "../../../assets/images/RectangleJob.png";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeWorkRoundedIcon from "@mui/icons-material/HomeWorkRounded";
@@ -35,7 +35,7 @@ import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../common/ButtonComponent/ButtonComponent";
-export const HomeMain = () => {
+export const HomeComponent = () => {
   return (
     <div className={styles.heading_page}>
       <div className={styles.heading_padding}>

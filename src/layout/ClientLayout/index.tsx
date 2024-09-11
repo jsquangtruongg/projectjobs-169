@@ -1,12 +1,12 @@
 import styles from "./style.module.css";
-import logo from "../../assets/imgs/logo.png";
+import logo from "../../assets/images/logo.png";
 import { Outlet } from "react-router-dom";
 import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
 
-export const ClientLayout = () => {
+const ClientLayout = () => {
   return (
     <div className={styles.heading_post}>
       <div className={styles.from_heading_post}>
@@ -31,3 +31,5 @@ export const ClientLayout = () => {
     </div>
   );
 };
+
+export default ClientLayout;

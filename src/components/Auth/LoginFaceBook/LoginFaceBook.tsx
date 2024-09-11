@@ -1,7 +1,7 @@
 import styles from "./LoginFaceBook.module.css";
-import iconFaceBook from "../../../assets/imgs/logos_facebook.png";
+import iconFaceBook from "../../../assets/images/logos_facebook.png";
 
-import line from "../../../assets/imgs/Vector 6.png";
+import line from "../../../assets/images/Vector 6.png";
 import { ChangeEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -63,7 +63,6 @@ export const LoginFaceBook = () => {
     const formErrors = validateForm();
     setErrors(formErrors);
     if (Object.keys(formErrors).length === 0) {
-      
     }
   };
   const togglePassword = () => {

@@ -3,15 +3,13 @@ import RegisterPage from "../pages/Auth/RegisterPage";
 import LoginPage from "../pages/Auth/LoginPage";
 import FaceBookPage from "../pages/Auth/FaceBookPage";
 import LoginGooglePage from "../pages/Auth/GooglePage";
-import UserManagePage from "../pages/UserManage";
-import HomePage from "../pages/ClientPage/HomePage";
-import BlogPage from "../pages/ClientPage/BlogPage";
-import { ClientLayout } from "../layout/ClientLayout";
-import ReadBlogPage from "../pages/ClientPage/ReadBlogPage";
-import ProfilePage from "../pages/ClientPage/ProfilePage";
-import JobRecruitmentPage from "../pages/ClientPage/JobRecruitmentPage";
-import InterestPage from "../pages/ClientPage/InterestPage";
+import HomePage from "../pages/Client/Home";
+import ClientLayout from "../layout/ClientLayout";
+import ProfilePage from "../pages/Client/Profile";
 import AuthLayout from "../layout/AuthLayout";
+import BlogCategoryPage from "../pages/Client/BlogCategory";
+import BlogDetailPage from "../pages/Client/BlogDetail";
+import JobPostingPage from "../pages/Client/JobPosting";
 
 const router = createBrowserRouter([
   {
@@ -37,15 +35,11 @@ const router = createBrowserRouter([
         path: "/facebook-login",
         element: <FaceBookPage />,
       },
-      {
-        path: "/user-manage",
-        element: <UserManagePage />,
-      },
     ],
   },
 
   {
-    path: "/home-page",
+    path: "/home",
     element: <HomePage />,
   },
 
@@ -53,24 +47,20 @@ const router = createBrowserRouter([
     element: <ClientLayout />,
     children: [
       {
-        path: "/blog",
-        element: <BlogPage />,
+        path: "/blog-category",
+        element: <BlogCategoryPage />,
       },
       {
-        path: "/ReadBlogPage",
-        element: <ReadBlogPage />,
+        path: "/blog-detail",
+        element: <BlogDetailPage />,
       },
       {
-        path: "/ProfilePage",
+        path: "/profile",
         element: <ProfilePage />,
       },
       {
-        path: "/JobRecruitment",
-        element: <JobRecruitmentPage />,
-      },
-      {
-        path: "/InterestPage",
-        element: <InterestPage />,
+        path: "/job-posting",
+        element: <JobPostingPage />,
       },
     ],
   },
