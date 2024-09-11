@@ -9,29 +9,34 @@ import {
   InputComponentPassWord,
   InputFromEmail,
 } from "../../common/InputComponent/InputComponents";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface FormData {
-  username: string;
+  firstName: string;
   lastName: string;
   email: string;
   password: string;
 }
 
 interface Errors {
-  username?: string;
+  firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
 }
+
 export const LoginGoogle = () => {
-  const [showPassword, SetShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    username: "",
+    firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<Errors>({});
+  const [apiError, setApiError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -40,6 +45,7 @@ export const LoginGoogle = () => {
       [id]: value,
     }));
   };
+
   const validateForm = (): Errors => {
     const newErrors: Errors = {};
     if (!formData.email.trim()) {
@@ -56,22 +62,53 @@ export const LoginGoogle = () => {
     }
     return newErrors;
   };
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
+    setErrors(formErrors);
+
     if (Object.keys(formErrors).length === 0) {
-      // Submit form if no errors
-      console.log("Form submitted", formData);
-    } else {
-      setErrors(formErrors);
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/v1/auth/login",
+          {
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+
+        if (response.data.err === 0) {
+          navigate("/home-page");
+        } else {
+          if (response.data.mes === "email does not exist") {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: "Email không tồn tại",
+            }));
+          } else if (response.data.mes === "Password is wrong") {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              password: "Mật khẩu không đúng",
+            }));
+          } else {
+            setApiError(response.data.mes);
+          }
+        }
+      } catch (error) {
+        setApiError("Đã xảy ra lỗi khi kết nối đến máy chủ.");
+        console.error("Login Error:", error);
+      }
     }
   };
+
   const togglePassword = () => {
-    SetShowPassword((prevShowPassword) => !prevShowPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
   return (
     <div className={styles.heading_form}>
-      <h3 className={styles.create_account}>Login Google Account</h3>
+      <h3 className={styles.create_account}>Login Account</h3>
       <form onSubmit={handleSubmit}>
         <div className={styles.btn_center}>
           <button className={styles.btn_sign}>
@@ -109,7 +146,10 @@ export const LoginGoogle = () => {
             <p className={styles.rules}>Đồng ý với Chính sách và Điều khoản</p>
           </div>
         </div>
-        <button className={styles.item_click_create}>Create Account</button>
+        <button type="submit" className={styles.item_click_create}>
+          Login
+        </button>
+        {apiError && <p className={styles.api_error}>{apiError}</p>}
       </form>
     </div>
   );

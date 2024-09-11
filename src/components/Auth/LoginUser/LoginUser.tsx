@@ -12,6 +12,7 @@ import {
   InputFromEmail,
   InputTextComponents,
 } from "../../common/InputComponent/InputComponents";
+import axios from "axios";
 
 interface FormData {
   username: string;
@@ -36,7 +37,7 @@ export const LoginPageComponent = () => {
     password: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-
+  const [apiError, setApiError] = useState<string | null>(null);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -65,6 +66,7 @@ export const LoginPageComponent = () => {
     } else if (formData.password.length < 8) {
       newErrors.password = "Mật khẩu phải có ít nhất 8 ký tự";
     }
+
     return newErrors;
   };
 
@@ -79,14 +81,44 @@ export const LoginPageComponent = () => {
     navigate("/google-login");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
+    setErrors(formErrors);
+
     if (Object.keys(formErrors).length === 0) {
-      // Submit form if no errors
-      console.log("Form submitted", formData);
-    } else {
-      setErrors(formErrors);
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/v1/auth/login",
+          {
+            firstName: formData.username,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+
+        if (response.data.err === 0) {
+          navigate("/home-page");
+        } else {
+          if (response.data.mes === "email does not exist") {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: "Email không tồn tại",
+            }));
+          } else if (response.data.mes === "Password is wrong") {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              password: "Mật khẩu không đúng",
+            }));
+          } else {
+            setApiError(response.data.mes);
+          }
+        }
+      } catch (error) {
+        setApiError("Đã xảy ra lỗi khi kết nối đến máy chủ.");
+        console.error("Login Error:", error);
+      }
     }
   };
 
@@ -104,7 +136,7 @@ export const LoginPageComponent = () => {
           />
           <InputTextComponents
             name="Last Name"
-            id="lastname"
+            id="lastName"
             value={formData.lastName}
             onChange={onChangeHandler}
             error={errors.lastName}

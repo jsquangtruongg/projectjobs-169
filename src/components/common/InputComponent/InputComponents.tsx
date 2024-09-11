@@ -64,8 +64,6 @@ export const InputComponentPassWord: React.FC<InputComponentsProps> = (
       </label>
       <input
         {...rest}
-        id={name}
-        type={"password"}
         className={`${styles.input_field} ${error ? styles.input_error : ""}`}
       />
       {icon && (

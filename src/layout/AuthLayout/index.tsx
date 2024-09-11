@@ -3,7 +3,7 @@ import iconBlu from "../../assets/imgs/backgroud-2.png";
 import styles from "./Style.module.css";
 import { Outlet } from "react-router-dom";
 
-function LoginLayout() {
+function AuthLayout() {
   return (
     <>
       <div className={styles.heading_big}>
@@ -28,4 +28,4 @@ function LoginLayout() {
   );
 }
 
-export default LoginLayout;
+export default AuthLayout;
