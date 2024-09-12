@@ -35,7 +35,46 @@ import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../common/ButtonComponent/ButtonComponent";
+import { useState } from "react";
+
+interface BlogProps {
+  img: string;
+  title: string;
+  wage: string;
+  author: string;
+  date: string;
+  position: string;
+}
+const blogs: BlogProps[] = [
+  {
+    img: avatarPost,
+    title: "Tuyển Nhân Viên Kinh Doanh",
+    wage: "$20.000.000",
+    author: "Quang Trường",
+    date: " 25 August 2024",
+    position: "Trưởng phòng nhân sự",
+  },
+  {
+    img: poster1,
+    title: "Tuyển Nhân Viên Bán hàng",
+    wage: "$20.000.000",
+    author: "Quang Trường",
+    date: " 25 August 2024",
+    position: "Trưởng phòng nhân sự",
+  },
+];
 export const HomeComponent = () => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterBlogs, setFilterBlogs] = useState<BlogProps[]>(blogs);
+  const handleSearch = () => {
+    const filtered = blogs.filter(
+      (blogs: BlogProps) =>
+        blogs.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        // blogs.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blogs.author.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilterBlogs(filtered);
+  };
   return (
     <div className={styles.heading_page}>
       <div className={styles.heading_padding}>
@@ -58,8 +97,10 @@ export const HomeComponent = () => {
               <input
                 className={styles.input_search}
                 placeholder="Tìm kiếm việc làm bạn muốn!"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <div className={styles.item_search}>
+              <div className={styles.item_search} onClick={handleSearch}>
                 Search
                 <ArrowForwardIosOutlinedIcon
                   style={{ fontSize: 15, marginLeft: 10 }}
@@ -147,54 +188,20 @@ export const HomeComponent = () => {
           </div>
         </div>
         <div className={styles.form_recruitment_post}>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
+          {filterBlogs.map((blogs: BlogProps, index: number) => (
+            <div className={styles.form_poster} key={index}>
+              <img src={poster1} alt="" className={styles.poster_job} />
+              <p className={styles.text_title}>{blogs.title}</p>
+              <span className={styles.salary_received}>{blogs.wage}</span>
+              <div className={styles.from_img_avt_post}>
+                <img src={blogs.img} alt="" className={styles.avatar_post} />
+                <div className={styles.from_text_name}>
+                  <p className={styles.text_name_post}>{blogs.author}</p>
+                  <span>{blogs.position}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className={styles.form_contact_job}>
