@@ -241,6 +241,7 @@ body {
 }
 .form_poster {
   width: 340px;
+  margin-bottom: 50px;
 }
 .poster_job {
   width: 340px;
@@ -248,8 +249,9 @@ body {
   border-radius: 24px;
 }
 .form_recruitment_post {
+  flex-wrap: wrap;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   margin-top: 30px;
   margin-left: 30px;
   margin-right: 30px;
