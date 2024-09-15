@@ -1,197 +1,187 @@
-import styles from "./style.module.css";
-import logo from "../../../assets/images/logo.png";
+import avatarPost from "../../../assets/images/avatar.jpg";
 import map from "../../../assets/images/danh_dau.png";
-import iconTrave from "../../../assets/images/traveloka_logo 2.png";
-import iconTicked from "../../../assets/images/traveloka_logo 3.png";
-import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
-import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
+import logo from "../../../assets/images/logo.png";
+import poster1 from "../../../assets/images/Rectangle 15.png";
 import poster18 from "../../../assets/images/Rectangle18.png";
 import poster19 from "../../../assets/images/Rectangle19.png";
 import poster20 from "../../../assets/images/Rectangle20.png";
 import poster22 from "../../../assets/images/Rectangle22.png";
 import poster23 from "../../../assets/images/Rectangle23.png";
-import avatarPost from "../../../assets/images/avatar.jpg";
-import poster1 from "../../../assets/images/Rectangle 15.png";
+import iconTrave from "../../../assets/images/traveloka_logo 2.png";
+import iconTicked from "../../../assets/images/traveloka_logo 3.png";
+import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
+import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
+import styles from "./style.module.css";
 
-import posterJob from "../../../assets/images/RectangleJob.png";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import EdgesensorLowRoundedIcon from "@mui/icons-material/EdgesensorLowRounded";
+import EmailIcon from "@mui/icons-material/Email";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeWorkRoundedIcon from "@mui/icons-material/HomeWorkRounded";
-import EdgesensorLowRoundedIcon from "@mui/icons-material/EdgesensorLowRounded";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import KeyboardHideRoundedIcon from "@mui/icons-material/KeyboardHideRounded";
+import MailIcon from "@mui/icons-material/Mail";
+import MarginRoundedIcon from "@mui/icons-material/MarginRounded";
 import NavigateBeforeRoundedIcon from "@mui/icons-material/NavigateBeforeRounded";
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
-import Woman2RoundedIcon from "@mui/icons-material/Woman2Rounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
-import MarginRoundedIcon from "@mui/icons-material/MarginRounded";
-import RamenDiningRoundedIcon from "@mui/icons-material/RamenDiningRounded";
 import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
+import RamenDiningRoundedIcon from "@mui/icons-material/RamenDiningRounded";
 import WatchLaterSharpIcon from "@mui/icons-material/WatchLaterSharp";
-import MailIcon from "@mui/icons-material/Mail";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import EmailIcon from "@mui/icons-material/Email";
-import {
-  ButtonComponent,
-  ButtonDropComponent,
-} from "../../common/ButtonComponent/ButtonComponent";
+import Woman2RoundedIcon from "@mui/icons-material/Woman2Rounded";
+import posterJob from "../../../assets/images/RectangleJob.png";
+import "./style.scss";
 export const HomeComponent = () => {
   return (
-    <div className={styles.heading_page}>
-      <div className={styles.heading_padding}>
-        <div className={styles.heading_lef}>
-          <div className={styles.Logo}>
-            <img src={logo} alt="" />
-            <span className={styles.top_search}>Toptimviec.com</span>
-          </div>
-          <div className={styles.from_search}>
-            <span className={styles.text_search}>
+    <div className="home-container">
+      <div className="banner-container">
+        <div className="banner-box">
+          <div className="form-search">
+            <span className="banner-title">
               Bạn Muốn Tìm Việc Làm <br />
               Theo Sở Thích
             </span>
-            <p className={styles.text_search_job}>
+            <p className="banner-sub-title">
               Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
               <br /> bao giờ hết
             </p>
-            <div className={styles.from_input_search}>
+            <div className="field-search">
               <img src={map} alt="" />
-              <input
-                className={styles.input_search}
-                placeholder="Tìm kiếm việc làm bạn muốn!"
-              />
-              <div className={styles.item_search}>
+              <input placeholder="Tìm kiếm việc làm bạn muốn!" />
+              <div className="btn-search">
                 Search
                 <ArrowForwardIosOutlinedIcon
                   style={{ fontSize: 15, marginLeft: 10 }}
                 />
               </div>
             </div>
-            <p className={styles.text_relationship}>
-              Quan hệ đối tác của chúng tôi
-            </p>
-            <div className={styles.form_logo_}>
+            <p className="label-relationship">Quan hệ đối tác của chúng tôi</p>
+            <div className="ground-logo-relationship">
               <img src={iconTrave} alt="" />
               <img src={iconTicked} alt="" />
               <img src={iconAirbnb} alt="" />
               <img src={iconTripadvisor} alt="" />
             </div>
           </div>
-        </div>
-        <div className={styles.heading_right}>
-          <div className={styles.heading_img}>
-            <div className={styles.header_nav}>
-              <ButtonComponent name="Tuyển Dụng" />
-
-              <ButtonDropComponent
-                name="Diễn Đàn"
-                items={["Lộ Trình", "Blog Việc "]}
-              />
-              <ButtonComponent name="Hồ Sơ" />
-              <ButtonDropComponent name="Đăng ký!" />
-            </div>
-            <div className={styles.form_form_member}>
-              <div className={styles.from_item_member}>
-                <div className={styles.from_image_avatar}>
-                  <img src={posterJob} alt="" className={styles.name_avatar1} />
-                  <img src={posterJob} alt="" className={styles.name_avatar2} />
-                  <img src={posterJob} alt="" className={styles.name_avatar3} />
-                </div>
-                <div className={styles.from_text_member}>
-                  <p className={styles.result_member}>1K+ Thành Viên</p>
-                  <span className={styles.text_job}>Tìm việc thành công</span>
-                </div>
+          <div className="statistical">
+            <div className="statistical-item">
+              <div className="avatar">
+                <img src={posterJob} alt="" className="avatar1" />
+                <img src={posterJob} alt="" className="avatar2" />
+                <img src={posterJob} alt="" className="avatar3" />
               </div>
-              <div className={styles.from_item_member}>
-                <div className={styles.from_image_avatar}>
-                  <img src={posterJob} alt="" className={styles.name_avatar3} />
-                </div>
-                <div className={styles.from_text_member}>
-                  <p className={styles.result_member}>100+ Job</p>
-                  <span className={styles.text_job}>Tuyển hàng tháng</span>
-                </div>
+              <div className="content">
+                <p className={styles.result_member}>1K+ Thành Viên</p>
+                <span className={styles.text_job}>Tìm việc thành công</span>
+              </div>
+            </div>
+            <div className="statistical-item">
+              <div className="avatar">
+                <img src={posterJob} alt="" className="avatar3" />
+              </div>
+              <div className="content">
+                <p className={styles.result_member}>100+ Job</p>
+                <span className={styles.text_job}>Tuyển hàng tháng</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={styles.form_outstanding_job}>
-        <div className={styles.outstanding_job}>
-          <p className={styles.line}>____</p>
-          <p className={styles.text_recommended}>Khuyến cáo của chúng tôi</p>
+      <div className="job-category">
+        <div className="title">
+          <p>____</p>
+          <p>Khuyến cáo của chúng tôi</p>
         </div>
-        <div className={styles.bar_item_employer}>
-          <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi Bật</p>
-          <div className={styles.from_item_employer}>
-            <div className={styles.item_employer}>
+        <div className="tab-category">
+          <p className="label-content">Nhà Tuyển Dụng Nỗi Bật</p>
+          <div className="list-tab-category">
+            <div className="category-item active">
               <HomeOutlinedIcon style={{ marginRight: 10 }} />
               Kinh Doanh
             </div>
-            <div className={styles.item_sponsor}>
+            <div className="category-item">
               <HomeWorkRoundedIcon style={{ marginRight: 10 }} />
               Marketiing
             </div>
-            <div className={styles.item_sponsor}>
+            <div className="category-item">
               <EdgesensorLowRoundedIcon style={{ marginRight: 10 }} />
               Công Nghệ
             </div>
-            <div className={styles.item_sponsor}>
+            <div className="category-item">
               <KeyboardHideRoundedIcon style={{ marginRight: 10 }} />
               Truyền Thông
             </div>
-            <div className={styles.enter_item}>
-              <NavigateBeforeRoundedIcon />
-            </div>
-            <div className={styles.enter_item}>
-              <NavigateNextRoundedIcon />
+            <div className="btn-group-pre-next">
+              <div className="btn-pre">
+                <NavigateBeforeRoundedIcon />
+              </div>
+              <div className="btn-next">
+                <NavigateNextRoundedIcon />
+              </div>
             </div>
           </div>
         </div>
-        <div className={styles.form_recruitment_post}>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
+        <div className="layout-container list-post">
+          <div className="post-item">
+            <img src={poster1} alt="" className="img-post-item" />
+            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
+            <span className="job-salary">$ 20.000.000</span>
+            <div className="poster">
+              <img src={avatarPost} alt="" />
+              <div className={"poster-info"}>
+                <p>Quang Trường</p>
+                <p>Trưởng phòng nhân sự</p>
               </div>
             </div>
           </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
+          <div className="post-item">
+            <img src={poster1} alt="" className="img-post-item" />
+            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
+            <span className="job-salary">$ 20.000.000</span>
+            <div className="poster">
+              <img src={avatarPost} alt="" />
+              <div className={"poster-info"}>
+                <p>Quang Trường</p>
+                <p>Trưởng phòng nhân sự</p>
               </div>
             </div>
           </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
+          <div className="post-item">
+            <img src={poster1} alt="" className="img-post-item" />
+            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
+            <span className="job-salary">$ 20.000.000</span>
+            <div className="poster">
+              <img src={avatarPost} alt="" />
+              <div className={"poster-info"}>
+                <p>Quang Trường</p>
+                <p>Trưởng phòng nhân sự</p>
               </div>
             </div>
           </div>
-          <div className={styles.form_poster}>
-            <img src={poster1} alt="" className={styles.poster_job} />
-            <p className={styles.text_title}>Tuyển Nhân Viên Kinh Doanh </p>
-            <span className={styles.salary_received}>$ 20.000.000</span>
-            <div className={styles.from_img_avt_post}>
-              <img src={avatarPost} alt="" className={styles.avatar_post} />
-              <div className={styles.from_text_name}>
-                <p className={styles.text_name_post}>Quang Trường</p>
-                <span>Trưởng phòng nhân sự</span>
+          <div className="post-item">
+            <img src={poster1} alt="" className="img-post-item" />
+            <p className="job-title">
+              Tuyển Nhân Viên Kinh DoanhTuyển Nhân Viên Kinh Doanh
+            </p>
+            <span className="job-salary">$ 20.000.000</span>
+            <div className="poster">
+              <img src={avatarPost} alt="" />
+              <div className={"poster-info"}>
+                <p>Quang Trường</p>
+                <p>Trưởng phòng nhân sự</p>
+              </div>
+            </div>
+          </div>
+          <div className="post-item">
+            <img src={poster1} alt="" className="img-post-item" />
+            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
+            <span className="job-salary">$ 20.000.000</span>
+            <div className="poster">
+              <img src={avatarPost} alt="" />
+              <div className={"poster-info"}>
+                <p>Quang Trường</p>
+                <p>Trưởng phòng nhân sự</p>
               </div>
             </div>
           </div>
@@ -234,7 +224,7 @@ export const HomeComponent = () => {
                 ____________________________________________
               </span>
               <div>
-                <div className={styles.from_img_avt_post}>
+                <div className="poster">
                   <img src={avatarPost} alt="" className={styles.avatar_post} />
                   <div className={styles.from_text_name}>
                     <p className={styles.text_name_post}>Quang Trường</p>
@@ -387,14 +377,14 @@ export const HomeComponent = () => {
             </div>
           </div>
         </div>
-        <div className={styles.from_end_contact}>
-          <div className={styles.from_information}>
-            <div className={styles.from_end_lef}>
-              <div className={styles.Logo}>
+        <div className="section-footer">
+          <div className="layout-container footer-box">
+            <div className="footer-left">
+              <div className="logo-white">
                 <img src={logo} alt="" />
-                <span className={styles.top_search}>Toptimviec.com</span>
+                <span>Toptimviec.com</span>
               </div>
-              <p className={styles.text_describe}>
+              <p className="describe">
                 Chúng tôi cung cấp thông tin về các việc làm <br /> giúp bạn
                 thuận tiện hơn trong việc tìm kiếm <br />
                 công việc,chúng tôi thường xuyên cung cấp
@@ -402,40 +392,37 @@ export const HomeComponent = () => {
                 các việc làm như,nhân viên sale,kinh
                 <br /> doanh,bán hàng
               </p>
-              <div>
+              <div className="icon-ground">
                 <FacebookIcon style={{ marginRight: 30 }} />
                 <InstagramIcon style={{ marginRight: 30 }} />
                 <EmailIcon />
               </div>
             </div>
-            <div className={styles.from_end_right}>
-              <div className={styles.from_profession_popular}>
-                <p className={styles.tex_popular}>Công Việc</p>
-                <p className={styles.text_profession}>Sale Bán Hàng</p>
-                <p className={styles.text_profession}>Công Nghệ Thông Tin</p>
-                <p className={styles.text_profession}>Truyền Thông</p>
+            <div className="footer-right">
+              <div className="footer-right-box">
+                <p className="link-page-title">Công Việc</p>
+                <p className="link-page-item">Sale Bán Hàng</p>
+                <p className="link-page-item">Công Nghệ Thông Tin</p>
+                <p className="link-page-item">Truyền Thông</p>
               </div>
-              <div className={styles.from_profession_popular}>
-                <p className={styles.tex_popular}>Bài báo</p>
-                <p className={styles.text_profession}>Bài viết phổ biến</p>
-                <p className={styles.text_profession}>Đọc nhiều nhất</p>
-                <p className={styles.text_profession}>đánh giá Cao</p>
-                <p className={styles.text_profession}>Bài viết mới</p>
+              <div className="footer-right-box">
+                <p className="link-page-title">Bài báo</p>
+                <p className="link-page-item">Bài viết phổ biến</p>
+                <p className="link-page-item">Đọc nhiều nhất</p>
+                <p className="link-page-item">đánh giá Cao</p>
+                <p className="link-page-item">Bài viết mới</p>
               </div>
-              <div>
-                <p className={styles.tex_popular}>Liên hệ</p>
-                <p className={styles.text_profession}>
+              <div className="footer-right-box">
+                <p className="link-page-title">Liên hệ</p>
+                <p className="link-page-item">
                   01 2/9 Quận Hải Châu ,Thành Pho đà nẵng
                 </p>
-                <p className={styles.text_profession}>0925306503</p>
-                <p className={styles.text_profession}>
-                  nguyenqtthangbinh@gmail.com
-                </p>
+                <p className="link-page-item">0925306503</p>
+                <p className="link-page-item">nguyenqtthangbinh@gmail.com</p>
               </div>
             </div>
           </div>
         </div>
-        <div className={styles.end}></div>
       </div>
     </div>
   );

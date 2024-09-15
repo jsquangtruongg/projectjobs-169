@@ -28,7 +28,7 @@
 }
 .text_name_post {
   color: #333;
-  line-height: 0px;
+
   font-weight: 700;
 }
 .from_text_name {
@@ -78,5 +78,4 @@
 .end {
   height: 20px;
   width: 100%;
-  
 }

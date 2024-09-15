@@ -28,7 +28,7 @@
 }
 .text_name_post {
   color: #333;
-  line-height: 0px;
+
   font-weight: 700;
 }
 .from_text_name {
@@ -55,7 +55,7 @@
   justify-content: space-between;
 }
 .btn_save {
-    margin-top: 50px;
+  margin-top: 50px;
   width: 93px;
   height: 44px;
   background-color: #4182f9;

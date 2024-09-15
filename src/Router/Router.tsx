@@ -10,8 +10,35 @@ import AuthLayout from "../layout/AuthLayout";
 import BlogCategoryPage from "../pages/Client/BlogCategory";
 import BlogDetailPage from "../pages/Client/BlogDetail";
 import JobPostingPage from "../pages/Client/JobPosting";
+import PrivateRoute from "../layout/PrivateLayout";
 
 const router = createBrowserRouter([
+  {
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: "/home",
+        element: <HomePage />,
+      },
+      {
+        path: "/blog-category",
+        element: <BlogCategoryPage />,
+      },
+      {
+        path: "/blog-detail",
+        element: <BlogDetailPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/job-posting",
+        element: <JobPostingPage />,
+      },
+    ],
+  },
+
   {
     element: <AuthLayout />,
     children: [
@@ -39,28 +66,11 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/home",
-    element: <HomePage />,
-  },
-
-  {
     element: <ClientLayout />,
     children: [
       {
-        path: "/blog-category",
-        element: <BlogCategoryPage />,
-      },
-      {
-        path: "/blog-detail",
-        element: <BlogDetailPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "/job-posting",
-        element: <JobPostingPage />,
+        path: "/home",
+        element: <HomePage />,
       },
     ],
   },

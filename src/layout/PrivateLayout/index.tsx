@@ -1,13 +1,28 @@
+import { AccountCircle } from "@mui/icons-material";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import { Outlet } from "react-router-dom";
 import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
-import "./style.scss";
-import { AccountCircle } from "@mui/icons-material";
-const ClientLayout = () => {
-  return (
+
+const PrivateRoute = () => {
+  const navigate = useNavigate();
+  let isLogin = false;
+  if (localStorage.getItem("profile")) {
+    const accessToken = JSON.parse(
+      localStorage.getItem("profile") ?? ""
+    )?.accessToken;
+    if (accessToken) {
+      isLogin = true;
+    }
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("profile");
+    navigate("/login");
+  };
+  return isLogin ? (
     <div className="client-layout">
       <div className="header-container">
         <div className="header-box">
@@ -21,14 +36,16 @@ const ClientLayout = () => {
             <ButtonDropComponent name="Diễn Đàn" items={["Blog Việc"]} />
             <ButtonComponent name="Hồ Sơ" />
           </div>
-          <div className="account-info">
+          <div className="account-info" onClick={handleLogout}>
             <AccountCircle sx={{ width: "50px", height: "50px" }} />
           </div>
         </div>
       </div>
       <Outlet />
     </div>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 
-export default ClientLayout;
+export default PrivateRoute;

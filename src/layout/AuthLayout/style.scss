@@ -1,16 +1,36 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
+.auth-layout-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: #7145f1;
 }
-.heading_right {
+.box-left {
+  width: 50%;
+  height: 100%;
+  .icon_hand {
+    font-size: 10rem;
+  }
+  img {
+    width: 100%;
+    max-width: 500px;
+  }
+  p {
+    font-size: 28px;
+    text-align: center;
+    color: white;
+    line-height: 1.5;
+    font-weight: 700;
+    font-family: "MyCustomFont", Arial, sans-serif;
+    padding-bottom: 10px;
+  }
+}
+
+.box-right {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 80%;
+  width: 50%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -96,11 +116,6 @@ body {
   justify-content: space-between;
   margin-top: 10px;
 }
-.form_input_password{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
 .item_click_create {
   margin-top: 30px;
   width: 100%;
@@ -158,10 +173,3 @@ body {
   left: 86%;
   bottom: 48%;
 }
-
-.input_field {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 4px;
-}
-

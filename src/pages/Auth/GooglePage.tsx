@@ -1,4 +1,4 @@
-import { LoginGoogle } from "../../components/Auth/LoginGoogle/LoginGoogle";
+import { LoginGoogle } from "../../components/Auth/LoginGoogle";
 function LoginGooglePage() {
   return <LoginGoogle />;
 }

@@ -1,7 +1,6 @@
-import styles from "./Logingoogle.module.css";
 import iconGoogle from "../../../assets/images/icons_google.png";
 import line from "../../../assets/images/Vector 6.png";
-
+import "./style.scss";
 import { ChangeEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -107,19 +106,19 @@ export const LoginGoogle = () => {
   };
 
   return (
-    <div className={styles.heading_form}>
-      <h3 className={styles.create_account}>Login Account</h3>
+    <div className="login-gg-container">
+      <h3 className="title">Login Account</h3>
       <form onSubmit={handleSubmit}>
-        <div className={styles.btn_center}>
-          <button className={styles.btn_sign}>
-            <img src={iconGoogle} alt="" className={styles.icons_google} />
+        <div className="btn-sign-up">
+          <button>
+            <img src={iconGoogle} alt="" />
             Sign up with Google
           </button>
         </div>
-        <div className={styles.form_line}>
-          <img src={line} alt="" className={styles.icon_line} />
-          <span className={styles.text_or}>or</span>
-          <img src={line} alt="" className={styles.icon_line} />
+        <div className="hr_line">
+          <img src={line} alt="" className="img-line" />
+          <p>or</p>
+          <img src={line} alt="" className="img-line" />
         </div>
         <InputFromEmail
           name="Email"
@@ -138,18 +137,18 @@ export const LoginGoogle = () => {
           value={formData.password}
           error={errors.password}
         />
-        <div className={styles.form_help}>
-          <div className={styles.form_check}>
-            <label className={styles.icon_check}>
-              <input className={styles.check_in} type="checkbox"></input>
+        <div className="terms-of-use">
+          <div className="btn-accept-term">
+            <label>
+              <input type="checkbox" />
             </label>
-            <p className={styles.rules}>Đồng ý với Chính sách và Điều khoản</p>
+            <p>Đồng ý với Chính sách và Điều khoản</p>
           </div>
         </div>
-        <button type="submit" className={styles.item_click_create}>
+        <button type="submit" className="btn-login-gg">
           Login
         </button>
-        {apiError && <p className={styles.api_error}>{apiError}</p>}
+        {apiError && <p>{apiError}</p>}
       </form>
     </div>
   );
