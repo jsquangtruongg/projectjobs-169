@@ -1,6 +1,5 @@
-import styles from "./LoginFaceBook.module.css";
 import iconFaceBook from "../../../assets/images/logos_facebook.png";
-
+import "./style.scss";
 import line from "../../../assets/images/Vector 6.png";
 import { ChangeEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -69,17 +68,19 @@ export const LoginFaceBook = () => {
     SetShowPassword((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <>
-      <h3 className={styles.create_account}>Create Account FaceBook</h3>
+    <div className="login-fb-container">
+      <h3 className="title">Create Account FaceBook</h3>
       <form onSubmit={handleSubmit}>
-        <button className={styles.btn_sign}>
-          <img src={iconFaceBook} alt="" className={styles.icons_google} />
-          Sign up with Facebook
-        </button>
-        <div className={styles.form_line}>
-          <img src={line} alt="" className={styles.icon_line} />
-          <span className={styles.text_or}>or</span>
-          <img src={line} alt="" className={styles.icon_line} />
+        <div className="btn-sign-up">
+          <button>
+            <img src={iconFaceBook} alt="" />
+            Sign up with Facebook
+          </button>
+        </div>
+        <div className="hr_line">
+          <img src={line} alt="" className="img-line" />
+          <p>or</p>
+          <img src={line} alt="" className="img-line" />
         </div>
         <InputFromEmail
           name="Email"
@@ -98,18 +99,18 @@ export const LoginFaceBook = () => {
           value={formData.password}
           error={errors.password}
         />
-        <div className={styles.form_help}>
-          <div className={styles.form_check}>
-            <label className={styles.icon_check}>
-              <input className={styles.check_in} type="checkbox"></input>
+        <div className="terms-of-use">
+          <div className="btn-accept-term">
+            <label>
+              <input type="checkbox" />
             </label>
-            <p className={styles.rules}>Đồng ý với Chính sách và Điều khoản</p>
+            <p>Đồng ý với Chính sách và Điều khoản</p>
           </div>
         </div>
-        <button type="submit" className={styles.item_click_create}>
+        <button type="submit" className="btn-login-fb">
           Create Account
         </button>
       </form>
-    </>
+    </div>
   );
 };

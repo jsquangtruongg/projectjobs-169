@@ -1,0 +1,152 @@
+.job-posting-container {
+  width: 100%;
+  .job-posting-box {
+    width: 100%;
+    .posting-item {
+      padding: 0px 20px 0px 20px;
+      border: 1px solid #888b97;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      margin-bottom: 50px;
+      border-radius: 5px;
+    }
+  }
+  .author-info {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    width: 100%;
+    color: #888b97;
+    margin-bottom: 10px;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      margin-right: 10px;
+    }
+    .author-name {
+      p {
+        font-weight: 500;
+        &:last-child {
+          margin-top: 2px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .posting-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      line-height: 1.5;
+      font-size: 18px;
+    }
+    img {
+      margin-top: 30px;
+      width: 80%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  .group-icon-action {
+    display: flex;
+
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .item-action {
+      display: flex;
+      align-items: center;
+      margin-top: 100px;
+      p {
+        color: #888b97;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+.form_heading_main {
+  margin-top: 50px;
+  width: 100%;
+}
+.heading_main {
+  padding: 0px 20px 0px 20px;
+  border: 1px solid #888b97;
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+}
+.from_img_avt_post {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+.salary_received {
+  color: #888b97;
+  font-size: 18px;
+  font-weight: 600;
+}
+.avatar_post {
+  height: 40px;
+  width: 40px;
+  border-radius: 24px;
+  background-color: #1b1c57;
+}
+.text_name_post {
+  color: #333;
+
+  font-weight: 700;
+}
+.from_text_name {
+  margin-left: 10px;
+  margin-bottom: 8px;
+}
+.text_time {
+  color: #888b97;
+  font-size: 15px;
+}
+.from_information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon_delete {
+  color: #888b97;
+}
+.from_text_content {
+  flex-wrap: wrap;
+}
+.from_img_post {
+  display: flex;
+  justify-content: center;
+}
+.item_text_content {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.from_feeling {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.form_enter_feeling {
+  display: flex;
+  align-items: center;
+  margin-top: 100px;
+}
+.text_like {
+  color: #888b97;
+  margin-left: 5px;
+}
+.icon_feeling {
+  color: #888b97;
+}
+.end {
+  height: 20px;
+  width: 100%;
+}

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import styles from "./LoginUser.module.css";
+import "./style.scss";
 import line from "../../../assets/images/Vector 6.png";
 import iconGoogle from "../../../assets/images/icons_google.png";
 import iconFaceBook from "../../../assets/images/logos_facebook.png";
@@ -13,6 +13,7 @@ import {
   InputTextComponents,
 } from "../../common/InputComponent/InputComponents";
 import axios from "axios";
+import { login } from "../../../api/auth";
 
 interface FormData {
   username: string;
@@ -63,7 +64,7 @@ export const LoginPageComponent = () => {
     }
     if (!formData.password.trim()) {
       newErrors.password = "Mật khẩu không được để trống";
-    } else if (formData.password.length < 8) {
+    } else if (formData.password.length < 6) {
       newErrors.password = "Mật khẩu phải có ít nhất 8 ký tự";
     }
 
@@ -88,45 +89,26 @@ export const LoginPageComponent = () => {
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await axios.post(
-          "http://localhost:8000/api/v1/auth/login",
-          {
-            firstName: formData.username,
-            lastName: formData.lastName,
-            email: formData.email,
-            password: formData.password,
-          }
-        );
+        await login({
+          firstName: formData.username,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        });
 
-        if (response.data.err === 0) {
-          navigate("/home");
-        } else {
-          if (response.data.mes === "email does not exist") {
-            setErrors((prevErrors) => ({
-              ...prevErrors,
-              email: "Email không tồn tại",
-            }));
-          } else if (response.data.mes === "Password is wrong") {
-            setErrors((prevErrors) => ({
-              ...prevErrors,
-              password: "Mật khẩu không đúng",
-            }));
-          } else {
-            setApiError(response.data.mes);
-          }
-        }
-      } catch (error) {
-        setApiError("Đã xảy ra lỗi khi kết nối đến máy chủ.");
-        console.error("Login Error:", error);
+        navigate("/home");
+      } catch (error: any) {
+        // Xử lý khi có lỗi trong quá trình gửi request
+        setApiError(error?.response?.data.mess);
       }
     }
   };
 
   return (
-    <div>
-      <h3 className={styles.create_account}>Login Account</h3>
+    <div className="container-login">
+      <h3 className="title">Login Account</h3>
       <form onSubmit={handleSubmit}>
-        <div className={styles.form_input}>
+        <div className="form-login">
           <InputTextComponents
             name="First Name"
             id="username"
@@ -159,27 +141,25 @@ export const LoginPageComponent = () => {
           value={formData.password}
           error={errors.password}
         />
-        <button type="submit" className={styles.item_click_create}>
+        <button type="submit" className="button-login">
           Create Account
         </button>
-        <div className={styles.form_text}>
-          <p className={styles.text_account}>Already have an account?</p>
-          <p onClick={handleLoginClick} className={styles.text_login}>
-            sign up
-          </p>
+        <div className="text-question">
+          <p>Already have an account?</p>
+          <p onClick={handleLoginClick}>sign up</p>
         </div>
-        <div className={styles.form_line}>
-          <img src={line} alt="" className={styles.icon_line} />
-          <span className={styles.text_or}>or</span>
-          <img src={line} alt="" className={styles.icon_line} />
+        <div className="hr_line">
+          <img src={line} alt="" className="img-line" />
+          <p>or</p>
+          <img src={line} alt="" className="img-line" />
         </div>
-        <div className={styles.contact_link}>
-          <button className={styles.btn_sign} onClick={handleGoogleClick}>
-            <img src={iconGoogle} alt="" className={styles.icons_google} />
+        <div className="link-contact">
+          <button className="btn-sign" onClick={handleGoogleClick}>
+            <img src={iconGoogle} alt="" className="icons_google" />
             Sign up with Google
           </button>
-          <button type="button" className={styles.btn_sign}>
-            <img src={iconFaceBook} alt="" className={styles.icons_google} />
+          <button type="button" className="btn-sign">
+            <img src={iconFaceBook} alt="" className="icons_facebook" />
             Sign up with Facebook
           </button>
         </div>
