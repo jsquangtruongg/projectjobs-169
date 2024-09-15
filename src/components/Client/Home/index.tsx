@@ -12,26 +12,21 @@ import iconTicked from "../../../assets/images/traveloka_logo 3.png";
 import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
 import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
 import styles from "./style.module.css";
+import posterJob from "../../../assets/images/RectangleJob.png";
 
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import EdgesensorLowRoundedIcon from "@mui/icons-material/EdgesensorLowRounded";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import HomeWorkRoundedIcon from "@mui/icons-material/HomeWorkRounded";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import KeyboardHideRoundedIcon from "@mui/icons-material/KeyboardHideRounded";
 import MailIcon from "@mui/icons-material/Mail";
 import MarginRoundedIcon from "@mui/icons-material/MarginRounded";
-import NavigateBeforeRoundedIcon from "@mui/icons-material/NavigateBeforeRounded";
-import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
 import RamenDiningRoundedIcon from "@mui/icons-material/RamenDiningRounded";
 import WatchLaterSharpIcon from "@mui/icons-material/WatchLaterSharp";
-import Woman2RoundedIcon from "@mui/icons-material/Woman2Rounded";
-import posterJob from "../../../assets/images/RectangleJob.png";
 import "./style.scss";
+import Tabs from "./Tabs";
+
 export const HomeComponent = () => {
   return (
     <div className="home-container">
@@ -93,10 +88,9 @@ export const HomeComponent = () => {
           <p>____</p>
           <p>Khuyến cáo của chúng tôi</p>
         </div>
-        <div className="tab-category">
-          <p className="label-content">Nhà Tuyển Dụng Nỗi Bật</p>
-          <div className="list-tab-category">
-            <div className="category-item active">
+        <div className={styles.bar_item_employer}>
+          {/* <div className={styles.from_item_employer}>
+            <div className={styles.item_employer}>
               <HomeOutlinedIcon style={{ marginRight: 10 }} />
               Kinh Doanh
             </div>
@@ -120,71 +114,117 @@ export const HomeComponent = () => {
                 <NavigateNextRoundedIcon />
               </div>
             </div>
-          </div>
-        </div>
-        <div className="layout-container list-post">
-          <div className="post-item">
-            <img src={poster1} alt="" className="img-post-item" />
-            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
-            <span className="job-salary">$ 20.000.000</span>
-            <div className="poster">
-              <img src={avatarPost} alt="" />
-              <div className={"poster-info"}>
-                <p>Quang Trường</p>
-                <p>Trưởng phòng nhân sự</p>
+          </div> */}
+          <Tabs>
+            <div title="Kinh Doanh" className={styles.item_sponsor}>
+              <div className={styles.form_recruitment_post}>
+                <div className={styles.form_poster}>
+                  <img src={poster1} alt="" className={styles.poster_job} />
+                  <p className={styles.text_title}>
+                    Tuyển Nhân Viên Kinh Doanh
+                  </p>
+                  <span className={styles.salary_received}>$20.000.000</span>
+                  <div className={styles.from_img_avt_post}>
+                    <img
+                      src={avatarPost}
+                      alt=""
+                      className={styles.avatar_post}
+                    />
+                    <div className={styles.from_text_name}>
+                      <p className={styles.text_name_post}>Quang Trường</p>
+                      <span>Trưởng phòng nhân sự</span>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.form_poster}>
+                  <img src={poster1} alt="" className={styles.poster_job} />
+                  <p className={styles.text_title}>
+                    Tuyển Nhân Viên Kinh Doanh
+                  </p>
+                  <span className={styles.salary_received}>$20.000.000</span>
+                  <div className={styles.from_img_avt_post}>
+                    <img
+                      src={avatarPost}
+                      alt=""
+                      className={styles.avatar_post}
+                    />
+                    <div className={styles.from_text_name}>
+                      <p className={styles.text_name_post}>Quang Trường</p>
+                      <span>Trưởng phòng nhân sự</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="post-item">
-            <img src={poster1} alt="" className="img-post-item" />
-            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
-            <span className="job-salary">$ 20.000.000</span>
-            <div className="poster">
-              <img src={avatarPost} alt="" />
-              <div className={"poster-info"}>
-                <p>Quang Trường</p>
-                <p>Trưởng phòng nhân sự</p>
+            <div title="Marketing">
+              <div className={styles.form_recruitment_post}>
+                <div className={styles.form_recruitment_post}>
+                  <div className={styles.form_poster}>
+                    <img src={poster1} alt="" className={styles.poster_job} />
+                    <p className={styles.text_title}>
+                      Tuyển Nhân Viên Kinh Doanh
+                    </p>
+                    <span className={styles.salary_received}>$20.000.000</span>
+                    <div className={styles.from_img_avt_post}>
+                      <img
+                        src={avatarPost}
+                        alt=""
+                        className={styles.avatar_post}
+                      />
+                      <div className={styles.from_text_name}>
+                        <p className={styles.text_name_post}>Quang Trường</p>
+                        <span>Trưởng phòng nhân sự</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="post-item">
-            <img src={poster1} alt="" className="img-post-item" />
-            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
-            <span className="job-salary">$ 20.000.000</span>
-            <div className="poster">
-              <img src={avatarPost} alt="" />
-              <div className={"poster-info"}>
-                <p>Quang Trường</p>
-                <p>Trưởng phòng nhân sự</p>
+            <div title="Công Nghệ">
+              <div className={styles.form_recruitment_post}>
+                <div className={styles.form_poster}>
+                  <img src={poster1} alt="" className={styles.poster_job} />
+                  <p className={styles.text_title}>
+                    Tuyển Nhân Viên Kinh Doanh
+                  </p>
+                  <span className={styles.salary_received}>$20.000.000</span>
+                  <div className={styles.from_img_avt_post}>
+                    <img
+                      src={avatarPost}
+                      alt=""
+                      className={styles.avatar_post}
+                    />
+                    <div className={styles.from_text_name}>
+                      <p className={styles.text_name_post}>Quang Trường</p>
+                      <span>Trưởng phòng nhân sự</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="post-item">
-            <img src={poster1} alt="" className="img-post-item" />
-            <p className="job-title">
-              Tuyển Nhân Viên Kinh DoanhTuyển Nhân Viên Kinh Doanh
-            </p>
-            <span className="job-salary">$ 20.000.000</span>
-            <div className="poster">
-              <img src={avatarPost} alt="" />
-              <div className={"poster-info"}>
-                <p>Quang Trường</p>
-                <p>Trưởng phòng nhân sự</p>
+            <div title="Truyền Thông">
+              <div className={styles.form_recruitment_post}>
+                <div className={styles.form_poster}>
+                  <img src={poster1} alt="" className={styles.poster_job} />
+                  <p className={styles.text_title}>
+                    Tuyển Nhân Viên Kinh Doanh
+                  </p>
+                  <span className={styles.salary_received}>$20.000.000</span>
+                  <div className={styles.from_img_avt_post}>
+                    <img
+                      src={avatarPost}
+                      alt=""
+                      className={styles.avatar_post}
+                    />
+                    <div className={styles.from_text_name}>
+                      <p className={styles.text_name_post}>Quang Trường</p>
+                      <span>Trưởng phòng nhân sự</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="post-item">
-            <img src={poster1} alt="" className="img-post-item" />
-            <p className="job-title">Tuyển Nhân Viên Kinh Doanh </p>
-            <span className="job-salary">$ 20.000.000</span>
-            <div className="poster">
-              <img src={avatarPost} alt="" />
-              <div className={"poster-info"}>
-                <p>Quang Trường</p>
-                <p>Trưởng phòng nhân sự</p>
-              </div>
-            </div>
-          </div>
+          </Tabs>
         </div>
 
         <div className={styles.form_contact_job}>
@@ -204,7 +244,7 @@ export const HomeComponent = () => {
               <div className={styles.form_contact}>
                 <div className={styles.from_job_needed}>
                   <div className={styles.jobs_needed}>
-                    <Woman2RoundedIcon style={{ marginRight: 7 }} />4 Chạy bàn
+                    {/* <Woman2RoundedIcon style={{ marginRight: 7 }} />4 Chạy bàn */}
                   </div>
                   <div className={styles.jobs_needed}>
                     <Person2RoundedIcon style={{ marginRight: 7 }} />2 Lễ Tân
@@ -424,6 +464,9 @@ export const HomeComponent = () => {
           </div>
         </div>
       </div>
+      {/* <LogOut toggleDelete={function (): void {
+        throw new Error("Function not implemented.");
+      } }/> */}
     </div>
   );
 };

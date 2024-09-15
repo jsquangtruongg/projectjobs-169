@@ -190,9 +190,7 @@ body {
   color: #f59e0b;
 }
 .bar_item_employer {
-  display: flex;
   margin-left: 30px;
-  align-items: center;
 }
 .employer_job {
   font-size: 23px;
