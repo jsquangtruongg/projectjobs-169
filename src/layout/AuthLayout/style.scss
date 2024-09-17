@@ -7,6 +7,9 @@
 .box-left {
   width: 50%;
   height: 100%;
+  @media (max-width: 1200px) {
+    display: none;
+  }
   .icon_hand {
     font-size: 10rem;
   }
@@ -33,6 +36,9 @@
   width: 50%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 }
 .from_create_account {
   width: 600px;

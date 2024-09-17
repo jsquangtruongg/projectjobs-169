@@ -10,16 +10,29 @@ import {
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
 import { useState } from "react";
+import { useAuth } from "../../hook/useAuth";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/store";
+import { setUserInit } from "../../redux/actions/userAction";
+
 const PrivateRoute = () => {
   const [showFrom, setShowFrom] = useState(false);
   const navigate = useNavigate();
-  let isLogin = false;
+  const dispatch = useAppDispatch();
+  const { user } = useAuth();
+  useEffect(() => {
+    if (user) {
+      dispatch(setUserInit(user));
+      return;
+    }
+  }, [user]);
+  let isAuthenticated = false;
   if (localStorage.getItem("profile")) {
     const accessToken = JSON.parse(
       localStorage.getItem("profile") ?? ""
     )?.accessToken;
     if (accessToken) {
-      isLogin = true;
+      isAuthenticated = true;
     }
   }
   const toggleShowFrom = () => {
@@ -29,7 +42,8 @@ const PrivateRoute = () => {
     localStorage.removeItem("profile");
     navigate("/login");
   };
-  return isLogin ? (
+
+  return !!isAuthenticated ? (
     <div className="client-layout">
       <div className="header-container">
         <div className="header-box">

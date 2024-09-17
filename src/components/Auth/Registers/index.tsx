@@ -12,8 +12,8 @@ import {
   InputFromEmail,
   InputTextComponents,
 } from "../../common/InputComponent/InputComponents";
-import axios from "axios";
-import { signIn } from "../../../api/auth";
+import { useAppDispatch } from "../../../redux/store";
+import { signInAction } from "../../../redux/actions/authActions";
 
 interface FormData {
   username: string;
@@ -40,8 +40,8 @@ function RegisterPageComponent() {
     password: "",
     rePassword: "",
   });
+  const dispatch = useAppDispatch();
   const [errors, setErrors] = useState<Errors>({});
-  const [apiError, setApiError] = useState<string | null>(null);
   const usernameId = "username";
   const lastNameId = "lastName";
   const emailId = "email";
@@ -107,19 +107,17 @@ function RegisterPageComponent() {
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
-      try {
-        await signIn({
-          firstName: formData.username,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-        });
-
-        navigate("/home");
-      } catch (error: any) {
-        // Xử lý khi có lỗi trong quá trình gửi request
-        setApiError(error?.response?.data.mess);
-      }
+      await dispatch(
+        signInAction(
+          {
+            firstName: formData.username,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+          },
+          navigate
+        )
+      );
     }
   };
 
@@ -205,7 +203,6 @@ function RegisterPageComponent() {
           </button>
         </div>
       </form>
-      <div>{apiError}</div>
     </div>
   );
 }

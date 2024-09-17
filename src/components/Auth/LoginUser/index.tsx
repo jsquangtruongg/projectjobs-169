@@ -1,19 +1,18 @@
 import { ChangeEvent, useState } from "react";
-import "./style.scss";
 import line from "../../../assets/images/Vector 6.png";
 import iconGoogle from "../../../assets/images/icons_google.png";
 import iconFaceBook from "../../../assets/images/logos_facebook.png";
+import "./style.scss";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
+import { loginAction } from "../../../redux/actions/authActions";
+import { useAppDispatch } from "../../../redux/store";
 import {
   InputComponentPassWord,
   InputFromEmail,
-  InputTextComponents,
 } from "../../common/InputComponent/InputComponents";
-import axios from "axios";
-import { login } from "../../../api/auth";
 
 interface FormData {
   username: string;
@@ -31,6 +30,7 @@ interface Errors {
 
 export const LoginPageComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<FormData>({
     username: "",
     lastName: "",
@@ -38,7 +38,6 @@ export const LoginPageComponent = () => {
     password: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [apiError, setApiError] = useState<string | null>(null);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -49,12 +48,6 @@ export const LoginPageComponent = () => {
 
   const validateForm = (): Errors => {
     const newErrors: Errors = {};
-    if (!formData.username.trim()) {
-      newErrors.username = "Tên không được để trống";
-    }
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Họ không được để trống";
-    }
     if (!formData.email.trim()) {
       newErrors.email = "Email không được để trống";
     } else if (
@@ -88,19 +81,15 @@ export const LoginPageComponent = () => {
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
-      try {
-        await login({
-          firstName: formData.username,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-        });
-
-        navigate("/home");
-      } catch (error: any) {
-        // Xử lý khi có lỗi trong quá trình gửi request
-        setApiError(error?.response?.data.mess);
-      }
+      dispatch(
+        loginAction(
+          {
+            email: formData.email,
+            password: formData.password,
+          },
+          navigate
+        )
+      );
     }
   };
 
@@ -108,22 +97,6 @@ export const LoginPageComponent = () => {
     <div className="container-login">
       <h3 className="title">Login Account</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-login">
-          <InputTextComponents
-            name="First Name"
-            id="username"
-            onChange={onChangeHandler}
-            value={formData.username}
-            error={errors.username}
-          />
-          <InputTextComponents
-            name="Last Name"
-            id="lastName"
-            value={formData.lastName}
-            onChange={onChangeHandler}
-            error={errors.lastName}
-          />
-        </div>
         <InputFromEmail
           name="Email"
           id="email"
