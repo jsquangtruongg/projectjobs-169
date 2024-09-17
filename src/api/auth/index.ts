@@ -9,36 +9,25 @@ export type IAuthUser = {
 
 export type ISignInResponse = {
   mes: string;
+  accessToken: string;
 };
 
-export const signIn = async (
-  data: IAuthUser
-): Promise<ISignInResponse | null> => {
-  localStorage.removeItem("profile");
+export const signIn = async (data: IAuthUser): Promise<ISignInResponse> => {
   const res = await API.post("/auth/register", data, {
     headers: {
       "Content-Type": "application/json",
     },
   });
-  localStorage.setItem(
-    "profile",
-    JSON.stringify({ accessToken: res.data.access_token })
-  );
-  return { mes: res.data.mes };
+  return { mes: res.data.mes, accessToken: res.data.access_token };
 };
 
 export const login = async (
-  data: IAuthUser
-): Promise<ISignInResponse | null> => {
-  localStorage.removeItem("profile");
+  data: Pick<IAuthUser, "email" | "password">
+): Promise<ISignInResponse> => {
   const res = await API.post("/auth/login", data, {
     headers: {
       "Content-Type": "application/json",
     },
   });
-  localStorage.setItem(
-    "profile",
-    JSON.stringify({ accessToken: res.data.access_token })
-  );
-  return { mes: res.data.mes };
+  return { mes: res.data.mes, accessToken: res.data.access_token };
 };

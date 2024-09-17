@@ -1,9 +1,13 @@
-import axios, { InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 export const API = axios.create({
   baseURL: "http://localhost:8000/api/v1",
 });
 
-const authInterceptor = (
+const authInterceptorRequest = (
   req: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
   if (localStorage.getItem("profile")) {
@@ -18,4 +22,25 @@ const authInterceptor = (
   return req;
 };
 
-API.interceptors.request.use(authInterceptor);
+const authInterceptorResponse = async (
+  response: AxiosResponse
+): Promise<AxiosResponse> => {
+  // Xử lý phản hồi thành công ở đây nếu cần
+  return response;
+};
+
+const authInterceptorResponseError = async (
+  error: AxiosError
+): Promise<never> => {
+  if (error.response?.status === 401) {
+    window.location.href = "/login";
+  }
+  return Promise.reject(error);
+};
+
+export { authInterceptorResponse, authInterceptorResponseError };
+API.interceptors.request.use(authInterceptorRequest);
+API.interceptors.response.use(
+  authInterceptorResponse,
+  authInterceptorResponseError
+);
