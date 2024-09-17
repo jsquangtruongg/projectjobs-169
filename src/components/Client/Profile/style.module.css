@@ -1,10 +1,12 @@
 .from_heading_profile {
   margin-top: 50px;
   width: 100%;
+  padding: 0px 100px 0px 100px;
 }
 .text_welcome {
   font-size: 20px;
   font-weight: 500;
+  margin-bottom: 20px;
 }
 
 .text_date {
@@ -28,12 +30,11 @@
 }
 .text_name_post {
   color: #333;
-
+  margin-bottom: 10px;
   font-weight: 700;
 }
 .from_text_name {
   margin-left: 10px;
-  margin-bottom: 8px;
 }
 .from_information_profile {
   margin-top: 50px;
@@ -55,7 +56,6 @@
   justify-content: space-between;
 }
 .btn_save {
-  margin-top: 50px;
   width: 93px;
   height: 44px;
   background-color: #4182f9;

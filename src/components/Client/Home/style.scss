@@ -160,6 +160,7 @@
     .title {
       display: flex;
       margin-left: 30px;
+      align-items: center;
       gap: 5px;
       p {
         color: #f59e0b;
@@ -586,6 +587,7 @@
 }
 .form_poster {
   width: 340px;
+  border: 1px solid #68799f;
 }
 .poster_job {
   width: 340px;
@@ -944,6 +946,11 @@
 }
 .from_end_contact {
   margin-bottom: 50px;
+}
+.poster{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 }
 .end {
   width: 100%;

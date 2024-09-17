@@ -1,12 +1,17 @@
 import { AccountCircle } from "@mui/icons-material";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import SendIcon from "@mui/icons-material/Send";
+import SettingsIcon from "@mui/icons-material/Settings";
+import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
-
+import { useState } from "react";
 const PrivateRoute = () => {
+  const [showFrom, setShowFrom] = useState(false);
   const navigate = useNavigate();
   let isLogin = false;
   if (localStorage.getItem("profile")) {
@@ -17,7 +22,9 @@ const PrivateRoute = () => {
       isLogin = true;
     }
   }
-
+  const toggleShowFrom = () => {
+    setShowFrom(!showFrom);
+  };
   const handleLogout = () => {
     localStorage.removeItem("profile");
     navigate("/login");
@@ -36,10 +43,33 @@ const PrivateRoute = () => {
             <ButtonDropComponent name="Diễn Đàn" items={["Blog Việc"]} />
             <ButtonComponent name="Hồ Sơ" />
           </div>
-          <div className="account-info" onClick={handleLogout}>
-            <AccountCircle sx={{ width: "50px", height: "50px" }} />
+          <div className="account-info">
+            <AccountCircle
+              sx={{ width: "50px", height: "50px" }}
+              onClick={toggleShowFrom}
+            />
           </div>
         </div>
+        {showFrom && (
+          <div className="menu">
+            <div className="feature">
+              <SettingsIcon className="icon-feature" />
+              Cài Đặt
+            </div>
+            <div className="feature">
+              <SendIcon className="icon-feature" />
+              Trợ giúp & Hổ Trợ
+            </div>
+            <div className="feature">
+              <MarkEmailUnreadIcon className="icon-feature" />
+              Đóng góp ý kiến
+            </div>
+            <div className="feature" onClick={handleLogout}>
+              <LogoutIcon className="icon-feature" />
+              Đăng Xuất
+            </div>
+          </div>
+        )}
       </div>
       <Outlet />
     </div>

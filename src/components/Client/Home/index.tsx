@@ -34,8 +34,7 @@ export const HomeComponent = () => {
         <div className="banner-box">
           <div className="form-search">
             <span className="banner-title">
-              Bạn Muốn Tìm Việc Làm <br />
-              Theo Sở Thích
+              Bạn Muốn Tìm Việc Làm Theo Sở Thích
             </span>
             <p className="banner-sub-title">
               Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
@@ -86,7 +85,7 @@ export const HomeComponent = () => {
       <div className="job-category">
         <div className="title">
           <p>____</p>
-          <p>Khuyến cáo của chúng tôi</p>
+          <p className={styles.recommended}>Khuyến cáo của chúng tôi</p>
         </div>
         <div className={styles.bar_item_employer}>
           {/* <div className={styles.from_item_employer}>
@@ -244,7 +243,7 @@ export const HomeComponent = () => {
               <div className={styles.form_contact}>
                 <div className={styles.from_job_needed}>
                   <div className={styles.jobs_needed}>
-                    {/* <Woman2RoundedIcon style={{ marginRight: 7 }} />4 Chạy bàn */}
+                    <Person2RoundedIcon style={{ marginRight: 7 }} />4 Chạy bàn
                   </div>
                   <div className={styles.jobs_needed}>
                     <Person2RoundedIcon style={{ marginRight: 7 }} />2 Lễ Tân
