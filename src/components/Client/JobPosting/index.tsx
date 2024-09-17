@@ -12,11 +12,14 @@ export const JobPostingComponent = () => {
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
         <div className="posting-item">
-          <div className="author-info">
-            <img src={avatarPost} alt="" />
-            <div className="author-name">
-              <p>Quang Trường</p> <p>1 giờ trước</p>
+          <div className="author-information" >
+            <div className="author-info">
+              <img src={avatarPost} alt="" />
+              <div className="author-name">
+                <p>Quang Trường</p> <p>1 giờ trước</p>
+              </div>
             </div>
+            <ClearOutlinedIcon />
           </div>
           <div className="posting-content">
             <p>

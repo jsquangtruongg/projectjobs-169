@@ -42,3 +42,26 @@
     justify-content: center;
   }
 }
+.menu {
+  background-color: #e8e9ee;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 71px;
+  right: 0px;
+
+  .feature {
+    padding: 10px 5px 2px 5px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    .icon-feature {
+      margin-right: 10px;
+    }
+  }
+  .feature:hover{
+    background-color: antiquewhite;
+  }
+}
