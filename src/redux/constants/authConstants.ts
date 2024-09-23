@@ -18,3 +18,9 @@ export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
 export const SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN";
 
 export const SET_ERROR = "SET_ERROR";
+
+// Blog category
+export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
+
+// Blog detail
+export const GET_BLOG = "GET_BLOG";

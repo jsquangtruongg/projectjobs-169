@@ -10,6 +10,7 @@ export type IAuthUser = {
 export type ISignInResponse = {
   mes: string;
   accessToken: string;
+  role_code: string;
 };
 
 export const signIn = async (data: IAuthUser): Promise<ISignInResponse> => {
@@ -18,7 +19,11 @@ export const signIn = async (data: IAuthUser): Promise<ISignInResponse> => {
       "Content-Type": "application/json",
     },
   });
-  return { mes: res.data.mes, accessToken: res.data.access_token };
+  return {
+    mes: res.data.mes,
+    accessToken: res.data.access_token,
+    role_code: res.data.role_code,
+  };
 };
 
 export const login = async (
@@ -29,5 +34,9 @@ export const login = async (
       "Content-Type": "application/json",
     },
   });
-  return { mes: res.data.mes, accessToken: res.data.access_token };
+  return {
+    mes: res.data.mes,
+    accessToken: res.data.access_token,
+    role_code: res.data.role_code,
+  };
 };

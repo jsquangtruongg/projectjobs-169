@@ -1,86 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../../assets/images/logo.png";
 import imgPost from "../../../assets/images/Rectangle25.png";
-import avatarPost from "../../../assets/images/avatar.jpg";
+
 import ImgBanner from "../../../assets/images/backgroundPoster.png";
 
 import SearchIcon from "@mui/icons-material/Search";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
-interface BlogPost {
-  imgPost: string;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-}
-const blogs: BlogPost[] = [
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những công nghệ hot nhất hiện nay trong lĩnh vực IT lương lên đến 10.000$",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những đổi mới trong ngành Marketing đã làm cho nhiều sinh viên có thêm nhiều việc làm",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những công nghệ hot nhất hiện nay trong lĩnh vực IT lương lên đến 10.000$",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những đổi mới trong ngành Marketing đã làm cho nhiều sinh viên có thêm nhiều việc làm",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những đổi mới trong ngành Marketing đã làm cho nhiều sinh viên có thêm nhiều việc làm",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-  {
-    imgPost: imgPost,
-    title: "Technology",
-    content:
-      "Những đổi mới trong ngành Marketing đã làm cho nhiều sinh viên có thêm nhiều việc làm",
-    author: "Quang Trường",
-    date: "25 August 2024",
-  },
-];
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { getBlogCategory } from "../../../redux/actions/blogCategoryAction";
+import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
+import { CircularProgress } from "@mui/material";
 export const BlogCategoryComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filterBlogs, setFilterBlogs] = useState<BlogPost[]>(blogs);
+  const dispatch = useAppDispatch();
+  const blogCategoryState = useAppSelector((state) => state.blogCategory);
+  const [filterBlogs, setFilterBlogs] = useState<IBlogCategoryData[]>([]);
+  useEffect(() => {
+    dispatch(getBlogCategory());
+  }, []);
+
+  useEffect(() => {
+    setFilterBlogs(blogCategoryState.blogCategoryData);
+  }, [blogCategoryState.blogCategoryData]);
+
   const navigate = useNavigate();
 
-  const handleReadBlogClick = () => {
-    navigate("/blog-detail");
+  const handleReadBlogClick = (blogCategoryId: number) => {
+    navigate(`/blog-detail/${blogCategoryId}`);
   };
   const handleSearch = () => {
-    const filtered = blogs.filter(
-      (blog: BlogPost) =>
+    const filtered = blogCategoryState.blogCategoryData?.filter(
+      (blog: IBlogCategoryData) =>
         blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        blog.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        blog.author.toLowerCase().includes(searchTerm.toLowerCase())
+        blog.describe.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilterBlogs(filtered);
+    setFilterBlogs(filtered || []);
   };
   return (
     <div className="blog-category-container">
@@ -100,25 +56,34 @@ export const BlogCategoryComponent = () => {
               <SearchIcon onClick={handleSearch} />
             </div>
           </div>
-          <p className="title-page">Bài Đăng Mới Nhất</p>
+          <p className="title-page"> Danh Mục Bài Đăng Mới Nhất</p>
           <div className="section-list-blog">
             <div className="list-blog">
-              {filterBlogs.map((blog: BlogPost, index: number) => (
-                <div className="item-blog" key={index}>
-                  <div className="img-wrap">
-                    <img src={imgPost} alt="" onClick={handleReadBlogClick} />
-                  </div>
-                  <div className="item-title">{blog.title}</div>
-                  <p className="item-content">{blog.content}</p>
-                  <div className="info-person-posting">
-                    <div className="person-contact">
-                      <img src={avatarPost} alt="" />
-                      <div className="name-author">{blog.author}</div>
-                    </div>
-                    <p className="date">{blog.date}</p>
-                  </div>
+              {blogCategoryState.blogCategoryData.length === 0 ? (
+                <div className="loading-data">
+                  <CircularProgress />
                 </div>
-              ))}
+              ) : (
+                filterBlogs.map(
+                  (blogCategoryItem: IBlogCategoryData, index: number) => (
+                    <div className="item-blog" key={index}>
+                      <div className="img-wrap">
+                        <img
+                          src={imgPost}
+                          alt=""
+                          onClick={() =>
+                            handleReadBlogClick(blogCategoryItem.id)
+                          }
+                        />
+                      </div>
+                      <div className="item-title">{blogCategoryItem.title}</div>
+                      <p className="item-content">
+                        {blogCategoryItem.describe}
+                      </p>
+                    </div>
+                  )
+                )
+              )}
             </div>
           </div>
           <div className="btn-show-all">
@@ -126,6 +91,7 @@ export const BlogCategoryComponent = () => {
           </div>
         </div>
       </div>
+      {/* Footer */}
       <div className="section-about-us">
         <div className="layout-container about-us-box">
           <div className="info">
@@ -191,7 +157,6 @@ export const BlogCategoryComponent = () => {
           </div>
         </div>
       </div>
-      {/* <div className={styles.end}></div> */}
     </div>
   );
 };
