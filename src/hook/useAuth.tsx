@@ -10,6 +10,7 @@ import { IUserData } from "../redux/reducers/user";
 
 interface AuthContextType {
   user: IUserData | null;
+  removeUser: () => void;
 }
 
 // Initialize the AuthContext with default values
@@ -21,6 +22,9 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<IUserData | null>(null);
+  const removeUser = () => {
+    setUser(null);
+  };
   useEffect(() => {
     (async () => {
       if (!localStorage.getItem("profile")) {
@@ -35,14 +39,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           const res = await getUserAPI();
           setUser(res.userData);
         }
-      } catch (error) {
-        localStorage.removeItem("profile");
-      }
+      } catch (error) {}
     })();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, removeUser }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

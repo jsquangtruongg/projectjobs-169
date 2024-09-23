@@ -1,9 +1,14 @@
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import iconBlu from "../../assets/images/backgroud-2.png";
 import "./style.scss";
-
+import { useAuth } from "../../hook/useAuth";
 function AuthLayout() {
+  const { user } = useAuth();
+  const accessToken = JSON.parse(
+    localStorage.getItem("profile") ?? "{}"
+  )?.accessToken;
+  if (user || accessToken) return <Navigate to="/home" />;
   return (
     <>
       <div className="auth-layout-container">

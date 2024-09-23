@@ -11,8 +11,22 @@ import BlogCategoryPage from "../pages/Client/BlogCategory";
 import BlogDetailPage from "../pages/Client/BlogDetail";
 import JobPostingPage from "../pages/Client/JobPosting";
 import PrivateRoute from "../layout/PrivateLayout";
+import AdminLayout from "../layout/AdminLayout";
+import UserAdminPage from "../pages/Admin/User";
+import BlogAdminPage from "../pages/Admin/Blog";
+import BlogCategoryAdminPage from "../pages/Admin/BlogCategory";
 
 const router = createBrowserRouter([
+  {
+    element: <AdminLayout />,
+    path: "/admin",
+    children: [
+      { path: "", element: <UserAdminPage /> },
+      { path: "user", element: <UserAdminPage /> },
+      { path: "blog", element: <BlogAdminPage /> },
+      { path: "blog-category", element: <BlogCategoryAdminPage /> },
+    ],
+  },
   {
     element: <PrivateRoute />,
     children: [

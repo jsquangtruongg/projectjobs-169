@@ -33,6 +33,7 @@ const authInterceptorResponseError = async (
   error: AxiosError
 ): Promise<never> => {
   if (error.response?.status === 401) {
+    localStorage.removeItem("profile");
     window.location.href = "/login";
   }
   return Promise.reject(error);

@@ -17,6 +17,14 @@ export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
 
 export const SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN";
 
+export const SET_ADMIN_INFO = "SET_ADMIN_INFO";
+export const REMOVE_USER = "REMOVE_USER";
+
+export const USER_CHANGE_LOADING = "USER_CHANGE_LOADING";
+
+export const USER_CHANGE_LOADED = "USER_CHANGE_LOADED";
+
+// global
 export const SET_ERROR = "SET_ERROR";
 
 // Blog category
