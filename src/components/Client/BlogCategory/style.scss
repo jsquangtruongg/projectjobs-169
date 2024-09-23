@@ -43,17 +43,18 @@
   .section-list-blog {
     margin-top: 30px;
     display: flex;
-    justify-content: center;
+   
   }
   .list-blog {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    // display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 16px;
   }
   .item-blog {
+    width: 280px;
     padding: 10px;
     height: auto;
     border: 1.5px solid #888b97;
