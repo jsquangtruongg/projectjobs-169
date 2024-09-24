@@ -1,0 +1,13 @@
+.admin-layout {
+  padding: 20px;
+  box-sizing: border-box;
+  & .MuiPaper-root.MuiTableContainer-root {
+    background: #fdfdfd;
+  }
+  .MuiTableHead-root {
+    background: #212529;
+    .MuiTableCell-root {
+      color: #fdfdfd;
+    }
+  }
+}

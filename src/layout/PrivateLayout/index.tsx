@@ -1,25 +1,27 @@
-import { AccountCircle } from "@mui/icons-material";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import { AccountCircle, ManageAccounts } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import SendIcon from "@mui/icons-material/Send";
 import SettingsIcon from "@mui/icons-material/Settings";
-import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
 import {
   ButtonComponent,
   ButtonDropComponent,
 } from "../../components/common/ButtonComponent/ButtonComponent";
-import { useState } from "react";
 import { useAuth } from "../../hook/useAuth";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/store";
 import { setUserInit } from "../../redux/actions/userAction";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
 const PrivateRoute = () => {
   const [showFrom, setShowFrom] = useState(false);
+  const userState = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useAuth();
+  const { user, removeUser } = useAuth();
+
   useEffect(() => {
     if (user) {
       dispatch(setUserInit(user));
@@ -40,10 +42,15 @@ const PrivateRoute = () => {
   };
   const handleLogout = () => {
     localStorage.removeItem("profile");
-    navigate("/login");
+    removeUser();
+    navigate("/");
   };
 
-  return !!isAuthenticated ? (
+  const handleNavigateAdmin = () => {
+    navigate("/admin");
+  };
+
+  return user || !!isAuthenticated ? (
     <div className="client-layout">
       <div className="header-container">
         <div className="header-box">
@@ -58,32 +65,50 @@ const PrivateRoute = () => {
             <ButtonComponent name="Hồ Sơ" />
           </div>
           <div className="account-info">
-            <AccountCircle
-              sx={{ width: "50px", height: "50px" }}
-              onClick={toggleShowFrom}
-            />
+            <Tooltip
+              classes={{ tooltip: "user-info-tooltip" }}
+              title={
+                <div className="user-info-list">
+                  {userState.userData?.roleData.id === 1 && (
+                    <div className="item" onClick={handleNavigateAdmin}>
+                      <ManageAccounts className="item-icon" />
+                      Admin
+                    </div>
+                  )}
+                  <div className="item">
+                    <SettingsIcon className="item-icon" />
+                    Cài Đặt
+                  </div>
+                  <div className="item">
+                    <SendIcon className="item-icon" />
+                    Trợ giúp & Hổ Trợ
+                  </div>
+                  <div className="item">
+                    <MarkEmailUnreadIcon className="item-icon" />
+                    Đóng góp ý kiến
+                  </div>
+                  <div className="item" onClick={handleLogout}>
+                    <LogoutIcon className="item-icon" />
+                    Đăng Xuất
+                  </div>
+                </div>
+              }
+            >
+              <div className="account-name">
+                {" "}
+                <span>
+                  {userState.userData?.firstName +
+                    " " +
+                    userState.userData?.lastName}
+                </span>
+                <AccountCircle
+                  sx={{ width: "30px", height: "30px" }}
+                  onClick={toggleShowFrom}
+                />
+              </div>
+            </Tooltip>
           </div>
         </div>
-        {showFrom && (
-          <div className="menu">
-            <div className="feature">
-              <SettingsIcon className="icon-feature" />
-              Cài Đặt
-            </div>
-            <div className="feature">
-              <SendIcon className="icon-feature" />
-              Trợ giúp & Hổ Trợ
-            </div>
-            <div className="feature">
-              <MarkEmailUnreadIcon className="icon-feature" />
-              Đóng góp ý kiến
-            </div>
-            <div className="feature" onClick={handleLogout}>
-              <LogoutIcon className="icon-feature" />
-              Đăng Xuất
-            </div>
-          </div>
-        )}
       </div>
       <Outlet />
     </div>

@@ -16,3 +16,9 @@ export const getUserAPI = async (): Promise<IResponse> => {
 
   return { mes: data.mes, userData: data.userData, err: data.err };
 };
+
+export const getAdminInfoAPI = async (): Promise<IResponse> => {
+  const { data } = await API.get("/user/info-role-admin");
+
+  return { mes: data.mes, userData: data.userData, err: data.err };
+};
