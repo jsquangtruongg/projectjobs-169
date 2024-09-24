@@ -24,3 +24,7 @@ export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
 
 // Blog detail
 export const GET_BLOG = "GET_BLOG";
+
+//Job
+
+export const GET_JOB = "GET_JOB";
