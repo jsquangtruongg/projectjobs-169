@@ -24,6 +24,8 @@ export const USER_CHANGE_LOADING = "USER_CHANGE_LOADING";
 
 export const USER_CHANGE_LOADED = "USER_CHANGE_LOADED";
 
+export const GET_USER_ALL = "GET_USER_ALL";
+
 // global
 export const SET_ERROR = "SET_ERROR";
 

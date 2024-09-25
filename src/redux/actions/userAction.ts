@@ -1,7 +1,8 @@
-import { getAdminInfoAPI, getUserAPI } from "../../api/user";
+import { getAdminInfoAPI, getUserAPI, getUserAllAPI } from "../../api/user";
 import * as types from "../constants/authConstants";
 import { IUserData } from "../reducers/user";
 import { AppDispatch } from "../store";
+import { setError } from "./globalAction";
 
 export const setUserInit =
   (userData: IUserData) => async (dispatch: AppDispatch) => {
@@ -10,6 +11,20 @@ export const setUserInit =
       payload: { userData },
     });
   };
+
+export const getUserAll = () => async (dispatch: AppDispatch) => {
+  try {
+    const { userDataList } = await getUserAllAPI();
+    console.log("Danh sách người dùng:", userDataList);
+    dispatch({
+      type: types.GET_USER_ALL,
+      payload: { userDataList },
+    });
+  } catch (error: any) {
+    dispatch(setError(error.response?.data.mess));
+  }
+};
+
 export const getAdminInfo = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({
