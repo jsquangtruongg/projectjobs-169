@@ -6,7 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import "./style.scss";
 import EmailIcon from "@mui/icons-material/Email";
 import { useEffect } from "react";
-import { getBlog } from "../../../redux/actions/blog";
+import { getBlog } from "../../../redux/actions/blogActions";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { IBlogData } from "../../../redux/reducers/blog";
 import { useParams } from "react-router";

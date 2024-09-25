@@ -18,14 +18,18 @@ export type IUserData = {
   roleData: IRoleDate;
 };
 
+export type IListUser = IUserData;
+
 type IUser = {
   userData: IUserData | null;
+  userDataList: IListUser[];
   isLoading?: boolean;
 };
 
 const initialState: IUser = {
   isLoading: false,
   userData: null,
+  userDataList: [],
 };
 
 const userReducer = (
@@ -63,6 +67,14 @@ const userReducer = (
         ...action.payload,
         isLoading: false,
       };
+    case types.GET_USER_ALL:
+     
+      const newState = {
+        ...state,
+        userDataList: payload.userDataList || [],
+      };
+    
+      return newState;
     default:
       return state;
   }

@@ -11,11 +11,16 @@ import {
   Tooltip,
 } from "@mui/material";
 import { DeleteDialog, EditDialog } from "./Dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { getUserAll } from "../../../redux/actions/userAction";
+import { IListUser } from "../../../redux/reducers/user";
 
 export default function TableComponent() {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const userState = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   // Delete
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -39,6 +44,9 @@ export default function TableComponent() {
   const handleEditUser = () => {
     setOpenEdit(true);
   };
+  useEffect(() => {
+    dispatch(getUserAll());
+  }, []);
   return (
     <>
       <TableContainer component={Paper}>
@@ -53,26 +61,29 @@ export default function TableComponent() {
               <TableCell align="center">Hành động</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
-            <TableRow>
-              <TableCell align="center">1</TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="left">Nguyen</TableCell>
-              <TableCell align="left">Trương</TableCell>
-              <TableCell align="left">Admin</TableCell>
-              <TableCell align="center">
-                <Tooltip title="Edit">
-                  <IconButton onClick={handleEditUser}>
-                    <Edit color="primary" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton onClick={handleDeleteUser}>
-                    <Delete color="error" />
-                  </IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {userState.userDataList.map((user: IListUser, index: number) => (
+              <TableRow key={index}>
+                <TableCell align="center">{user.id}</TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="left">{user.firstName}</TableCell>
+                <TableCell align="left">{user.lastName}</TableCell>
+                <TableCell align="left">{user.createdAt}</TableCell>
+                <TableCell align="center">
+                  <Tooltip title="Edit">
+                    <IconButton onClick={handleEditUser}>
+                      <Edit color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                    <IconButton onClick={handleDeleteUser}>
+                      <Delete color="error" />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

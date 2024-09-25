@@ -9,7 +9,7 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./style.scss";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getJob } from "../../../redux/actions/job";
+import { getJob } from "../../../redux/actions/jobActions";
 import { IJobData } from "../../../redux/reducers/job";
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
