@@ -8,21 +8,22 @@ export type IRoleDate = {
 };
 
 export type IUserData = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  avatar: null;
-  createdAt: string;
-  updatedAt: string;
-  roleData: IRoleDate;
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  avatar?: null;
+  role_code?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  roleData?: IRoleDate;
 };
 
 export type IListUser = IUserData;
 
 type IUser = {
   userData: IUserData | null;
-  userDataList: IListUser[];
+  userDataList: IUserData[];
   isLoading?: boolean;
 };
 
@@ -68,13 +69,17 @@ const userReducer = (
         isLoading: false,
       };
     case types.GET_USER_ALL:
-     
       const newState = {
         ...state,
         userDataList: payload.userDataList || [],
       };
-    
       return newState;
+    case types.PUT_UPDATE_USER:
+      const newPut = {
+        ...state,
+        userData: action.payload.userData,
+      };
+      return newPut;
     default:
       return state;
   }

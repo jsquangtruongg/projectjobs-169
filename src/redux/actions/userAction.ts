@@ -1,4 +1,9 @@
-import { getAdminInfoAPI, getUserAPI, getUserAllAPI } from "../../api/user";
+import {
+  editUser,
+  getAdminInfoAPI,
+  getUserAPI,
+  getUserAllAPI,
+} from "../../api/user";
 import * as types from "../constants/authConstants";
 import { IUserData } from "../reducers/user";
 import { AppDispatch } from "../store";
@@ -15,7 +20,6 @@ export const setUserInit =
 export const getUserAll = () => async (dispatch: AppDispatch) => {
   try {
     const { userDataList } = await getUserAllAPI();
-    console.log("Danh sách người dùng:", userDataList);
     dispatch({
       type: types.GET_USER_ALL,
       payload: { userDataList },
@@ -57,3 +61,13 @@ export const removeUser = () => async (dispatch: AppDispatch) => {
     payload: { userData: null },
   });
 };
+
+export const putUpdateUser =
+  (data: IUserData) => async (dispatch: AppDispatch) => {
+    try {
+      await editUser(data);
+      dispatch(getUserAll());
+    } catch (error) {
+      console.error(error);
+    }
+  };

@@ -13,12 +13,13 @@ import {
 import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getUserAll } from "../../../redux/actions/userAction";
-import { IListUser } from "../../../redux/reducers/user";
+import { getUserAll, putUpdateUser } from "../../../redux/actions/userAction";
+import { IUserData } from "../../../redux/reducers/user";
 
 export default function TableComponent() {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUserData | null>(null);
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   // Delete
@@ -37,11 +38,14 @@ export default function TableComponent() {
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
-  const handleAcceptEdit = () => {
+  const handleAcceptEdit = (user: IUserData) => {
     //Gọi Dispatch để delete user
+    dispatch(putUpdateUser(user));
+    setSelectedUser(null);
     setOpenEdit(false);
   };
-  const handleEditUser = () => {
+  const handleEditUser = (user: IUserData) => {
+    setSelectedUser(user);
     setOpenEdit(true);
   };
   useEffect(() => {
@@ -63,16 +67,16 @@ export default function TableComponent() {
           </TableHead>
 
           <TableBody>
-            {userState.userDataList.map((user: IListUser, index: number) => (
+            {userState.userDataList.map((user: IUserData, index: number) => (
               <TableRow key={index}>
                 <TableCell align="center">{user.id}</TableCell>
                 <TableCell align="right"></TableCell>
                 <TableCell align="left">{user.firstName}</TableCell>
                 <TableCell align="left">{user.lastName}</TableCell>
-                <TableCell align="left">{user.createdAt}</TableCell>
+                <TableCell align="left">{user.role_code}</TableCell>
                 <TableCell align="center">
                   <Tooltip title="Edit">
-                    <IconButton onClick={handleEditUser}>
+                    <IconButton onClick={() => handleEditUser(user)}>
                       <Edit color="primary" />
                     </IconButton>
                   </Tooltip>
@@ -98,6 +102,7 @@ export default function TableComponent() {
         open={openEdit}
         handleClose={handleCloseEdit}
         handleAccept={handleAcceptEdit}
+        userData={selectedUser}
       />
     </>
   );

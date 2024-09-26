@@ -1,4 +1,4 @@
-import { IListUser, IUserData } from "../../redux/reducers/user";
+import { IUserData } from "../../redux/reducers/user";
 import { API } from "../config";
 
 export type IResponse = {
@@ -8,7 +8,7 @@ export type IResponse = {
 };
 
 export type IResponses = {
-  userDataList: IListUser[];
+  userDataList: IUserData[];
   mes: "string";
   err: number;
 };
@@ -34,6 +34,23 @@ export const getUserAllAPI = async (): Promise<IResponses> => {
   return {
     mes: data.mes,
     userDataList: data.data || [],
+    err: data.err,
+  };
+};
+
+export const editUser = async (userData: IUserData): Promise<IResponse> => {
+  const { data } = await API.put(
+    `/user/users/${userData.id}`,
+    { ...userData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    userData: data.data || [],
     err: data.err,
   };
 };
