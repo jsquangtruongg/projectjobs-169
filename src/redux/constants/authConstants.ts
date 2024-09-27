@@ -14,17 +14,17 @@ export const SET_USER_INFO = "GET_USER_INFO";
 export const SET_USER_INIT = "GET_USER_INIT";
 
 export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
-
 export const SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN";
 
 export const SET_ADMIN_INFO = "SET_ADMIN_INFO";
 export const REMOVE_USER = "REMOVE_USER";
 
 export const USER_CHANGE_LOADING = "USER_CHANGE_LOADING";
-
 export const USER_CHANGE_LOADED = "USER_CHANGE_LOADED";
 
 export const GET_USER_ALL = "GET_USER_ALL";
+//PUT USER
+export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
 
 // global
 export const SET_ERROR = "SET_ERROR";

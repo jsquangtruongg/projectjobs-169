@@ -9,12 +9,16 @@ import {
   TextField,
 } from "@mui/material";
 
+import { IUserData } from "../../../redux/reducers/user";
+import { useEffect, useState } from "react";
+
 export type IDeleteDialogProps = {
   open?: boolean;
   title?: string;
   handleClose: () => void;
   handleAccept: () => void;
 };
+
 export const DeleteDialog = (props: IDeleteDialogProps) => {
   return (
     <Dialog
@@ -41,10 +45,32 @@ export const DeleteDialog = (props: IDeleteDialogProps) => {
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
+  userData: IUserData | null;
   handleClose: () => void;
-  handleAccept: () => void;
+  handleAccept: (user: IUserData) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
+  const [user, setUser] = useState<IUserData | null>(null);
+
+  useEffect(() => {
+    if (props.userData) {
+      setUser(props.userData);
+    }
+  }, [props.userData]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleAccepts = () => {
+    if (!user) return;
+    props.handleAccept(user);
+  };
+
   return (
     <Dialog
       open={props.open ?? false}
@@ -67,17 +93,35 @@ export const EditDialog = (props: IEditDialogProps) => {
           noValidate
           autoComplete="off"
         >
-          <TextField label="Họ" defaultValue={""} size="small" />
-          <TextField label="Tên" defaultValue={""} size="small" />
-          <TextField label="Email" defaultValue={""} size="small" />
-          <TextField label="Vai trò" defaultValue={""} size="small" />
+          <TextField
+            label="Họ"
+            name="firstName"
+            value={user?.firstName}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label="Tên"
+            name="lastName"
+            value={user?.lastName}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label="Vai trò"
+            name="role_code"
+            value={user?.role_code}
+            onChange={handleChange}
+            size="small"
+          />
         </Box>
       </DialogContent>
+
       <DialogActions>
         <Button autoFocus onClick={props.handleClose}>
           Huỷ
         </Button>
-        <Button onClick={props.handleAccept} autoFocus>
+        <Button onClick={handleAccepts} autoFocus>
           Đồng ý
         </Button>
       </DialogActions>
