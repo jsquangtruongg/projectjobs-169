@@ -13,13 +13,18 @@ import {
 import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getUserAll, putUpdateUser } from "../../../redux/actions/userAction";
+import {
+  deleteUser,
+  getUserAll,
+  putUpdateUser,
+} from "../../../redux/actions/userAction";
 import { IUserData } from "../../../redux/reducers/user";
 
 export default function TableComponent() {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUserData | null>(null);
+
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   // Delete
@@ -27,10 +32,15 @@ export default function TableComponent() {
     setOpenDelete(false);
   };
   const handleAcceptDelete = () => {
+    if (selectedUser) {
+      dispatch(deleteUser(selectedUser.id as number));
+    }
     //Gọi Dispatch để delete user
     setOpenDelete(false);
+    setSelectedUser(null);
   };
-  const handleDeleteUser = () => {
+  const handleDeleteUser = (user: IUserData) => {
+    setSelectedUser(user);
     setOpenDelete(true);
   };
 
@@ -81,7 +91,7 @@ export default function TableComponent() {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Delete">
-                    <IconButton onClick={handleDeleteUser}>
+                    <IconButton onClick={() => handleDeleteUser(user)}>
                       <Delete color="error" />
                     </IconButton>
                   </Tooltip>

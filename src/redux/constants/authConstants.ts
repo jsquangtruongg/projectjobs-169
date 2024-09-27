@@ -25,7 +25,8 @@ export const USER_CHANGE_LOADED = "USER_CHANGE_LOADED";
 export const GET_USER_ALL = "GET_USER_ALL";
 //PUT USER
 export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
-
+//DELETE
+export const DELETE_USER = "DELETE_USER";
 // global
 export const SET_ERROR = "SET_ERROR";
 
