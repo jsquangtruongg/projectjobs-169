@@ -1,4 +1,5 @@
 import {
+  deleteUserAPI,
   editUser,
   getAdminInfoAPI,
   getUserAPI,
@@ -71,3 +72,12 @@ export const putUpdateUser =
       console.error(error);
     }
   };
+
+export const deleteUser = (userId: number) => async (dispatch: AppDispatch) => {
+  try {
+    await deleteUserAPI(userId);
+    dispatch(getUserAll());
+  } catch (error) {
+    console.error(error);
+  }
+};

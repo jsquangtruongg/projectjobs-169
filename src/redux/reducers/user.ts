@@ -80,6 +80,13 @@ const userReducer = (
         userData: action.payload.userData,
       };
       return newPut;
+    case types.DELETE_USER:
+      return {
+        ...state,
+        userDataList: state.userDataList.filter(
+          (user: IUserData) => user.id !== action.payload.userData?.id
+        ),
+      };
     default:
       return state;
   }

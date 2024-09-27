@@ -54,3 +54,17 @@ export const editUser = async (userData: IUserData): Promise<IResponse> => {
     err: data.err,
   };
 };
+
+export const deleteUserAPI = async (userId: number): Promise<IResponse> => {
+  const { data } = await API.delete(`/user/users/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("du lieu tra ve", data);
+  return {
+    mes: data.mes,
+    userData: data.data || [],
+    err: data.err,
+  };
+};
