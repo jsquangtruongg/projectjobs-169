@@ -13,6 +13,7 @@ export default function BlogComponent() {
     >
       <FilterComponent />
       <TableComponent />
+
     </Box>
   );
 }

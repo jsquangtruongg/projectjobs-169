@@ -38,3 +38,4 @@ export const GET_JOB = "GET_JOB";
 export const GET_BLOG_ALL = "GET_BLOG_ALL";
 export const GET_BLOG = "GET_BLOG";
 export const PUT_UPDATE_BLOG = "PUT_UPDATE_BLOG";
+export const DELETE_BLOG = "DELETE_BLOG";

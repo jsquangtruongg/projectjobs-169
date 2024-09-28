@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+
   TextField,
 } from "@mui/material";
 import { IBlogData } from "../../../redux/reducers/blog";
@@ -118,6 +119,52 @@ export const EditDialog = (props: IEditDialogProps) => {
         </Button>
         <Button onClick={handleAccepts} autoFocus>
           Đồng ý
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export type IAddDialogProps = {
+  open?: boolean; // Kiểm soát trạng thái mở/đóng của dialog
+  handleClose: () => void; // Hàm đóng dialog
+  handleAccept: () => void; // Hàm xử lý khi nhấn "Lưu"
+};
+
+export const AddDialog = (props: IAddDialogProps) => {
+  return (
+    <Dialog
+      open={props.open ?? false}
+      onClose={props.handleClose}
+      aria-labelledby="responsive-dialog-title"
+    >
+      <DialogTitle id="responsive-dialog-title" style={{textAlign:"center"}}>
+        Thêm mới thông tin blog
+      </DialogTitle>
+      <DialogContent>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { width: "100%" },
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            padding: "10px",
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField label="Tên bài viết" name="title" size="small" />
+          <TextField label="Danh mục" name="content" size="small" />
+          <TextField label="Tên" name="lastName" size="small" />
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={props.handleClose}>
+          Huỷ
+        </Button>
+        <Button onClick={props.handleAccept} autoFocus>
+          Lưu
         </Button>
       </DialogActions>
     </Dialog>

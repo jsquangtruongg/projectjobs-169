@@ -8,7 +8,7 @@ export type IUser = {
   email: string;
 };
 
-export type category = {
+export type ICategory = {
   title: string;
   describe: string;
 };
@@ -24,20 +24,20 @@ export type IBlogData = {
   createdAt: string;
   updatedAt: string;
   userData: IUser;
-  categoryData: category;
+  categoryData: ICategory;
 };
 
 export type IBlogUser = IBlogData;
 
 export type IBlog = {
   isLoading: boolean;
-  blogData: IBlogData[];
+  blogData: IBlogData | null;
   blogDataList: IBlogData[];
 };
 
 const initialState: IBlog = {
   isLoading: false,
-  blogData: [],
+  blogData: null,
   blogDataList: [],
 };
 
@@ -62,6 +62,13 @@ const userReducer = (
       return {
         ...state,
         blogData: action.payload.blogData,
+      };
+    case types.DELETE_BLOG:
+      return {
+        ...state,
+        blogDataList: state.blogDataList.filter(
+          (blog: IBlogData) => blog.id !== payload.blogData?.id
+        ),
       };
     default:
       return state;

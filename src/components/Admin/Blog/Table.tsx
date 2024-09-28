@@ -13,7 +13,12 @@ import {
 import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { putUpdateBlog, getBlogAll } from "../../../redux/actions/blogActions";
+import AddIcon from "@mui/icons-material/Add";
+import {
+  putUpdateBlog,
+  getBlogAll,
+  deleteBlog,
+} from "../../../redux/actions/blogActions";
 import { IBlogData } from "../../../redux/reducers/blog";
 export default function TableComponent() {
   const [openDelete, setOpenDelete] = useState(false);
@@ -29,9 +34,14 @@ export default function TableComponent() {
   };
 
   const handleAcceptDelete = () => {
+    if (selectedUser) {
+      dispatch(deleteBlog(selectedUser.id as number));
+    }
+    setSelectedUser(null);
     setOpenDelete(false);
   };
-  const handleDeleteUser = () => {
+  const handleDeleteUser = (blog: IBlogData) => {
+    setSelectedUser(blog);
     setOpenDelete(true);
   };
   const handleCloseEdit = () => {
@@ -83,7 +93,7 @@ export default function TableComponent() {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton onClick={handleDeleteUser}>
+                      <IconButton onClick={() => handleDeleteUser(blog)}>
                         <Delete color="error" />
                       </IconButton>
                     </Tooltip>

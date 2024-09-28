@@ -1,4 +1,4 @@
-import { editBlog, getBlogAllAPI, getBlogAPI } from "../../api/blog";
+import { deleteBlogAPI, editBlog, getBlogAllAPI, getBlogAPI } from "../../api/blog";
 import * as types from "../constants/authConstants";
 import { IBlogData } from "../reducers/blog";
 import { AppDispatch } from "../store";
@@ -34,3 +34,13 @@ export const putUpdateBlog =
       dispatch(getBlogAll());
     } catch (error) {}
   };
+
+  export const deleteBlog =
+    (id: number) => async (dispatch: AppDispatch) => {
+      try {
+        await deleteBlogAPI(id);
+        dispatch(getBlogAll());
+      } catch (error) {
+        console.error(error);
+      }
+    };
