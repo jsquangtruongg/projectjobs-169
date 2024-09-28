@@ -5,7 +5,14 @@ export type IUser = {
   id: number;
   firstName: string;
   lastName: string;
+  email: string;
 };
+
+export type category = {
+  title: string;
+  describe: string;
+};
+
 export type IBlogData = {
   id: number;
   title: string;
@@ -17,16 +24,21 @@ export type IBlogData = {
   createdAt: string;
   updatedAt: string;
   userData: IUser;
+  categoryData: category;
 };
+
+export type IBlogUser = IBlogData;
 
 export type IBlog = {
   isLoading: boolean;
   blogData: IBlogData[];
+  blogDataList: IBlogData[];
 };
 
 const initialState: IBlog = {
   isLoading: false,
   blogData: [],
+  blogDataList: [],
 };
 
 const userReducer = (
@@ -41,7 +53,16 @@ const userReducer = (
         ...state,
         blogData: payload.blogData || [],
       };
-
+    case types.GET_BLOG_ALL:
+      return {
+        ...state,
+        blogDataList: payload.blogDataList || [],
+      };
+    case types.PUT_UPDATE_BLOG:
+      return {
+        ...state,
+        blogData: action.payload.blogData,
+      };
     default:
       return state;
   }
