@@ -27,8 +27,6 @@ export type IBlogData = {
   categoryData: ICategory;
 };
 
-export type IBlogUser = IBlogData;
-
 export type IBlog = {
   isLoading: boolean;
   blogData: IBlogData | null;
@@ -41,7 +39,7 @@ const initialState: IBlog = {
   blogDataList: [],
 };
 
-const userReducer = (
+const blogReducer = (
   state = initialState,
   action: PayloadAction<Partial<IBlog>>
 ) => {
@@ -51,7 +49,7 @@ const userReducer = (
     case types.GET_BLOG:
       return {
         ...state,
-        blogData: payload.blogData || [],
+        blogData: payload.blogData,
       };
     case types.GET_BLOG_ALL:
       return {
@@ -63,16 +61,10 @@ const userReducer = (
         ...state,
         blogData: action.payload.blogData,
       };
-    case types.DELETE_BLOG:
-      return {
-        ...state,
-        blogDataList: state.blogDataList.filter(
-          (blog: IBlogData) => blog.id !== payload.blogData?.id
-        ),
-      };
+
     default:
       return state;
   }
 };
 
-export default userReducer;
+export default blogReducer;

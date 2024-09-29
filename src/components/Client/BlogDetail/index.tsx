@@ -8,17 +8,16 @@ import EmailIcon from "@mui/icons-material/Email";
 import { useEffect } from "react";
 import { getBlog } from "../../../redux/actions/blogActions";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { IBlogData } from "../../../redux/reducers/blog";
 import { useParams } from "react-router";
 export const BlogDetailComponent = () => {
-  const blogDetailState = useAppSelector((state) => state.blogData);
+  const blogDetailState = useAppSelector((state) => state.blog);
   const dispatch = useAppDispatch();
   const { blogCategoryId } = useParams();
   useEffect(() => {
     dispatch(getBlog(Number(blogCategoryId) || 0));
   }, []);
   console.log(blogDetailState);
-  const firstBlog = blogDetailState.blogData[0];
+  const firstBlog = blogDetailState.blogDataList[0];
   return (
     <div className="blog-detail-container">
       <div className="layout-container">
@@ -92,7 +91,7 @@ export const BlogDetailComponent = () => {
           </>
         )}
         <div className="list-blog">
-          {blogDetailState.blogData.map((blog: IBlogData, index: number) => (
+          {blogDetailState.blogDataList.map((blog, index: number) => (
             <div className="item-blog" key={index}>
               <div className="img-wrap">
                 <img src={imgPost} alt="" />

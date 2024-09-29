@@ -65,3 +65,22 @@ export const deleteBlogAPI = async (id: number): Promise<IResponse> => {
     err: data.err,
   };
 };
+
+export const createBlogAPI = async (
+  blogData: IBlogData
+): Promise<IResponse> => {
+  const { data } = await API.post(
+    "/blog",
+    { ...blogData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    blogData: data.data || {},
+    err: data.err,
+  };
+};

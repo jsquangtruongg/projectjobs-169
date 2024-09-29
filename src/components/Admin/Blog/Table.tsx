@@ -25,7 +25,7 @@ export default function TableComponent() {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogData | null>(null);
   const dispatch = useAppDispatch();
-  const blogState = useAppSelector((state) => state.blogData);
+  const blogState = useAppSelector((state) => state.blog);
   useEffect(() => {
     dispatch(getBlogAll());
   }, []);
