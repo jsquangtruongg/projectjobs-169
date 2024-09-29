@@ -1,11 +1,10 @@
-import {
-  Box,
-  Input,
-} from "@mui/material";
+import { Box, Input } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
 import { useState } from "react";
+
+import { IBlogData } from "../../../redux/reducers/blog";
 import { AddDialog } from "./Dialog";
 
 export interface IFilterComponentProps {}
@@ -22,8 +21,7 @@ export default function FilterComponent(props: IFilterComponentProps) {
   };
 
   const handleAcceptAddDialog = () => {
-    console.log("Thông tin đã được lưu");
-    handleCloseAddDialog(); 
+    setAddDialogOpen(false);
   };
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>

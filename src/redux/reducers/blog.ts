@@ -29,13 +29,13 @@ export type IBlogData = {
 
 export type IBlog = {
   isLoading: boolean;
-  blogData: IBlogData | null;
+  blogData: IBlogData[];
   blogDataList: IBlogData[];
 };
 
 const initialState: IBlog = {
   isLoading: false,
-  blogData: null,
+  blogData: [],
   blogDataList: [],
 };
 
@@ -49,18 +49,18 @@ const blogReducer = (
     case types.GET_BLOG:
       return {
         ...state,
-        blogData: payload.blogData,
+        blogData: payload.blogData || [],
       };
     case types.GET_BLOG_ALL:
       return {
         ...state,
         blogDataList: payload.blogDataList || [],
       };
-    case types.PUT_UPDATE_BLOG:
-      return {
-        ...state,
-        blogData: action.payload.blogData,
-      };
+    // case types.PUT_UPDATE_BLOG:
+    //   return {
+    //     ...state,
+    //     blogData: action.payload.blogData,
+    //   };
 
     default:
       return state;

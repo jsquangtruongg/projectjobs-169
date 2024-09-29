@@ -17,7 +17,7 @@ export const BlogDetailComponent = () => {
     dispatch(getBlog(Number(blogCategoryId) || 0));
   }, []);
   console.log(blogDetailState);
-  const firstBlog = blogDetailState.blogDataList[0];
+  const firstBlog = blogDetailState.blogData[0];
   return (
     <div className="blog-detail-container">
       <div className="layout-container">
@@ -91,7 +91,7 @@ export const BlogDetailComponent = () => {
           </>
         )}
         <div className="list-blog">
-          {blogDetailState.blogDataList.map((blog, index: number) => (
+          {blogDetailState.blogData.map((blog, index: number) => (
             <div className="item-blog" key={index}>
               <div className="img-wrap">
                 <img src={imgPost} alt="" />
