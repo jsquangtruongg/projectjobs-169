@@ -11,7 +11,8 @@ import {
 import { IBlogData } from "../../../redux/reducers/blog";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/store";
-import { postCreateBlog } from "../../../redux/actions/blogActions";
+import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
+import { postCreateBlogCategory } from "../../../redux/actions/blogCategoryAction";
 
 export type IDeleteDialogProps = {
   open?: boolean;
@@ -45,22 +46,23 @@ export const DeleteDialog = (props: IDeleteDialogProps) => {
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
-  blogData: IBlogData | null;
+  blogCategoryData: IBlogCategoryData | null;
   handleClose: () => void;
-  handleAccept: (blog: IBlogData) => void;
+  handleAccept: (blog: IBlogCategoryData) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
-  const [blog, setBlog] = useState<IBlogData | null>(null);
+  const [blog, setBlog] = useState<IBlogCategoryData | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setBlog((prevData) => (prevData ? { ...prevData, [name]: value } : null));
   };
+
   useEffect(() => {
-    if (props.blogData) {
-      setBlog(props.blogData);
+    if (props.blogCategoryData) {
+      setBlog(props.blogCategoryData);
     }
-  }, [props.blogData]);
+  }, [props.blogCategoryData]);
 
   const handleAccepts = () => {
     if (!blog) return;
@@ -101,8 +103,8 @@ export const EditDialog = (props: IEditDialogProps) => {
           <TextField
             onChange={handleChange}
             label="Danh mục"
-            value={blog?.content || ""}
-            name="content"
+            value={blog?.describe}
+            name="describe"
             size="small"
           />
           <TextField
@@ -133,14 +135,12 @@ export type IAddDialogProps = {
 };
 
 export const AddDialog = (props: IAddDialogProps) => {
-  const [addBlog, setAddBlog] = useState<IBlogData>({
-    id: 3,
+  const [addBlogCategory, setAddBlogCategory] = useState<IBlogCategoryData>({
+    id: 1,
     title: "",
-    content: "",
     img: "",
-    user_id: 2,
-    salary: "",
-    blog_category_id: 2,
+    describe: "",
+    user_id: 1,
     createdAt: "",
     updatedAt: "",
     userData: {
@@ -149,17 +149,17 @@ export const AddDialog = (props: IAddDialogProps) => {
       lastName: "",
       id: 1,
     },
-    categoryData: {
-      describe: "",
+    blogData: {
+      id: 1,
+      content: "",
       title: "",
     },
   });
   const dispatch = useAppDispatch();
 
   const handleAccepts = async () => {
-    if (!addBlog) return;
-
-    await dispatch(postCreateBlog(addBlog));
+    if (!addBlogCategory) return;
+    await dispatch(postCreateBlogCategory(addBlogCategory));
     props.handleClose();
   };
   return (
@@ -185,84 +185,50 @@ export const AddDialog = (props: IAddDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            value={addBlog?.id}
             label="ID"
             name="id"
             size="small"
+            value={addBlogCategory.id}
             onChange={(event) =>
-              setAddBlog({ ...addBlog, id: parseInt(event.target.value) })
-            }
-          />
-          <TextField
-            value={addBlog?.title}
-            label="Tên bài viết"
-            name="title"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, title: event.target.value })
-            }
-          />
-          <TextField
-            value={addBlog?.content}
-            label="Nội dung"
-            name="content"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, content: event.target.value })
-            }
-          />
-          <TextField
-            value={addBlog?.img}
-            label="Hình ảnh"
-            name="img"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, img: event.target.value })
-            }
-          />
-          <TextField
-            value={addBlog?.user_id}
-            label="User ID"
-            name="user_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, user_id: parseInt(event.target.value) })
-            }
-          />
-         
-          <TextField
-            value={addBlog?.blog_category_id}
-            label="Danh mục ID"
-            name="blog_category_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                blog_category_id: parseInt(event.target.value),
+              setAddBlogCategory({
+                ...addBlogCategory,
+                id: parseInt(event.target.value),
               })
             }
           />
           <TextField
-            value={addBlog?.createdAt}
-            label="Ngày tạo"
-            name="createdAt"
+            label="Tên bài viết"
+            name="title"
             size="small"
+            value={addBlogCategory.title}
             onChange={(event) =>
-              setAddBlog({ ...addBlog, createdAt: event.target.value })
+              setAddBlogCategory({
+                ...addBlogCategory,
+                title: event.target.value,
+              })
             }
           />
           <TextField
-            value={addBlog?.userData.firstName}
-            label="Tên người dùng"
-            name="firstName"
+            label="Mô tả"
+            name="describe"
             size="small"
+            value={addBlogCategory.describe}
             onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                userData: {
-                  ...addBlog.userData,
-                  firstName: event.target.value,
-                },
+              setAddBlogCategory({
+                ...addBlogCategory,
+                describe: event.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Hình Ảnh"
+            name="ing"
+            size="small"
+            value={addBlogCategory.img}
+            onChange={(event) =>
+              setAddBlogCategory({
+                ...addBlogCategory,
+                img: event.target.value,
               })
             }
           />

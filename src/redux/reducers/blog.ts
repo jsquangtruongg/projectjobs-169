@@ -13,7 +13,7 @@ export type ICategory = {
   describe: string;
 };
 
-export type IBlogData = {
+export type   IBlogData = {
   id: number;
   title: string;
   content: string;

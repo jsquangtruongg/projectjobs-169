@@ -1,3 +1,10 @@
+import BlogCategoryComponent from "../../components/Admin/BlogCategory";
+
 export default function BlogCategoryAdminPage() {
-  return <div>Blog category page</div>;
+  return (
+    <div>
+      {" "}
+      <BlogCategoryComponent />
+    </div>
+  );
 }

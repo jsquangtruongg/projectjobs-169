@@ -28,7 +28,14 @@ export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const SET_ERROR = "SET_ERROR";
 
+
+
 export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
+
+
+
+
+
 
 //JOB
 
