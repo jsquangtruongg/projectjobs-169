@@ -7,8 +7,23 @@ export type IResponse = {
   err: number;
 };
 
+export type IResponses = {
+  blogDataList: IBlogData[];
+  mes: "string";
+  err: number;
+};
+
 export type IBlogResponse = {
   mes: string;
+};
+
+export const getBlogAllAPI = async (): Promise<IResponses> => {
+  const res = await API.get("/blog");
+  return {
+    blogDataList: res.data.data || [],
+    mes: res.data.mes,
+    err: res.data.err,
+  };
 };
 
 export const getBlogAPI = async (id: number): Promise<IResponse> => {
@@ -17,5 +32,55 @@ export const getBlogAPI = async (id: number): Promise<IResponse> => {
     blogData: res.data.data,
     mes: res.data.mes,
     err: res.data.err,
+  };
+};
+
+export const editBlog = async (blogData: IBlogData): Promise<IResponse> => {
+  const { data } = await API.put(
+    `/blog/blogs/${blogData.id}`,
+    { ...blogData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    blogData: data.data || [],
+    err: data.err,
+  };
+};
+
+export const deleteBlogAPI = async (id: number): Promise<IResponse> => {
+  const { data } = await API.delete(`/blog/blogs/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("du lieu tra ve", data);
+  return {
+    mes: data.mes,
+    blogData: data.data || [],
+    err: data.err,
+  };
+};
+
+export const createBlogAPI = async (
+  blogData: IBlogData
+): Promise<IResponse> => {
+  const { data } = await API.post(
+    "/blog",
+    { ...blogData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    blogData: data.data || {},
+    err: data.err,
   };
 };

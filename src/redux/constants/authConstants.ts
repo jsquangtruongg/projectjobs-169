@@ -23,19 +23,27 @@ export const USER_CHANGE_LOADING = "USER_CHANGE_LOADING";
 export const USER_CHANGE_LOADED = "USER_CHANGE_LOADED";
 
 export const GET_USER_ALL = "GET_USER_ALL";
-//PUT USER
 export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
-//DELETE
+
 export const DELETE_USER = "DELETE_USER";
-// global
 export const SET_ERROR = "SET_ERROR";
 
-// Blog category
+
+
 export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
 
-// Blog detail
-export const GET_BLOG = "GET_BLOG";
 
-//Job
+
+
+
+
+//JOB
 
 export const GET_JOB = "GET_JOB";
+
+//Blog
+export const GET_BLOG_ALL = "GET_BLOG_ALL";
+export const GET_BLOG = "GET_BLOG";
+export const PUT_UPDATE_BLOG = "PUT_UPDATE_BLOG";
+export const DELETE_BLOG = "DELETE_BLOG";
+export const CREATE_BLOG = "CREATE_BLOG";

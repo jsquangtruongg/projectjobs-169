@@ -22,8 +22,8 @@ export const BlogCategoryComponent = () => {
   }, []);
 
   useEffect(() => {
-    setFilterBlogs(blogCategoryState.blogCategoryData);
-  }, [blogCategoryState.blogCategoryData]);
+    setFilterBlogs(blogCategoryState.blogCategoryDataList);
+  }, [blogCategoryState.blogCategoryDataList]);
 
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export const BlogCategoryComponent = () => {
     navigate(`/blog-detail/${blogCategoryId}`);
   };
   const handleSearch = () => {
-    const filtered = blogCategoryState.blogCategoryData?.filter(
+    const filtered = blogCategoryState.blogCategoryDataList?.filter(
       (blog: IBlogCategoryData) =>
         blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         blog.describe.toLowerCase().includes(searchTerm.toLowerCase())
@@ -59,7 +59,7 @@ export const BlogCategoryComponent = () => {
           <p className="title-page"> Danh Mục Bài Đăng Mới Nhất</p>
           <div className="section-list-blog">
             <div className="list-blog">
-              {blogCategoryState.blogCategoryData.length === 0 ? (
+              {blogCategoryState.blogCategoryDataList.length === 0 ? (
                 <div className="loading-data">
                   <CircularProgress />
                 </div>

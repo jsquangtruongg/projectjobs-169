@@ -5,8 +5,15 @@ export type IUser = {
   id: number;
   firstName: string;
   lastName: string;
+  email: string;
 };
-export type IBlogData = {
+
+export type ICategory = {
+  title: string;
+  describe: string;
+};
+
+export type   IBlogData = {
   id: number;
   title: string;
   content: string;
@@ -17,19 +24,22 @@ export type IBlogData = {
   createdAt: string;
   updatedAt: string;
   userData: IUser;
+  categoryData: ICategory;
 };
 
 export type IBlog = {
   isLoading: boolean;
   blogData: IBlogData[];
+  blogDataList: IBlogData[];
 };
 
 const initialState: IBlog = {
   isLoading: false,
   blogData: [],
+  blogDataList: [],
 };
 
-const userReducer = (
+const blogReducer = (
   state = initialState,
   action: PayloadAction<Partial<IBlog>>
 ) => {
@@ -41,10 +51,20 @@ const userReducer = (
         ...state,
         blogData: payload.blogData || [],
       };
+    case types.GET_BLOG_ALL:
+      return {
+        ...state,
+        blogDataList: payload.blogDataList || [],
+      };
+    // case types.PUT_UPDATE_BLOG:
+    //   return {
+    //     ...state,
+    //     blogData: action.payload.blogData,
+    //   };
 
     default:
       return state;
   }
 };
 
-export default userReducer;
+export default blogReducer;

@@ -1,3 +1,10 @@
+import BlogComponent from "../../components/Admin/Blog";
+
 export default function BlogAdminPage() {
-  return <div>Blog page</div>;
+
+  return (
+    <div>
+     <BlogComponent/>
+    </div>
+  );
 }
