@@ -10,7 +10,6 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
-import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
@@ -19,48 +18,79 @@ import {
   putUpdateUser,
 } from "../../../redux/actions/userAction";
 import { IUserData } from "../../../redux/reducers/user";
+import { DeleteDialog, EditDialog } from "./Dialog";
 
-export default function TableComponent() {
+interface ITableComponentProps {
+  searchCriteria: IUserData;
+}
+
+export default function TableComponent({
+  searchCriteria,
+}: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUserData | null>(null);
 
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  // Delete
+
+  // Hàm đóng Dialog Delete
   const handleCloseDelete = () => {
     setOpenDelete(false);
   };
+
+  // Hàm xử lý xóa người dùng
   const handleAcceptDelete = () => {
     if (selectedUser) {
       dispatch(deleteUser(selectedUser.id as number));
     }
-    //Gọi Dispatch để delete user
     setOpenDelete(false);
     setSelectedUser(null);
   };
+
+  // Hàm mở Dialog Delete
   const handleDeleteUser = (user: IUserData) => {
     setSelectedUser(user);
     setOpenDelete(true);
   };
 
-  //Edit
+  // Hàm đóng Dialog Edit
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
+
+  // Hàm xử lý cập nhật người dùng
   const handleAcceptEdit = (user: IUserData) => {
-    //Gọi Dispatch để delete user
     dispatch(putUpdateUser(user));
     setSelectedUser(null);
     setOpenEdit(false);
   };
+
+  // Hàm mở Dialog Edit
   const handleEditUser = (user: IUserData) => {
     setSelectedUser(user);
     setOpenEdit(true);
   };
+
   useEffect(() => {
     dispatch(getUserAll());
-  }, []);
+  }, [dispatch]);
+useEffect(() => {
+  if (
+    searchCriteria.firstName ||
+    searchCriteria.lastName ||
+    searchCriteria.role_code
+  ) {
+    dispatch(
+      getUserAll(
+        searchCriteria.firstName,
+        searchCriteria.lastName,
+        searchCriteria.role_code
+      )
+    );
+  }
+}, [dispatch, searchCriteria]);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -79,18 +109,18 @@ export default function TableComponent() {
           <TableBody>
             {userState.userDataList.map((user: IUserData, index: number) => (
               <TableRow key={index}>
-                <TableCell align="center">{user.id}</TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell align="center">{index + 1}</TableCell>
+                <TableCell align="right">{/* Thêm avatar nếu có */}</TableCell>
                 <TableCell align="left">{user.firstName}</TableCell>
                 <TableCell align="left">{user.lastName}</TableCell>
                 <TableCell align="left">{user.role_code}</TableCell>
                 <TableCell align="center">
-                  <Tooltip title="Edit">
+                  <Tooltip title="Chỉnh sửa">
                     <IconButton onClick={() => handleEditUser(user)}>
                       <Edit color="primary" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Delete">
+                  <Tooltip title="Xóa">
                     <IconButton onClick={() => handleDeleteUser(user)}>
                       <Delete color="error" />
                     </IconButton>
@@ -101,13 +131,15 @@ export default function TableComponent() {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* Import */}
+
+      {/* Dialog xóa */}
       <DeleteDialog
         open={openDelete}
         handleClose={handleCloseDelete}
         handleAccept={handleAcceptDelete}
       />
 
+      {/* Dialog chỉnh sửa */}
       <EditDialog
         open={openEdit}
         handleClose={handleCloseEdit}

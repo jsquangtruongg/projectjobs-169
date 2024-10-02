@@ -29,14 +29,26 @@ export const getAdminInfoAPI = async (): Promise<IResponse> => {
   return { mes: data.mes, userData: data.userData, err: data.err };
 };
 
-export const getUserAllAPI = async (): Promise<IResponses> => {
-  const { data } = await API.get("/user/users");
+export const getUserAllAPI = async (
+  firstName?: string,
+  lastName?: string,
+  role_code?: string
+): Promise<IResponses> => {
+  const params = new URLSearchParams();
+
+  if (firstName) params.append("firstName", firstName);
+  if (lastName) params.append("lastName", lastName);
+  if (role_code) params.append("role_code", role_code);
+
+  const { data } = await API.get(`/user/users?${params.toString()}`);
+
   return {
     mes: data.mes,
     userDataList: data.data || [],
     err: data.err,
   };
 };
+
 
 export const editUser = async (userData: IUserData): Promise<IResponse> => {
   const { data } = await API.put(
