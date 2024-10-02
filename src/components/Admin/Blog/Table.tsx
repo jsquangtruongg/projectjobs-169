@@ -19,7 +19,14 @@ import {
   deleteBlog,
 } from "../../../redux/actions/blogActions";
 import { IBlogData } from "../../../redux/reducers/blog";
-export default function TableComponent() {
+
+interface ITableComponentProps {
+  searchCriteria: IBlogData;
+}
+
+export default function TableComponent({
+  searchCriteria,
+}:ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogData | null>(null);
@@ -58,6 +65,20 @@ export default function TableComponent() {
     setSelectedUser(blog);
     setOpenEdit(true);
   };
+  useEffect(()=>{
+    if(searchCriteria.title ||
+      searchCriteria.content ||
+      searchCriteria.userData.lastName
+    ){
+      dispatch(
+        getBlogAll(
+          searchCriteria.title,
+          searchCriteria.content,
+          searchCriteria.userData.lastName
+        )
+      )
+    }
+  },[dispatch,searchCriteria])
   return (
     <div>
       <>
