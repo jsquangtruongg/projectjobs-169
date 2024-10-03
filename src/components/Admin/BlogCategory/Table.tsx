@@ -19,7 +19,10 @@ import {
   putUpdateBlogCategory,
 } from "../../../redux/actions/blogCategoryAction";
 import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
-export default function TableComponent() {
+interface ITableComponentProps {
+  searchCriteria: IBlogCategoryData;
+}
+export default function TableComponent({ searchCriteria }: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogCategoryData | null>(
@@ -60,6 +63,22 @@ export default function TableComponent() {
     setSelectedUser(blog);
     setOpenEdit(true);
   };
+
+    useEffect(() => {
+      if (
+        searchCriteria.title ||
+        searchCriteria.describe ||
+        searchCriteria.userData.lastName
+      ) {
+        dispatch(
+          getBlogCategory(
+            searchCriteria.title,
+            searchCriteria.describe,
+            searchCriteria.userData.lastName
+          )
+        );
+      }
+    }, [dispatch, searchCriteria]);
   return (
     <div>
       <>

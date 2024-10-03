@@ -16,8 +16,16 @@ export type ISignInResponse = {
   mes: string;
 };
 
-export const getBlogCategoryAPI = async (): Promise<IResponses> => {
-  const res = await API.get("/blog-category");
+export const getBlogCategoryAPI = async (
+  title?: string,
+  describe?: string,
+  lastName?: string
+): Promise<IResponses> => {
+  const params = new URLSearchParams();
+  if (title) params.append("title", title);
+  if (describe) params.append("describe", describe);
+  if (lastName) params.append("lastName", lastName);
+  const res = await API.get(`/blog-category?${params.toString()}`);
   return {
     mes: res.data.mes,
     blogCategoryDataList: res.data.data || [],
