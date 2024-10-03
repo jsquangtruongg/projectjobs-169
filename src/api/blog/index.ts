@@ -17,8 +17,16 @@ export type IBlogResponse = {
   mes: string;
 };
 
-export const getBlogAllAPI = async (): Promise<IResponses> => {
-  const res = await API.get("/blog");
+export const getBlogAllAPI = async (
+  title?: string,
+  content?: string,
+  lastName?: string
+): Promise<IResponses> => {
+  const params = new URLSearchParams();
+  if (title) params.append("title", title);
+  if (content) params.append("content", content);
+  if (lastName) params.append("lastName", lastName);
+  const res = await API.get(`/blog?${params.toString()}`);
   return {
     blogDataList: res.data.data || [],
     mes: res.data.mes,

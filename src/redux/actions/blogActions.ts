@@ -21,17 +21,19 @@ export const getBlog = (id: number) => async (dispatch: AppDispatch) => {
     dispatch(setError(error.response?.data.mess));
   }
 };
-export const getBlogAll = () => async (dispatch: AppDispatch) => {
-  try {
-    const { blogDataList } = await getBlogAllAPI();
-    dispatch({
-      type: types.GET_BLOG_ALL,
-      payload: { blogDataList },
-    });
-  } catch (error: any) {
-    dispatch(setError(error.response?.data.mess));
-  }
-};
+export const getBlogAll =
+  (title = "", content = "", lastName = "") =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const { blogDataList } = await getBlogAllAPI(title, content, lastName);
+      dispatch({
+        type: types.GET_BLOG_ALL,
+        payload: { blogDataList },
+      });
+    } catch (error: any) {
+      dispatch(setError(error.response?.data.mess));
+    }
+  };
 
 export const putUpdateBlog =
   (data: IBlogData) => async (dispatch: AppDispatch) => {
@@ -56,6 +58,6 @@ export const postCreateBlog =
       await createBlogAPI(data);
       dispatch(getBlogAll());
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };

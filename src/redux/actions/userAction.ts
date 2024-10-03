@@ -18,17 +18,24 @@ export const setUserInit =
     });
   };
 
-export const getUserAll = () => async (dispatch: AppDispatch) => {
-  try {
-    const { userDataList } = await getUserAllAPI();
-    dispatch({
-      type: types.GET_USER_ALL,
-      payload: { userDataList },
-    });
-  } catch (error: any) {
-    dispatch(setError(error.response?.data.mess));
-  }
-};
+export const getUserAll =
+  (firstName = "", lastName = "", role_code = "") =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const { userDataList } = await getUserAllAPI(
+        firstName,
+        lastName,
+        role_code
+      );
+      dispatch({
+        type: types.GET_USER_ALL,
+        payload: { userDataList },
+      });
+    } catch (error: any) {
+      dispatch(setError(error.response?.data.mess));
+    }
+  };
+
 
 export const getAdminInfo = () => async (dispatch: AppDispatch) => {
   try {
