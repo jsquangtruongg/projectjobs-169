@@ -88,32 +88,6 @@ export const HomeComponent = () => {
           <p className={styles.recommended}>Khuyến cáo của chúng tôi</p>
         </div>
         <div className={styles.bar_item_employer}>
-          {/* <div className={styles.from_item_employer}>
-            <div className={styles.item_employer}>
-              <HomeOutlinedIcon style={{ marginRight: 10 }} />
-              Kinh Doanh
-            </div>
-            <div className="category-item">
-              <HomeWorkRoundedIcon style={{ marginRight: 10 }} />
-              Marketiing
-            </div>
-            <div className="category-item">
-              <EdgesensorLowRoundedIcon style={{ marginRight: 10 }} />
-              Công Nghệ
-            </div>
-            <div className="category-item">
-              <KeyboardHideRoundedIcon style={{ marginRight: 10 }} />
-              Truyền Thông
-            </div>
-            <div className="btn-group-pre-next">
-              <div className="btn-pre">
-                <NavigateBeforeRoundedIcon />
-              </div>
-              <div className="btn-next">
-                <NavigateNextRoundedIcon />
-              </div>
-            </div>
-          </div> */}
           <Tabs>
             <div title="Kinh Doanh" className={styles.item_sponsor}>
               <div className={styles.form_recruitment_post}>
@@ -297,6 +271,7 @@ export const HomeComponent = () => {
           <div className={styles.item_btn_welcome}>
             <div className={styles.item_welcome}>Welcome</div>
           </div>
+
           <div className={styles.from_job_apply}>
             <div className={styles.form_job_apply_lef}>
               <div className={styles.item_job_apply}>

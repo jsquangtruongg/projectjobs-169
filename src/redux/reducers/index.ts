@@ -5,14 +5,14 @@ import userReducer from "./user";
 import globalReducer from "./global";
 import blogCategory from "./blogCategory";
 import blogReducer from "./blog";
-import job from "./job";
+import jobReducer from "./job";
 const rootReducer = combineReducers({
   global: globalReducer,
   auth: authReducer,
   user: userReducer,
   blogCategory: blogCategory,
   blog: blogReducer,
-  job: job,
+  job: jobReducer,
 });
 
 export default rootReducer;
