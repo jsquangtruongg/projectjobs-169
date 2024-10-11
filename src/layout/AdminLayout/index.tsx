@@ -30,6 +30,11 @@ const NAVIGATION: Navigation = [
     title: "Blog Category",
     icon: <Layers />,
   },
+  {
+    segment: "job",
+    title: "job",
+    icon: <Layers />,
+  },
 ];
 const themeAdmin = createTheme({
   cssVariables: {

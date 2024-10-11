@@ -19,13 +19,11 @@ export type ISignInResponse = {
 
 export const getUserAPI = async (): Promise<IResponse> => {
   const { data } = await API.get("/user");
-
   return { mes: data.mes, userData: data.userData, err: data.err };
 };
 
 export const getAdminInfoAPI = async (): Promise<IResponse> => {
   const { data } = await API.get("/user/info-role-admin");
-
   return { mes: data.mes, userData: data.userData, err: data.err };
 };
 
@@ -35,7 +33,6 @@ export const getUserAllAPI = async (
   role_code?: string
 ): Promise<IResponses> => {
   const params = new URLSearchParams();
-
   if (firstName) params.append("firstName", firstName);
   if (lastName) params.append("lastName", lastName);
   if (role_code) params.append("role_code", role_code);
@@ -48,7 +45,6 @@ export const getUserAllAPI = async (
     err: data.err,
   };
 };
-
 
 export const editUser = async (userData: IUserData): Promise<IResponse> => {
   const { data } = await API.put(

@@ -10,31 +10,31 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
+import moment from "moment";
 import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
-  putUpdateBlog,
-  getBlogAll,
-  deleteBlog,
-} from "../../../redux/actions/blogActions";
-import { IBlogData } from "../../../redux/reducers/blog";
+  deleteJob,
+  getJobAll,
+  updateJob,
+} from "../../../redux/actions/jobActions";
+import { IJobData } from "../../../redux/reducers/job";
 
 interface ITableComponentProps {
-  searchCriteria: IBlogData;
+  searchCriteria: IJobData;
 }
-
 export default function TableComponent({
   searchCriteria,
 }: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<IBlogData | null>(null);
+  const [selectedUser, setSelectedUser] = useState<IJobData | null>(null);
+  const jobState = useAppSelector((state) => state.job);
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const blogState = useAppSelector((state) => state.blog);
   useEffect(() => {
-    dispatch(getBlogAll());
+    dispatch(getJobAll());
   }, []);
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -42,45 +42,46 @@ export default function TableComponent({
 
   const handleAcceptDelete = () => {
     if (selectedUser) {
-      dispatch(deleteBlog(selectedUser.id as number));
+      dispatch(deleteJob(selectedUser.id as number));
     }
     setSelectedUser(null);
     setOpenDelete(false);
   };
-  const handleDeleteUser = (blog: IBlogData) => {
-    setSelectedUser(blog);
+  const handleDeleteUser = (job: IJobData) => {
+    setSelectedUser(job);
     setOpenDelete(true);
   };
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
 
-  const handleAcceptEdit = (blog: IBlogData) => {
-    dispatch(putUpdateBlog(blog));
-    console.log(blog);
+  const handleAcceptEdit = (job: IJobData) => {
+    dispatch(updateJob(job));
     setSelectedUser(null);
     setOpenEdit(false);
   };
 
-  const handleEditUser = (blog: IBlogData) => {
-    setSelectedUser(blog);
+  const handleEditUser = (job: IJobData) => {
+    setSelectedUser(job);
     setOpenEdit(true);
   };
   useEffect(() => {
-    if (
-      searchCriteria.title ||
-      searchCriteria.content ||
-      searchCriteria.userData.lastName
-    ) {
-      dispatch(
-        getBlogAll(
-          searchCriteria.title,
-          searchCriteria.content,
-          searchCriteria.userData.lastName
-        )
-      );
+    const { content, createdAt, userData } = searchCriteria;
+
+    if (content || createdAt || (userData && userData.lastName)) {
+      let formattedDate;
+      if (createdAt) {
+        const date = moment(createdAt, "DD/MM/YYYY", true);
+        if (date.isValid()) {
+          formattedDate = date.format("YYYY-MM-DD");
+        } else {
+          console.error("Ngày không hợp lệ:", createdAt);
+        }
+      }
+      dispatch(getJobAll(content, formattedDate, userData?.lastName));
     }
   }, [dispatch, searchCriteria]);
+
   return (
     <div>
       <>
@@ -90,35 +91,41 @@ export default function TableComponent({
               <TableRow>
                 <TableCell align="center">STT</TableCell>
                 <TableCell>Avatar</TableCell>
-                <TableCell align="left">Tên bài viết</TableCell>
-                <TableCell align="left">Tiêu đề</TableCell>
+                <TableCell align="left">Nội dung bài viết</TableCell>
+                <TableCell align="left">Ngày đăng</TableCell>
                 <TableCell align="left">Người đăng</TableCell>
                 <TableCell align="center">Hành động</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {blogState.blogDataList.map((blog: IBlogData, index: number) => (
+              {jobState.jobDataList.map((job: IJobData, index: number) => (
                 <TableRow key={index}>
-                  <TableCell align="center">{blog.id}</TableCell>
+                  <TableCell align="center">{job.id}</TableCell>
                   <TableCell align="right"></TableCell>
-                  <TableCell align="left">{blog.title}</TableCell>
-                  <TableCell align="left">{blog.content}</TableCell>
+                  <TableCell align="left">{job.content}</TableCell>
                   <TableCell align="left">
                     {" "}
-                    {blog.userData ? `${blog.userData.lastName}` : "Ẩn danh"}
+                    {new Date(job.createdAt).toLocaleDateString("vi-VN", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                  </TableCell>
+                  <TableCell align="left">
+                    {" "}
+                    {job.userData ? `${job.userData.lastName}` : "Ẩn danh"}
                   </TableCell>
                   <TableCell align="center">
                     {userState?.userData?.roleData?.id !== 1 && (
                       <Tooltip title="Edit">
-                        <IconButton onClick={() => handleEditUser(blog)}>
+                        <IconButton onClick={() => handleEditUser(job)}>
                           <Edit color="primary" />
                         </IconButton>
                       </Tooltip>
-                    )}
-
+                    )}  
                     <Tooltip title="Delete">
-                      <IconButton onClick={() => handleDeleteUser(blog)}>
+                      <IconButton onClick={() => handleDeleteUser(job)}>
                         <Delete color="error" />
                       </IconButton>
                     </Tooltip>
@@ -138,7 +145,7 @@ export default function TableComponent({
           open={openEdit}
           handleClose={handleCloseEdit}
           handleAccept={handleAcceptEdit}
-          blogData={selectedUser}
+          jobData={selectedUser}
         />
       </>
     </div>

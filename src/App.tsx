@@ -23,7 +23,7 @@ const App = () => {
             variant="filled"
             sx={{ width: "100%" }}
           >
-            This is a!{global.error}
+            {global.error}
           </Alert>
         </Snackbar>
       )}

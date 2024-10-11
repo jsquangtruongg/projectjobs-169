@@ -8,15 +8,15 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { IBlogData } from "../../../redux/reducers/blog";
+import { IJobData } from "../../../redux/reducers/job";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/store";
-import { postCreateBlog } from "../../../redux/actions/blogActions";
+import { createJob } from "../../../redux/actions/jobActions";
 
 export type IDeleteDialogProps = {
   open?: boolean;
-  title?: string; 
-  handleClose: () => void;  
+  title?: string;
+  handleClose: () => void;
   handleAccept: () => void;
 };
 export const DeleteDialog = (props: IDeleteDialogProps) => {
@@ -45,27 +45,25 @@ export const DeleteDialog = (props: IDeleteDialogProps) => {
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
-  blogData: IBlogData | null;
+  jobData: IJobData | null;
   handleClose: () => void;
-  handleAccept: (blog: IBlogData) => void;
+  handleAccept: (job: IJobData) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
-  const [blog, setBlog] = useState<IBlogData | null>(null);
+  const [job, setJob] = useState<IJobData | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBlog((prevData) => (prevData ? { ...prevData, [name]: value } : null));
+    setJob((prevData) => (prevData ? { ...prevData, [name]: value } : null));
   };
   useEffect(() => {
-    if (props.blogData) {
-      setBlog(props.blogData);
+    if (props.jobData) {
+      setJob(props.jobData);
     }
-  }, [props.blogData]);
-
+  }, [props.jobData]);
   const handleAccepts = () => {
-    if (!blog) return;
-    console.log("Blog data:", blog);
-    props.handleAccept(blog);
+    if (!job) return;
+    props.handleAccept(job);
     props.handleClose();
   };
 
@@ -92,25 +90,25 @@ export const EditDialog = (props: IEditDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            onChange={handleChange}
-            value={blog?.title}
-            label="Tên bài viết"
-            name="title"
-            size="small"
-          />
-          <TextField
-            onChange={handleChange}
-            label="Danh mục"
-            value={blog?.content || ""}
+            label="Nội dung bài viết"
             name="content"
             size="small"
+            value={job?.content}
+            onChange={handleChange}
           />
           <TextField
+            label="Ngày đăng"
+            name="createdAt"
+            size="small"
+            value={job?.createdAt}
             onChange={handleChange}
-            value={blog?.userData.lastName}
-            label="Tên"
+          />
+          <TextField
+            label="Người đăng"
             name="lastName"
             size="small"
+            value={job?.userData.lastName}
+            onChange={handleChange}
           />
         </Box>
       </DialogContent>
@@ -133,35 +131,45 @@ export type IAddDialogProps = {
 };
 
 export const AddDialog = (props: IAddDialogProps) => {
-  const [addBlog, setAddBlog] = useState<IBlogData>({
+  const [file, setFile] = useState<File | null>(null);
+  const [addJob, setAddJob] = useState<IJobData>({
     id: 3,
-    title: "",
     content: "",
     img: "",
     user_id: 2,
-    salary: "",
-    blog_category_id: 2,
-    createdAt: "",
+    JobCategory_id: 1,
+    createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {
-      email: "",
+      id: 2,
+      avatar: null,
       firstName: "",
       lastName: "",
-      id: 1,
-    },
-    categoryData: {
-      describe: "",
-      title: "",
+      email: "",
     },
   });
+
   const dispatch = useAppDispatch();
 
   const handleAccepts = async () => {
-    if (!addBlog) return;
-
-    await dispatch(postCreateBlog(addBlog));
+    if (!addJob || !file) return;
+    await dispatch(createJob(addJob, file));
     props.handleClose();
   };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setAddJob((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <Dialog
       open={props.open ?? false}
@@ -185,84 +193,46 @@ export const AddDialog = (props: IAddDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            value={addBlog?.id}
-            label="ID"
-            name="id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, id: parseInt(event.target.value) })
-            }
-          />
-          <TextField
-            value={addBlog?.title}
-            label="Tên bài viết"
-            name="title"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, title: event.target.value })
-            }
-          />
-          <TextField
-            value={addBlog?.content}
-            label="Nội dung"
+            label="Nội dung bài viết"
             name="content"
             size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, content: event.target.value })
-            }
+            value={addJob.content}
+            onChange={handleChange}
           />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+
           <TextField
-            value={addBlog?.img}
-            label="Hình ảnh"
-            name="img"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, img: event.target.value })
-            }
-          />
-          <TextField
-            value={addBlog?.user_id}
-            label="User ID"
-            name="user_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, user_id: parseInt(event.target.value) })
-            }
-          />
-         
-          <TextField
-            value={addBlog?.blog_category_id}
-            label="Danh mục ID"
-            name="blog_category_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                blog_category_id: parseInt(event.target.value),
-              })
-            }
-          />
-          <TextField
-            value={addBlog?.createdAt}
             label="Ngày tạo"
             name="createdAt"
             size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, createdAt: event.target.value })
-            }
+            type="date"
+            value={addJob.createdAt.split("T")[0]}
+            onChange={handleChange}
           />
           <TextField
-            value={addBlog?.userData.firstName}
-            label="Tên người dùng"
-            name="firstName"
+            label="User_id"
+            name="user_id"
             size="small"
-            onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                userData: {
-                  ...addBlog.userData,
-                  firstName: event.target.value,
-                },
+            value={addJob.user_id}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Danh Mục Job"
+            name="JobCategory_id"
+            size="small"
+            value={addJob.JobCategory_id}
+            onChange={handleChange}
+          />
+
+          <TextField
+            label="Họ người dùng"
+            name="lastName"
+            size="small"
+            value={addJob.userData.lastName}
+            onChange={(e) =>
+              setAddJob({
+                ...addJob,
+                userData: { ...addJob.userData, lastName: e.target.value },
               })
             }
           />

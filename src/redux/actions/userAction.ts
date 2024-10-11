@@ -36,7 +36,6 @@ export const getUserAll =
     }
   };
 
-
 export const getAdminInfo = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({

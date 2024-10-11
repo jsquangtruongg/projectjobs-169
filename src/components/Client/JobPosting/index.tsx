@@ -9,19 +9,19 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./style.scss";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getJob } from "../../../redux/actions/jobActions";
-import { IJobData } from "../../../redux/reducers/job";
+import { getJobAll } from "../../../redux/actions/jobActions";
+
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getJob());
+    dispatch(getJobAll());
   }, []);
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
-        {jobState.jobData.map((job: IJobData, index: number) => (
+        {jobState.jobDataList.map((job, index: number) => (
           <div className="posting-item" key={index}>
             <div className="author-information">
               <div className="author-info">
@@ -41,7 +41,7 @@ export const JobPostingComponent = () => {
             </div>
             <div className="posting-content">
               <p>{job.content}</p>
-              <img src={poster23} alt="" />
+              {job.img && <img src={job.img as string} alt="Job" />}
             </div>
             <div className="group-icon-action">
               <div className="item-action">

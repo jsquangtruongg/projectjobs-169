@@ -12,6 +12,7 @@
 .text_date {
   font-size: 17px;
   color: #ada7a7;
+  margin-top: 20px;
 }
 .from_background {
   display: flex;

@@ -5,13 +5,15 @@ export type IUser = {
   avatar: null;
   firstName: string;
   lastName: string;
+  email: string;
 };
 
 export type IJobData = {
   id: number;
   content: string;
-  img: string;
+  img: string | File;
   user_id: number;
+  JobCategory_id: number;
   createdAt: string;
   updatedAt: string;
   userData: IUser;
@@ -19,15 +21,17 @@ export type IJobData = {
 
 export type IJob = {
   isLoading: boolean;
-  jobData: IJobData[]; 
+  jobData: IJobData[];
+  jobDataList: IJobData[];
 };
 
 const initialState: IJob = {
   isLoading: false,
   jobData: [],
+  jobDataList: [],
 };
 
-const userReducer = (
+const jobReducer = (
   state = initialState,
   action: PayloadAction<Partial<IJob>>
 ) => {
@@ -38,9 +42,14 @@ const userReducer = (
         ...state,
         jobData: payload.jobData || [],
       };
+    case types.GET_JOB_ALL:
+      return {
+        ...state,
+        jobDataList: payload.jobDataList || [],
+      };
     default:
       return state;
   }
 };
 
-export default userReducer;
+export default jobReducer;
