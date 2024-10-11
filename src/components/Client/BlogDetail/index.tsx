@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { getBlog } from "../../../redux/actions/blogActions";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useParams } from "react-router";
+
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 export const BlogDetailComponent = () => {
   const blogDetailState = useAppSelector((state) => state.blog);
   const dispatch = useAppDispatch();
@@ -91,32 +93,62 @@ export const BlogDetailComponent = () => {
           </>
         )}
         <div className="list-blog">
-          {blogDetailState.blogData.map((blog, index: number) => (
-            <div className="item-blog" key={index}>
-              <div className="img-wrap">
-                <img src={imgPost} alt="" />
-              </div>
-              <div className="item-title">{blog.title}</div>
-              <p className="item-content">{blog.content}</p>
-              <div className="info-person-posting">
-                <div className="person-contact">
-                  <img src={avatarPost} alt="" />
-                  <div className="name-author">
-                    {blog.userData
-                      ? `${blog.userData.lastName}`
-                      : "Tác giả ẩn danh"}
-                  </div>
+          {blogDetailState.blogData.length === 0 ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div>
+                <div
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    color: "#b2abab",
+                  }}
+                >
+                  Chưa Có Bài Viết Nào Được Đăng
                 </div>
-                <p className="date">
-                  {new Date(blog.createdAt).toLocaleDateString("vi-VN", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  })}
-                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "40px",
+                  }}
+                >
+                  <SentimentVeryDissatisfiedIcon
+                    style={{
+                      color: "#b2abab",
+                      fontSize: "50px",
+                    }}
+                  />
+                </div>
               </div>
             </div>
-          ))}
+          ) : (
+            blogDetailState.blogData.map((blog, index: number) => (
+              <div className="item-blog" key={index}>
+                <div className="img-wrap">
+                  <img src={imgPost} alt="" />
+                </div>
+                <div className="item-title">{blog.title}</div>
+                <p className="item-content">{blog.content}</p>
+                <div className="info-person-posting">
+                  <div className="person-contact">
+                    <img src={avatarPost} alt="" />
+                    <div className="name-author">
+                      {blog.userData
+                        ? `${blog.userData.lastName}`
+                        : "Tác giả ẩn danh"}
+                    </div>
+                  </div>
+                  <p className="date">
+                    {new Date(blog.createdAt).toLocaleDateString("vi-VN", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
       <div className="section-footer">

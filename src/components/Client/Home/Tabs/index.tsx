@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import styles from "./style.module.css"; // Import CSS module
 
 interface TabProps {
-  title: string;
-  onClick: (title: string) => void;
   active: boolean;
+  title: string;
+  idTab: string;
+  onClick: (title: string, idTab: string) => void;
 }
 
-export const Tab = ({ active = false, title, onClick }: TabProps) => {
+export const Tab = ({ active = false, title, idTab, onClick }: TabProps) => {
   const onClickTab = () => {
-    onClick(title);
+    onClick(title, idTab);
   };
 
   return (
@@ -23,15 +24,20 @@ export const Tab = ({ active = false, title, onClick }: TabProps) => {
 };
 
 interface TabsProps {
-  children: React.ReactElement[];
+  children: React.ReactElement | React.ReactElement[];
+  onChangeTab: (id: string) => void;
 }
 
-export default function Tabs({ children }: TabsProps) {
+export default function Tabs({ children, onChangeTab }: TabsProps) {
+  const tabItem = Array.isArray(children) ? children : [children];
   const [activeTab, setActiveTab] = useState<string>(
-    children[0].props.title as string
+    (tabItem[0] ?? children).props.title as string
   );
 
-  const onClickTabItem = (tabTitle: string) => setActiveTab(tabTitle);
+  const onClickTabItem = (tabTitle: string, idTab: string) => {
+    setActiveTab(tabTitle);
+    onChangeTab(idTab);
+  };
 
   return (
     <div className={styles.tabs}>
@@ -40,12 +46,12 @@ export default function Tabs({ children }: TabsProps) {
       <ul className={styles.tabList}>
         <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi Bật</p>{" "}
         {/* Sử dụng styles từ module */}
-        {children.map((tab) => {
+        {tabItem.map((tab, index) => {
           const { title } = tab.props;
-
           return (
             <Tab
-              key={title}
+              key={index}
+              idTab={tab.key as string}
               title={title}
               onClick={onClickTabItem}
               active={title === activeTab ? true : false}
@@ -56,9 +62,8 @@ export default function Tabs({ children }: TabsProps) {
       <div className={styles.tabContent}>
         {" "}
         {/* Sử dụng styles từ module */}
-        {children.map((tab) => {
+        {tabItem.map((tab) => {
           if (tab.props.title !== activeTab) return null;
-
           return tab.props.children;
         })}
       </div>

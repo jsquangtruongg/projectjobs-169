@@ -16,8 +16,9 @@ export type IJobResponse = {
   mes: string;
 };
 
-export const getJobAPI = async (): Promise<IResponse> => {
-  const res = await API.get("/job");
+export const getJobAPI = async (id: number): Promise<IResponse> => {
+  const res = await API.get(`/job/id?jobCategory_id=${id}`);
+  console.log("abc", res.data);
   return {
     jobData: res.data.data,
     mes: res.data.mes,
@@ -25,8 +26,17 @@ export const getJobAPI = async (): Promise<IResponse> => {
   };
 };
 
-export const getJobAllAPI = async (): Promise<IResponses> => {
-  const res = await API.get("/job");
+export const getJobAllAPI = async (
+  content?: string,
+  createdAt?: string,
+  lastName?: string
+): Promise<IResponses> => {
+  const params = new URLSearchParams();
+  if (content) params.append("content", content);
+  if (createdAt) params.append("createdAt", createdAt);
+  if (lastName) params.append("lastName", lastName);
+  const res = await API.get(`/job?${params.toString()}`);
+
   return {
     jobDataList: res.data.data || [],
     mes: res.data.mes,
@@ -64,19 +74,43 @@ export const deleteJobAPI = async (id: number): Promise<IResponse> => {
   };
 };
 
-export const createJobAPI = async (jobData: IJobData): Promise<IResponse> => {
-  const { data } = await API.post(
-    "/job",
-    { ...jobData },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
+export const createJobAPI = async (
+  jobData: IJobData,
+  file: File | null
+): Promise<IResponse> => {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append("img", file); // Chỉ thêm ảnh nếu có
+  }
+
+  // Loại bỏ `id` trước khi gửi formData
+  const { id, img, updatedAt, userData, createdAt, ...restJobData } = jobData;
+
+  Object.keys(restJobData).forEach((key) => {
+    let value = restJobData[key as keyof typeof restJobData];
+
+    // Convert `user_id` and `JobCategory_id` to string
+    if (key === "user_id" || key === "JobCategory_id") {
+      value = String(value); // Chuyển đổi thành chuỗi
     }
-  );
+
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value)); // Ép kiểu tất cả về string
+    }
+  });
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  const { data } = await API.post("/job", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  console.log(data.data);
   return {
     mes: data.mes,
-    jobData: data.data || [],
+    jobData: data.data || ({} as IJobData),
     err: data.err,
   };
 };

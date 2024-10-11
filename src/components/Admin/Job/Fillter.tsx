@@ -5,11 +5,41 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 
 import { AddDialog } from "./Dialog";
-export interface IFilterComponentProps {}
+import { IJobData } from "../../../redux/reducers/job";
+export interface IFilterComponentProps {
+  jobData: IJobData;
+  handleAccept: (searchCriteria: IJobData) => void;
+}
 
 export default function FilterComponent(props: IFilterComponentProps) {
   const ariaLabel = { "aria-label": "description" };
   const [isAddDialogOpen, setAddDialogOpen] = useState(false);
+  const [searchJob, setSearchJob] = useState<IJobData>({
+    id: 3,
+    content: "",
+    img: "",
+    user_id: 2,
+    createdAt: "",
+    updatedAt: "",
+    JobCategory_id:1,
+    userData: {
+      id: 2,
+      avatar: null,
+      email: "",
+      firstName: "",
+      lastName: "",
+    },
+  });
+
+  useEffect(() => {
+    if (props.jobData) {
+      setSearchJob(props.jobData);
+    }
+  }, [props.jobData]);
+  const handleAccepts = () => {
+    if (!searchJob) return;
+    props.handleAccept(searchJob);
+  };
 
   const handleOpenAddDialog = () => {
     setAddDialogOpen(true);
@@ -30,9 +60,36 @@ export default function FilterComponent(props: IFilterComponentProps) {
         noValidate
         autoComplete="off"
       >
-        <Input placeholder="Tên bài viết" inputProps={ariaLabel} />
-        <Input placeholder="Tiêu đề" inputProps={ariaLabel} />
-        <Input placeholder="Người đăng" inputProps={ariaLabel} />
+        <Input
+          placeholder="Tên bài viết"
+          inputProps={ariaLabel}
+          value={searchJob.content}
+          onChange={(event) =>
+            setSearchJob({ ...searchJob, content: event.target.value })
+          }
+        />
+        <Input
+          placeholder="Tiêu đề"
+          inputProps={ariaLabel}
+          value={searchJob.createdAt}
+          onChange={(event) =>
+            setSearchJob({ ...searchJob, createdAt: event.target.value })
+          }
+        />
+        <Input
+          placeholder="Người đăng"
+          inputProps={ariaLabel}
+          value={searchJob.userData.lastName}
+          onChange={(event) =>
+            setSearchJob({
+              ...searchJob,
+              userData: {
+                ...searchJob.userData,
+                lastName: event.target.value,
+              },
+            })
+          }
+        />
       </Box>
       <Box>
         <Button variant="contained" onClick={handleOpenAddDialog}>
@@ -47,7 +104,9 @@ export default function FilterComponent(props: IFilterComponentProps) {
       </Box>
 
       <Box>
-        <Button variant="contained">Tìm kiếm</Button>
+        <Button variant="contained" onClick={handleAccepts}>
+          Tìm kiếm
+        </Button>
       </Box>
     </div>
   );

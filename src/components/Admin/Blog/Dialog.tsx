@@ -15,8 +15,8 @@ import { postCreateBlog } from "../../../redux/actions/blogActions";
 
 export type IDeleteDialogProps = {
   open?: boolean;
-  title?: string;
-  handleClose: () => void;
+  title?: string; 
+  handleClose: () => void;  
   handleAccept: () => void;
 };
 export const DeleteDialog = (props: IDeleteDialogProps) => {

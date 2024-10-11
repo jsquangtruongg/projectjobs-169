@@ -26,10 +26,11 @@ interface ITableComponentProps {
 
 export default function TableComponent({
   searchCriteria,
-}:ITableComponentProps) {
+}: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogData | null>(null);
+  const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const blogState = useAppSelector((state) => state.blog);
   useEffect(() => {
@@ -65,20 +66,21 @@ export default function TableComponent({
     setSelectedUser(blog);
     setOpenEdit(true);
   };
-  useEffect(()=>{
-    if(searchCriteria.title ||
+  useEffect(() => {
+    if (
+      searchCriteria.title ||
       searchCriteria.content ||
       searchCriteria.userData.lastName
-    ){
+    ) {
       dispatch(
         getBlogAll(
           searchCriteria.title,
           searchCriteria.content,
           searchCriteria.userData.lastName
         )
-      )
+      );
     }
-  },[dispatch,searchCriteria])
+  }, [dispatch, searchCriteria]);
   return (
     <div>
       <>
@@ -107,11 +109,14 @@ export default function TableComponent({
                     {blog.userData ? `${blog.userData.lastName}` : "Ẩn danh"}
                   </TableCell>
                   <TableCell align="center">
-                    <Tooltip title="Edit">
-                      <IconButton onClick={() => handleEditUser(blog)}>
-                        <Edit color="primary" />
-                      </IconButton>
-                    </Tooltip>
+                    {userState?.userData?.roleData?.id !== 1 && (
+                      <Tooltip title="Edit">
+                        <IconButton onClick={() => handleEditUser(blog)}>
+                          <Edit color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+
                     <Tooltip title="Delete">
                       <IconButton onClick={() => handleDeleteUser(blog)}>
                         <Delete color="error" />

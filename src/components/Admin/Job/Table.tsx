@@ -10,6 +10,7 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
+import moment from "moment";
 import { DeleteDialog, EditDialog } from "./Dialog";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -20,11 +21,17 @@ import {
 } from "../../../redux/actions/jobActions";
 import { IJobData } from "../../../redux/reducers/job";
 
-export default function TableComponent() {
+interface ITableComponentProps {
+  searchCriteria: IJobData;
+}
+export default function TableComponent({
+  searchCriteria,
+}: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IJobData | null>(null);
   const jobState = useAppSelector((state) => state.job);
+  const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getJobAll());
@@ -58,6 +65,23 @@ export default function TableComponent() {
     setSelectedUser(job);
     setOpenEdit(true);
   };
+  useEffect(() => {
+    const { content, createdAt, userData } = searchCriteria;
+
+    if (content || createdAt || (userData && userData.lastName)) {
+      let formattedDate;
+      if (createdAt) {
+        const date = moment(createdAt, "DD/MM/YYYY", true);
+        if (date.isValid()) {
+          formattedDate = date.format("YYYY-MM-DD");
+        } else {
+          console.error("Ngày không hợp lệ:", createdAt);
+        }
+      }
+      dispatch(getJobAll(content, formattedDate, userData?.lastName));
+    }
+  }, [dispatch, searchCriteria]);
+
   return (
     <div>
       <>
@@ -93,11 +117,13 @@ export default function TableComponent() {
                     {job.userData ? `${job.userData.lastName}` : "Ẩn danh"}
                   </TableCell>
                   <TableCell align="center">
-                    <Tooltip title="Edit">
-                      <IconButton onClick={() => handleEditUser(job)}>
-                        <Edit color="primary" />
-                      </IconButton>
-                    </Tooltip>
+                    {userState?.userData?.roleData?.id !== 1 && (
+                      <Tooltip title="Edit">
+                        <IconButton onClick={() => handleEditUser(job)}>
+                          <Edit color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                    )}  
                     <Tooltip title="Delete">
                       <IconButton onClick={() => handleDeleteUser(job)}>
                         <Delete color="error" />

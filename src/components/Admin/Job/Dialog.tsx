@@ -131,27 +131,35 @@ export type IAddDialogProps = {
 };
 
 export const AddDialog = (props: IAddDialogProps) => {
+  const [file, setFile] = useState<File | null>(null);
   const [addJob, setAddJob] = useState<IJobData>({
     id: 3,
     content: "",
     img: "",
     user_id: 2,
-    createdAt: "",
+    JobCategory_id: 1,
+    createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {
       id: 2,
       avatar: null,
       firstName: "",
       lastName: "",
+      email: "",
     },
   });
 
   const dispatch = useAppDispatch();
 
   const handleAccepts = async () => {
-    if (!addJob) return;
-    await dispatch(createJob(addJob));
+    if (!addJob || !file) return;
+    await dispatch(createJob(addJob, file));
     props.handleClose();
+  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,34 +193,34 @@ export const AddDialog = (props: IAddDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            label="ID"
-            name="id"
-            size="small"
-            value={addJob.id}
-            onChange={(event) =>
-              setAddJob({ ...addJob, id: parseInt(event.target.value) })
-            }
-          />
-          <TextField
             label="Nội dung bài viết"
             name="content"
             size="small"
             value={addJob.content}
             onChange={handleChange}
           />
-          <TextField
-            label="Hình ảnh"
-            name="img"
-            size="small"
-            value={addJob.img}
-            onChange={handleChange}
-          />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
 
           <TextField
             label="Ngày tạo"
             name="createdAt"
             size="small"
-            value={addJob.createdAt}
+            type="date"
+            value={addJob.createdAt.split("T")[0]}
+            onChange={handleChange}
+          />
+          <TextField
+            label="User_id"
+            name="user_id"
+            size="small"
+            value={addJob.user_id}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Danh Mục Job"
+            name="JobCategory_id"
+            size="small"
+            value={addJob.JobCategory_id}
             onChange={handleChange}
           />
 

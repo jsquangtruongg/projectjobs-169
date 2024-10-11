@@ -69,12 +69,14 @@ const PrivateRoute = () => {
               classes={{ tooltip: "user-info-tooltip" }}
               title={
                 <div className="user-info-list">
-                  {userState.userData?.roleData?.id === 1 && (
-                    <div className="item" onClick={handleNavigateAdmin}>
-                      <ManageAccounts className="item-icon" />
-                      Admin
-                    </div>
-                  )}
+                  {userState?.userData?.roleData &&
+                    (userState.userData.roleData.id === 1 ||
+                      userState.userData.roleData.id === 2) && (
+                      <div className="item" onClick={handleNavigateAdmin}>
+                        <ManageAccounts className="item-icon" />
+                        Admin
+                      </div>
+                    )}
                   <div className="item">
                     <SettingsIcon className="item-icon" />
                     Cài Đặt

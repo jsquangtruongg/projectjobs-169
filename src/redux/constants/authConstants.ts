@@ -41,3 +41,7 @@ export const GET_BLOG = "GET_BLOG";
 export const PUT_UPDATE_BLOG = "PUT_UPDATE_BLOG";
 export const DELETE_BLOG = "DELETE_BLOG";
 export const CREATE_BLOG = "CREATE_BLOG";
+
+//JobCategory
+
+export const GET_JOB_CATEGORY_ALL = "GET_JOB_CATEGORY_ALL";

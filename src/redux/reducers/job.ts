@@ -5,13 +5,15 @@ export type IUser = {
   avatar: null;
   firstName: string;
   lastName: string;
+  email: string;
 };
 
 export type IJobData = {
   id: number;
   content: string;
-  img: string;
+  img: string | File;
   user_id: number;
+  JobCategory_id: number;
   createdAt: string;
   updatedAt: string;
   userData: IUser;
