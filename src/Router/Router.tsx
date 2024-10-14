@@ -15,6 +15,7 @@ import AdminLayout from "../layout/AdminLayout";
 import UserAdminPage from "../pages/Admin/User";
 import BlogAdminPage from "../pages/Admin/Blog";
 import BlogCategoryAdminPage from "../pages/Admin/BlogCategory";
+import JobAdminPage from "../pages/Admin/job";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "user", element: <UserAdminPage /> },
       { path: "blog", element: <BlogAdminPage /> },
       { path: "blog-category", element: <BlogCategoryAdminPage /> },
+      { path: "job", element: <JobAdminPage /> },
     ],
   },
   {

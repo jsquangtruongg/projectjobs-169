@@ -9,24 +9,25 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./style.scss";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getJob } from "../../../redux/actions/jobActions";
-import { IJobData } from "../../../redux/reducers/job";
+import { getJobAll } from "../../../redux/actions/jobActions";
+
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getJob());
+    dispatch(getJobAll());
   }, []);
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
-        {jobState.jobData.map((job: IJobData, index: number) => (
+        {jobState.jobDataList.map((job, index: number) => (
           <div className="posting-item" key={index}>
             <div className="author-information">
               <div className="author-info">
                 <img src={avatarPost} alt="" />
                 <div className="author-name">
+                  <div></div>
                   <p>{job.userData ? `${job.userData.lastName}` : "Ẩn danh"}</p>{" "}
                   <p>
                     {new Date(job.createdAt).toLocaleDateString("vi-VN", {
@@ -40,8 +41,11 @@ export const JobPostingComponent = () => {
               <ClearOutlinedIcon />
             </div>
             <div className="posting-content">
-              <p>{job.content}</p>
-              <img src={poster23} alt="" />
+              {/* <p>{job.content}</p> */}
+              <div
+                className="content-container"
+                dangerouslySetInnerHTML={{ __html: job?.content || "" }}
+              ></div>
             </div>
             <div className="group-icon-action">
               <div className="item-action">

@@ -8,12 +8,15 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { IBlogData } from "../../../redux/reducers/blog";
+import { IJobData } from "../../../redux/reducers/job";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/store";
-import { postCreateBlog } from "../../../redux/actions/blogActions";
+import { createJob } from "../../../redux/actions/jobActions";
+
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { Quill } from "react-quill";
+
+import "./style.scss";
 export type IDeleteDialogProps = {
   open?: boolean;
   title?: string;
@@ -46,35 +49,35 @@ export const DeleteDialog = (props: IDeleteDialogProps) => {
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
-  blogData: IBlogData | null;
+  jobData: IJobData | null;
   handleClose: () => void;
-  handleAccept: (blog: IBlogData) => void;
+  handleAccept: (job: IJobData) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
-  const [blog, setBlog] = useState<IBlogData | null>(null);
+  const [job, setJob] = useState<IJobData | null>(null);
   const [theme] = useState<string>("snow");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBlog((prevData) => (prevData ? { ...prevData, [name]: value } : null));
+    setJob((prevData) => (prevData ? { ...prevData, [name]: value } : null));
   };
   useEffect(() => {
-    if (props.blogData) {
-      setBlog(props.blogData);
+    if (props.jobData) {
+      setJob(props.jobData);
     }
-  }, [props.blogData]);
-
+  }, [props.jobData]);
   const handleAccepts = () => {
-    if (!blog) return;
-    props.handleAccept(blog);
+    if (!job) return;
+    props.handleAccept(job);
     props.handleClose();
   };
+
   const handleEditorChange = (html: string) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     const images = doc.querySelectorAll("img");
     images.forEach((img) => {
       img.classList.add("resizable-img"); // Áp dụng class cho hình ảnh
     });
-    setBlog((prevData) => (prevData ? { ...prevData, content: html } : null));
+    setJob((prevData) => (prevData ? { ...prevData, content: html } : null));
   };
   const lineHeights = [
     { value: "1", label: "1" },
@@ -82,11 +85,21 @@ export const EditDialog = (props: IEditDialogProps) => {
     { value: "2", label: "2" },
     { value: "3", label: "3" },
   ];
+  const handleLineHeightChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const lineHeight = event.target.value;
+    const quill = document.querySelector(".ql-editor") as HTMLElement;
+    if (quill) {
+      quill.style.lineHeight = lineHeight;
+    }
+  };
   return (
     <Dialog
       open={props.open ?? false}
       onClose={props.handleClose}
       aria-labelledby="responsive-dialog-title"
+      maxWidth="md"
     >
       <DialogTitle id="responsive-dialog-title">
         Chỉnh sửa thông tin khách hàng
@@ -104,16 +117,22 @@ export const EditDialog = (props: IEditDialogProps) => {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            onChange={handleChange}
-            value={blog?.title}
-            label="Tên bài viết"
-            name="title"
-            size="small"
-          />
+          <div id="toolbar">
+            <select
+              className="ql-line-height"
+              onChange={handleLineHeightChange}
+            >
+              <option value="">Line Height</option>
+              {lineHeights.map((height) => (
+                <option key={height.value} value={height.value}>
+                  {height.label}
+                </option>
+              ))}
+            </select>
+          </div>
           <ReactQuill
             theme={theme}
-            value={blog?.content || ""}
+            value={job?.content || ""}
             onChange={handleEditorChange}
             modules={{
               toolbar: [
@@ -154,11 +173,29 @@ export const EditDialog = (props: IEditDialogProps) => {
             placeholder="Nội dung bài viết..."
           />
           <TextField
+            label="Ngày đăng"
+            name="createdAt"
+            size="small"
+            value={
+              job?.createdAt
+                ? new Date(job.createdAt).toLocaleDateString("en-GB")
+                : ""
+            }
             onChange={handleChange}
-            value={blog?.userData.lastName}
-            label="Tên"
+          />
+          <TextField
+            label="Người đăng"
             name="lastName"
             size="small"
+            value={job?.userData.lastName}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Lương"
+            name="salary"
+            size="small"
+            value={job?.salary}
+            onChange={handleChange}
           />
         </Box>
       </DialogContent>
@@ -184,53 +221,68 @@ export const AddDialog = (props: IAddDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [editorHtml, setEditorHtml] = useState<string>("");
   const [theme] = useState<string>("snow");
-  const [addBlog, setAddBlog] = useState<IBlogData>({
+  const [addJob, setAddJob] = useState<IJobData>({
     id: 3,
     title: "",
     content: "",
     img: "",
-    user_id: 2,
+    user_id: 1,
+    JobCategory_id: 1,
     salary: "",
-    blog_category_id: 2,
+
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {
-      email: "",
+      id: 2,
+      avatar: null,
       firstName: "",
       lastName: "",
-      id: 1,
+      email: "",
     },
     categoryData: {
-      describe: "",
       title: "",
+      describe: "",
     },
   });
   const dispatch = useAppDispatch();
 
-  const createBlogWrapper = (blogData: IBlogData, file: File | null) => {
-    return postCreateBlog(blogData, file as File);
+  const createJobWrapper = (jobData: IJobData, file: File | null) => {
+    return createJob(jobData, file as File);
   };
   const handleAccepts = async () => {
-    if (!addBlog) return;
-    await dispatch(createBlogWrapper(addBlog, file));
+    if (!addJob) return;
+    const salaryFormatted = addJob.salary.trim();
+    setAddJob((prev) => ({ ...prev, salary: salaryFormatted }));
+
+    await dispatch(createJobWrapper(addJob, file));
     props.handleClose();
   };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
     }
   };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const newValue = name === "salary" ? value : value;
+    setAddJob((prevData) => ({
+      ...prevData,
+      [name]: newValue,
+    }));
+  };
+
   const handleQuillChange = (html: string) => {
-    setAddBlog((prevData) => ({
+    setAddJob((prevData) => ({
       ...prevData,
       content: html,
     }));
   };
+
   const handleEditorChange = (html: string) => {
     setEditorHtml(html);
     handleQuillChange(html);
   };
+
   return (
     <Dialog
       open={props.open ?? false}
@@ -254,25 +306,14 @@ export const AddDialog = (props: IAddDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            value={addBlog?.title}
+            value={addJob?.title}
             label="Tên bài viết"
             name="title"
             size="small"
             onChange={(event) =>
-              setAddBlog({ ...addBlog, title: event.target.value })
+              setAddJob({ ...addJob, title: event.target.value })
             }
           />
-
-          <TextField
-            value={addBlog?.id}
-            label="ID"
-            name="id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, id: parseInt(event.target.value) })
-            }
-          />
-
           <ReactQuill
             theme={theme}
             value={editorHtml}
@@ -315,50 +356,44 @@ export const AddDialog = (props: IAddDialogProps) => {
           />
           <input type="file" accept="image/*" onChange={handleFileChange} />
           <TextField
-            value={addBlog?.user_id}
-            label="User ID"
-            name="user_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, user_id: parseInt(event.target.value) })
-            }
-          />
-
-          <TextField
-            value={addBlog?.blog_category_id}
-            label="Danh mục ID"
-            name="blog_category_id"
-            size="small"
-            onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                blog_category_id: parseInt(event.target.value),
-              })
-            }
-          />
-
-          <TextField
-            value={addBlog?.createdAt.split("T")[0]}
             label="Ngày tạo"
             name="createdAt"
-            type="date"
             size="small"
-            onChange={(event) =>
-              setAddBlog({ ...addBlog, createdAt: event.target.value })
-            }
+            type="date"
+            value={addJob.createdAt.split("T")[0]}
+            onChange={handleChange}
           />
           <TextField
-            value={addBlog?.userData.firstName}
-            label="Tên người dùng"
-            name="firstName"
+            label="Lương"
+            name="salary"
             size="small"
-            onChange={(event) =>
-              setAddBlog({
-                ...addBlog,
-                userData: {
-                  ...addBlog.userData,
-                  firstName: event.target.value,
-                },
+            value={addJob.salary}
+            onChange={handleChange}
+          />
+          <TextField
+            label="User_id"
+            name="user_id"
+            size="small"
+            value={addJob.user_id}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Danh Mục Job"
+            name="JobCategory_id"
+            size="small"
+            value={addJob.JobCategory_id}
+            onChange={handleChange}
+          />
+
+          <TextField
+            label="Họ người dùng"
+            name="lastName"
+            size="small"
+            value={addJob.userData.lastName}
+            onChange={(e) =>
+              setAddJob({
+                ...addJob,
+                userData: { ...addJob.userData, lastName: e.target.value },
               })
             }
           />

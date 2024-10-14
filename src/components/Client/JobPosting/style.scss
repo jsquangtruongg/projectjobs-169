@@ -154,3 +154,38 @@
   height: 20px;
   width: 100%;
 }
+.content-container h1 {
+  font-size: 24px; /* Kích thước nhỏ hơn cho thẻ h1 */
+}
+
+.content-container h2 {
+  font-size: 20px;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-center {
+  text-align: center;
+}
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+.ql-font-serif {
+  font-family: serif;
+}
+
+.ql-font-sans-serif {
+  font-family: sans-serif;
+}
+
+.ql-font-monospace {
+  font-family: monospace;
+}
+
+.ql-font-roboto {
+  font-family: "Roboto", sans-serif;
+}

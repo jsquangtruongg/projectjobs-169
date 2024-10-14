@@ -53,9 +53,9 @@ export const deleteBlog = (id: number) => async (dispatch: AppDispatch) => {
 };
 
 export const postCreateBlog =
-  (data: IBlogData) => async (dispatch: AppDispatch) => {
+  (data: IBlogData, file: File) => async (dispatch: AppDispatch) => {
     try {
-      await createBlogAPI(data);
+      await createBlogAPI(data, file);
       dispatch(getBlogAll());
     } catch (error) {
       console.error(error);

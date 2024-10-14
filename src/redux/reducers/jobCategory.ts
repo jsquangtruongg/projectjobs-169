@@ -1,12 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
 
-export type IBlog = {
+export type IJob = {
   id: number;
-  title: string;
+  img: string;
   content: string;
 };
-
 export type IUser = {
   id: number;
   firstName: string;
@@ -14,41 +13,40 @@ export type IUser = {
   email: string;
 };
 
-export type IBlogCategoryData = {
+export type IJobCategoryData = {
   id: number;
-  user_id: number;
   title: string;
-  describe: string;
-  img: string;
+  user_id: number;
   createdAt: string;
   updatedAt: string;
-  blogData: IBlog;
   userData: IUser;
+  Jobs: IJob;
 };
 
-export type IBlogCategory = {
+export type IJobCategory = {
   isLoading: boolean;
-  blogCategoryData: IBlogCategoryData[];
-  blogCategoryDataList: IBlogCategoryData[];
+  jobCategoryData: IJobCategoryData[];
+  jobCategoryDataList: IJobCategoryData[];
 };
 
-const initialState: IBlogCategory = {
+const initialState: IJobCategory = {
   isLoading: false,
-  blogCategoryData: [],
-  blogCategoryDataList: [],
+  jobCategoryData: [],
+  jobCategoryDataList: [],
 };
 
-const blogCategoryReducer = (
+const jobCategoryReducer = (
   state = initialState,
-  action: PayloadAction<Partial<IBlogCategory>>
+  action: PayloadAction<Partial<IJobCategory>>
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case types.GET_BLOG_CATEGORY:
+    case types.GET_JOB_CATEGORY_ALL:
       const newState = {
         ...state,
-        blogCategoryDataList: payload.blogCategoryDataList || [],
+        jobCategoryDataList: payload.jobCategoryDataList || [], 
       };
+
       return newState;
 
     default:
@@ -56,4 +54,4 @@ const blogCategoryReducer = (
   }
 };
 
-export default blogCategoryReducer;
+export default jobCategoryReducer;

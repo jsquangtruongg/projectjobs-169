@@ -22,7 +22,9 @@ import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
 interface ITableComponentProps {
   searchCriteria: IBlogCategoryData;
 }
-export default function TableComponent({ searchCriteria }: ITableComponentProps) {
+export default function TableComponent({
+  searchCriteria,
+}: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogCategoryData | null>(
@@ -30,6 +32,7 @@ export default function TableComponent({ searchCriteria }: ITableComponentProps)
   );
   const dispatch = useAppDispatch();
   const blogState = useAppSelector((state) => state.blogCategory);
+  const userState = useAppSelector((state) => state.user);
   useEffect(() => {
     dispatch(getBlogCategory());
   }, []);
@@ -54,7 +57,6 @@ export default function TableComponent({ searchCriteria }: ITableComponentProps)
 
   const handleAcceptEdit = (blog: IBlogCategoryData) => {
     dispatch(putUpdateBlogCategory(blog));
-    console.log(blog);
     setSelectedUser(null);
     setOpenEdit(false);
   };
@@ -64,21 +66,21 @@ export default function TableComponent({ searchCriteria }: ITableComponentProps)
     setOpenEdit(true);
   };
 
-    useEffect(() => {
-      if (
-        searchCriteria.title ||
-        searchCriteria.describe ||
-        searchCriteria.userData.lastName
-      ) {
-        dispatch(
-          getBlogCategory(
-            searchCriteria.title,
-            searchCriteria.describe,
-            searchCriteria.userData.lastName
-          )
-        );
-      }
-    }, [dispatch, searchCriteria]);
+  useEffect(() => {
+    if (
+      searchCriteria.title ||
+      searchCriteria.describe ||
+      searchCriteria.userData.lastName
+    ) {
+      dispatch(
+        getBlogCategory(
+          searchCriteria.title,
+          searchCriteria.describe,
+          searchCriteria.userData.lastName
+        )
+      );
+    }
+  }, [dispatch, searchCriteria]);
   return (
     <div>
       <>
@@ -108,11 +110,13 @@ export default function TableComponent({ searchCriteria }: ITableComponentProps)
                       {blog.userData ? `${blog.userData.lastName}` : "Ẩn danh"}
                     </TableCell>
                     <TableCell align="center">
-                      <Tooltip title="Edit">
-                        <IconButton onClick={() => handleEditUser(blog)}>
-                          <Edit color="primary" />
-                        </IconButton>
-                      </Tooltip>
+                      {userState?.userData?.roleData?.id !== 1 && (
+                        <Tooltip title="Edit">
+                          <IconButton onClick={() => handleEditUser(blog)}>
+                            <Edit color="primary" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       <Tooltip title="Delete">
                         <IconButton onClick={() => handleDeleteUser(blog)}>
                           <Delete color="error" />

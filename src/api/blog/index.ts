@@ -66,7 +66,6 @@ export const deleteBlogAPI = async (id: number): Promise<IResponse> => {
       "Content-Type": "application/json",
     },
   });
-  console.log("du lieu tra ve", data);
   return {
     mes: data.mes,
     blogData: data.data || [],
@@ -75,20 +74,49 @@ export const deleteBlogAPI = async (id: number): Promise<IResponse> => {
 };
 
 export const createBlogAPI = async (
-  blogData: IBlogData
+  blogData: IBlogData,
+  file: File | null
 ): Promise<IResponse> => {
+  const formData = new FormData();
+  if (file) {
+    formData.append("img", file);
+  }
+  const {
+    createdAt,
+    updatedAt,
+    userData,
+    id,
+    img,
+    categoryData,
+    ...restBlogData
+  } = blogData;
+
+  Object.keys(restBlogData).forEach((key) => {
+    let value = restBlogData[key as keyof typeof restBlogData];
+
+    if (key === "user_id" || key === "blog_category_id") {
+      value = String(value);
+    }
+    if (value !== undefined || value !== null) {
+      formData.append(key, String(value));
+    }
+  });
+
+  for (const [key, value] of formData.entries()) {
+  }
   const { data } = await API.post(
     "/blog",
-    { ...blogData },
+    formData,
+
     {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     }
   );
   return {
     mes: data.mes,
-    blogData: data.data || {},
+    blogData: data.data || ({} as IBlogData),
     err: data.err,
   };
 };
