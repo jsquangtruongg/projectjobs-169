@@ -57,7 +57,6 @@ export default function TableComponent({
 
   const handleAcceptEdit = (blog: IBlogCategoryData) => {
     dispatch(putUpdateBlogCategory(blog));
-    console.log(blog);
     setSelectedUser(null);
     setOpenEdit(false);
   };

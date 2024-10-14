@@ -27,6 +27,7 @@ export const JobPostingComponent = () => {
               <div className="author-info">
                 <img src={avatarPost} alt="" />
                 <div className="author-name">
+                  <div></div>
                   <p>{job.userData ? `${job.userData.lastName}` : "Ẩn danh"}</p>{" "}
                   <p>
                     {new Date(job.createdAt).toLocaleDateString("vi-VN", {
@@ -40,8 +41,11 @@ export const JobPostingComponent = () => {
               <ClearOutlinedIcon />
             </div>
             <div className="posting-content">
-              <p>{job.content}</p>
-              {job.img && <img src={job.img as string} alt="Job" />}
+              {/* <p>{job.content}</p> */}
+              <div
+                className="content-container"
+                dangerouslySetInnerHTML={{ __html: job?.content || "" }}
+              ></div>
             </div>
             <div className="group-icon-action">
               <div className="item-action">

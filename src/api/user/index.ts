@@ -69,7 +69,6 @@ export const deleteUserAPI = async (userId: number): Promise<IResponse> => {
       "Content-Type": "application/json",
     },
   });
-  console.log("du lieu tra ve", data);
   return {
     mes: data.mes,
     userData: data.data || [],

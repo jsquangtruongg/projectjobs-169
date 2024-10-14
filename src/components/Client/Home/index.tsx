@@ -42,7 +42,6 @@ export const HomeComponent = () => {
     dispatch(getJobALLCategory());
   }, []);
 
-  console.log(jobState);
   return (
     <div className="home-container">
       <div className="banner-container">
@@ -126,14 +125,16 @@ export const HomeComponent = () => {
                     ) : (
                       jobState.jobData.map((jobItem, index) => (
                         <div className={styles.form_poster} key={index}>
-                          <img
-                            src={poster1}
-                            alt=""
-                            className={styles.poster_job}
-                          />
-                          <p className={styles.text_title}>{jobItem.content}</p>
+                          {jobItem.img && (
+                            <img
+                              src={jobItem.img as string}
+                              alt="Job"
+                              className="poster-background"
+                            />
+                          )}
+                          <p className={styles.text_title}>{jobItem.title}</p>
                           <span className={styles.salary_received}>
-                            $20.000.000
+                           {jobItem.salary}
                           </span>
                           <div className={styles.from_img_avt_post}>
                             <img

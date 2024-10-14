@@ -36,6 +36,10 @@ export default function TableComponent({
   useEffect(() => {
     dispatch(getJobAll());
   }, []);
+  const getTextFromHTML = (html: string): string => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.innerText; // Lấy văn bản từ HTML
+  };
   const handleCloseDelete = () => {
     setOpenDelete(false);
   };
@@ -103,7 +107,11 @@ export default function TableComponent({
                 <TableRow key={index}>
                   <TableCell align="center">{job.id}</TableCell>
                   <TableCell align="right"></TableCell>
-                  <TableCell align="left">{job.content}</TableCell>
+                  <TableCell align="left">
+                    {getTextFromHTML(job.content).length > 15
+                      ? `${getTextFromHTML(job.content).slice(0, 15)}...`
+                      : getTextFromHTML(job.content)}
+                  </TableCell>
                   <TableCell align="left">
                     {" "}
                     {new Date(job.createdAt).toLocaleDateString("vi-VN", {
@@ -123,7 +131,7 @@ export default function TableComponent({
                           <Edit color="primary" />
                         </IconButton>
                       </Tooltip>
-                    )}  
+                    )}
                     <Tooltip title="Delete">
                       <IconButton onClick={() => handleDeleteUser(job)}>
                         <Delete color="error" />

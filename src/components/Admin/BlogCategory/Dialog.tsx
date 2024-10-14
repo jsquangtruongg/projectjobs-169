@@ -66,7 +66,6 @@ export const EditDialog = (props: IEditDialogProps) => {
 
   const handleAccepts = () => {
     if (!blog) return;
-    console.log("Blog data:", blog);
     props.handleAccept(blog);
     props.handleClose();
   };
@@ -130,11 +129,13 @@ export const EditDialog = (props: IEditDialogProps) => {
 
 export type IAddDialogProps = {
   open?: boolean;
+
   handleClose: () => void;
   handleAccept: () => void;
 };
 
 export const AddDialog = (props: IAddDialogProps) => {
+  const [file, setFile] = useState<File | null>(null);
   const [addBlogCategory, setAddBlogCategory] = useState<IBlogCategoryData>({
     id: 1,
     title: "",
@@ -156,10 +157,14 @@ export const AddDialog = (props: IAddDialogProps) => {
     },
   });
   const dispatch = useAppDispatch();
-
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
   const handleAccepts = async () => {
-    if (!addBlogCategory) return;
-    await dispatch(postCreateBlogCategory(addBlogCategory));
+    if (!addBlogCategory || !file) return;
+    await dispatch(postCreateBlogCategory(addBlogCategory, file));
     props.handleClose();
   };
   return (
@@ -220,18 +225,7 @@ export const AddDialog = (props: IAddDialogProps) => {
               })
             }
           />
-          <TextField
-            label="Hình Ảnh"
-            name="ing"
-            size="small"
-            value={addBlogCategory.img}
-            onChange={(event) =>
-              setAddBlogCategory({
-                ...addBlogCategory,
-                img: event.target.value,
-              })
-            }
-          />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
         </Box>
       </DialogContent>
       <DialogActions>

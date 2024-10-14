@@ -13,6 +13,10 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/store";
 import { createJob } from "../../../redux/actions/jobActions";
 
+import "react-quill/dist/quill.snow.css";
+import ReactQuill, { Quill } from "react-quill";
+
+import "./style.scss";
 export type IDeleteDialogProps = {
   open?: boolean;
   title?: string;
@@ -51,7 +55,7 @@ export type IEditDialogProps = {
 };
 export const EditDialog = (props: IEditDialogProps) => {
   const [job, setJob] = useState<IJobData | null>(null);
-
+  const [theme] = useState<string>("snow");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setJob((prevData) => (prevData ? { ...prevData, [name]: value } : null));
@@ -67,11 +71,35 @@ export const EditDialog = (props: IEditDialogProps) => {
     props.handleClose();
   };
 
+  const handleEditorChange = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const images = doc.querySelectorAll("img");
+    images.forEach((img) => {
+      img.classList.add("resizable-img"); // Áp dụng class cho hình ảnh
+    });
+    setJob((prevData) => (prevData ? { ...prevData, content: html } : null));
+  };
+  const lineHeights = [
+    { value: "1", label: "1" },
+    { value: "1.5", label: "1.5" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+  ];
+  const handleLineHeightChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const lineHeight = event.target.value;
+    const quill = document.querySelector(".ql-editor") as HTMLElement;
+    if (quill) {
+      quill.style.lineHeight = lineHeight;
+    }
+  };
   return (
     <Dialog
       open={props.open ?? false}
       onClose={props.handleClose}
       aria-labelledby="responsive-dialog-title"
+      maxWidth="md"
     >
       <DialogTitle id="responsive-dialog-title">
         Chỉnh sửa thông tin khách hàng
@@ -89,18 +117,70 @@ export const EditDialog = (props: IEditDialogProps) => {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            label="Nội dung bài viết"
-            name="content"
-            size="small"
-            value={job?.content}
-            onChange={handleChange}
+          <div id="toolbar">
+            <select
+              className="ql-line-height"
+              onChange={handleLineHeightChange}
+            >
+              <option value="">Line Height</option>
+              {lineHeights.map((height) => (
+                <option key={height.value} value={height.value}>
+                  {height.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ReactQuill
+            theme={theme}
+            value={job?.content || ""}
+            onChange={handleEditorChange}
+            modules={{
+              toolbar: [
+                [{ header: "1" }, { header: "2" }],
+                [{ size: [] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                  { list: "ordered" },
+                  { list: "bullet" },
+                  { indent: "-1" },
+                  { indent: "+1" },
+                ],
+                [{ align: [] }],
+                [{ lineHeight: lineHeights }],
+                ["link", "image", "video"],
+                ["clean"],
+              ],
+            }}
+            formats={[
+              "header",
+              "font",
+              "size",
+              "bold",
+              "italic",
+              "underline",
+              "strike",
+              "blockquote",
+              "list",
+              "bullet",
+              "indent",
+              "link",
+              "image",
+              "video",
+              "align",
+              "lineHeight",
+            ]}
+            bounds={"#root"}
+            placeholder="Nội dung bài viết..."
           />
           <TextField
             label="Ngày đăng"
             name="createdAt"
             size="small"
-            value={job?.createdAt}
+            value={
+              job?.createdAt
+                ? new Date(job.createdAt).toLocaleDateString("en-GB")
+                : ""
+            }
             onChange={handleChange}
           />
           <TextField
@@ -108,6 +188,13 @@ export const EditDialog = (props: IEditDialogProps) => {
             name="lastName"
             size="small"
             value={job?.userData.lastName}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Lương"
+            name="salary"
+            size="small"
+            value={job?.salary}
             onChange={handleChange}
           />
         </Box>
@@ -132,12 +219,17 @@ export type IAddDialogProps = {
 
 export const AddDialog = (props: IAddDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
+  const [editorHtml, setEditorHtml] = useState<string>("");
+  const [theme] = useState<string>("snow");
   const [addJob, setAddJob] = useState<IJobData>({
     id: 3,
+    title: "",
     content: "",
     img: "",
-    user_id: 2,
+    user_id: 1,
     JobCategory_id: 1,
+    salary: "",
+
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {
@@ -147,13 +239,22 @@ export const AddDialog = (props: IAddDialogProps) => {
       lastName: "",
       email: "",
     },
+    categoryData: {
+      title: "",
+      describe: "",
+    },
   });
-
   const dispatch = useAppDispatch();
 
+  const createJobWrapper = (jobData: IJobData, file: File | null) => {
+    return createJob(jobData, file as File);
+  };
   const handleAccepts = async () => {
-    if (!addJob || !file) return;
-    await dispatch(createJob(addJob, file));
+    if (!addJob) return;
+    const salaryFormatted = addJob.salary.trim();
+    setAddJob((prev) => ({ ...prev, salary: salaryFormatted }));
+
+    await dispatch(createJobWrapper(addJob, file));
     props.handleClose();
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,13 +262,25 @@ export const AddDialog = (props: IAddDialogProps) => {
       setFile(event.target.files[0]);
     }
   };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    const newValue = name === "salary" ? value : value;
     setAddJob((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: newValue,
     }));
+  };
+
+  const handleQuillChange = (html: string) => {
+    setAddJob((prevData) => ({
+      ...prevData,
+      content: html,
+    }));
+  };
+
+  const handleEditorChange = (html: string) => {
+    setEditorHtml(html);
+    handleQuillChange(html);
   };
 
   return (
@@ -193,20 +306,68 @@ export const AddDialog = (props: IAddDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            label="Nội dung bài viết"
-            name="content"
+            value={addJob?.title}
+            label="Tên bài viết"
+            name="title"
             size="small"
-            value={addJob.content}
-            onChange={handleChange}
+            onChange={(event) =>
+              setAddJob({ ...addJob, title: event.target.value })
+            }
+          />
+          <ReactQuill
+            theme={theme}
+            value={editorHtml}
+            onChange={handleEditorChange}
+            modules={{
+              toolbar: [
+                [{ header: "1" }, { header: "2" }, { font: [] }],
+                [{ size: [] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                  { list: "ordered" },
+                  { list: "bullet" },
+                  { indent: "-1" },
+                  { indent: "+1" },
+                ],
+                [{ align: [] }],
+                ["link", "image", "video"],
+                ["clean"],
+              ],
+            }}
+            formats={[
+              "header",
+              "font",
+              "size",
+              "bold",
+              "italic",
+              "underline",
+              "strike",
+              "blockquote",
+              "list",
+              "bullet",
+              "indent",
+              "link",
+              "image",
+              "video",
+              "align",
+            ]}
+            bounds={"#root"}
+            placeholder="Nội dung bài viết..."
           />
           <input type="file" accept="image/*" onChange={handleFileChange} />
-
           <TextField
             label="Ngày tạo"
             name="createdAt"
             size="small"
             type="date"
             value={addJob.createdAt.split("T")[0]}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Lương"
+            name="salary"
+            size="small"
+            value={addJob.salary}
             onChange={handleChange}
           />
           <TextField

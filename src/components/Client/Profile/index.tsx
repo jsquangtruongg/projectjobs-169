@@ -7,9 +7,35 @@ import {
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { setUserInit } from "../../../redux/actions/userAction";
+import AlertDialog from "./Dialog";
+
+type Props = {};
+
 export const ProfileComponent = () => {
   const [user, setUser] = useState();
   const userState = useAppSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState<string>(
+    new Date().toLocaleString()
+  );
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleString()); // Cập nhật giờ hiện tại
+    }, 1000);
+
+    // Cleanup khi component bị hủy
+    return () => clearInterval(timer);
+  }, []);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClickSave = () => {
+    setOpen(false);
+  };
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (user) {
@@ -27,7 +53,7 @@ export const ProfileComponent = () => {
             {userState.userData?.firstName + " " + userState.userData?.lastName}
           </span>
         </div>
-        <p className={styles.text_date}>Tue,07 June 2024</p>
+        <p className={styles.text_date}>{currentTime}</p>
       </div>
       <div className={styles.from_information_profile}>
         <div className={styles.from_img_avt_post}>
@@ -44,28 +70,34 @@ export const ProfileComponent = () => {
             <span>{userState.userData?.email}</span>
           </div>
         </div>
-        <button className={styles.btn_edit}>Edit</button>
+        <button className={styles.btn_edit} onClick={handleClickOpen}>
+          Edit
+        </button>
       </div>
       <div className={styles.from_enter_information}>
         <div>
           <InputTextProfileComponent
             name="Họ và Tên"
-            placeholder="VD:Nguyễn Quang Trường"
+            text={
+              userState.userData?.firstName + " " + userState.userData?.lastName
+            }
           />
-          <SelectTextComponent name="Gender" options={["Nam", "Nữ"]} />
+          <InputTextProfileComponent
+            name="Email"
+            text={userState.userData?.email}
+          />
         </div>
         <div>
-          <InputTextProfileComponent
-            name="Mô tả"
-            placeholder="VD:Quá Là Đuối... "
-          />
-          <SelectTextComponent
-            name="Trình Độ Học Vấn"
-            options={["Đại Học", "Cao Đẵng"]}
-          />
+          <InputTextProfileComponent name="Mô tả" text="Mệt đuối" />
+          <InputTextProfileComponent name="Trình độ học vấn" text="Đại học" />
         </div>
       </div>
-      <button className={styles.btn_save}>Save</button>
+
+      <AlertDialog
+        open={open}
+        handleClose={handleClose}
+        handleAccept={handleClickSave}
+      />
     </div>
   );
 };

@@ -8,15 +8,23 @@ export type IUser = {
   email: string;
 };
 
+export type ICategory = {
+  title: string;
+  describe: string;
+};
+
 export type IJobData = {
   id: number;
+  title: string;
   content: string;
   img: string | File;
+  salary: string;
   user_id: number;
   JobCategory_id: number;
   createdAt: string;
   updatedAt: string;
   userData: IUser;
+  categoryData: ICategory;
 };
 
 export type IJob = {

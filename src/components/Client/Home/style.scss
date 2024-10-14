@@ -589,6 +589,11 @@
   width: 340px;
   border: 1px solid #68799f;
 }
+.poster-background {
+  width: 340px;
+  height: 370px;
+  background-size: cover;
+}
 .poster_job {
   width: 340px;
   height: 382px;
@@ -947,7 +952,7 @@
 .from_end_contact {
   margin-bottom: 50px;
 }
-.poster{
+.poster {
   display: flex;
   align-items: center;
   margin-top: 20px;
