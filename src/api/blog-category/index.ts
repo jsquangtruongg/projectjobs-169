@@ -92,8 +92,7 @@ export const createBlogCategoryAPI = async (
       formData.append(key, String(value));
     }
   });
-  for (const [key, value] of formData.entries()) {
-  }
+
   const { data } = await API.post(
     "/blog-category",
     formData,

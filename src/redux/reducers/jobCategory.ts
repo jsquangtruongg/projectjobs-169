@@ -2,9 +2,9 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
 
 export type IJob = {
-  id: number;
-  img: string;
-  content: string;
+    id: number;
+    img: string;
+    content: string;
 };
 export type IUser = {
   id: number;

@@ -57,7 +57,13 @@ export const ProfileComponent = () => {
       </div>
       <div className={styles.from_information_profile}>
         <div className={styles.from_img_avt_post}>
-          <img src={avatarPost} alt="" className={styles.avatar_post} />
+          {userState.userData?.avatar && (
+            <img
+              src={userState.userData.avatar as string}
+              alt="Job"
+              className={styles.poster_background}
+            />
+          )}
           <div className={styles.from_text_name}>
             <div style={{ marginBottom: "10px" }}>
               {" "}

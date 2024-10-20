@@ -25,3 +25,54 @@ export const getJobALLCategoryAPI = async (): Promise<IResponses> => {
     err: res.data.err,
   };
 };
+
+export const createJobCategoryAPI = async (
+  jobCategoryData: IJobCategoryData
+): Promise<IResponse> => {
+  const { data } = await API.post(
+    "/job-category",
+    { ...jobCategoryData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    jobCategoryData: data.data || {},
+    err: data.err,
+  };
+};
+  
+export const updateJobCategoryAPI = async (
+  jobCategoryData: IJobCategoryData
+): Promise<IResponse> => {
+  const { data } = await API.put(
+    `/job-category/${jobCategoryData.id}`,
+    { ...jobCategoryData },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return {
+    mes: data.mes,
+    jobCategoryData: data.data || [],
+    err: data.err,
+  };
+};
+
+export const deleteJobCategoryAPI = async (id: number): Promise<IResponse> => {
+  const { data } = await API.delete(`/job-category/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return {
+    mes: data.mes,
+    jobCategoryData: data.data || [],
+    err: data.err,
+  };
+};

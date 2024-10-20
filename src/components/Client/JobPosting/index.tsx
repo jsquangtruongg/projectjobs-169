@@ -7,17 +7,31 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ReplySharpIcon from "@mui/icons-material/ReplySharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./style.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { getJobAll } from "../../../redux/actions/jobActions";
+import { AddDialog } from "./Dialog";
+import { IJobData } from "../../../redux/reducers/job";
 
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
-
+  const [open, setOpen] = useState(false);
+  const [jobItem, setJobItem] = useState<IJobData | null>(null);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getJobAll());
+    dispatch(getJobAll());    
   }, []);
+
+  const handleOpen = (item: IJobData) => {
+    setOpen(true);
+    setJobItem(item);
+  };
+  const handleCloseAdd = () => {
+    setOpen(false);
+  };
+  const handleAcceptAdd = () => {
+    setOpen(false);
+  };
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
@@ -28,7 +42,9 @@ export const JobPostingComponent = () => {
                 <img src={avatarPost} alt="" />
                 <div className="author-name">
                   <div></div>
-                  <p>{job.userData ? `${job.userData.lastName}` : "Ẩn danh"}</p>{" "}
+                  <p>
+                    {job.userData ? `${job.userData.lastName}` : "Ẩn danh"}
+                  </p>{" "}
                   <p>
                     {new Date(job.createdAt).toLocaleDateString("vi-VN", {
                       year: "numeric",
@@ -56,9 +72,9 @@ export const JobPostingComponent = () => {
                 <ModeCommentOutlinedIcon className={styles.icon_feeling} />
                 <p>Bình Luận</p>
               </div>
-              <div className="item-action">
+              <div className="item-action" onClick={() => handleOpen(job)}>
                 <FavoriteSharpIcon className={styles.icon_feeling} />
-                <p>Quan Tâm</p>
+                <p>Tham Gia</p>
               </div>
               <div className="item-action">
                 <ReplySharpIcon className={styles.icon_feeling} />
@@ -69,6 +85,12 @@ export const JobPostingComponent = () => {
         ))}
       </div>
       <div className={styles.end}></div>
+      <AddDialog
+        open={open}
+        jobItem={jobItem}
+        handleClose={handleCloseAdd}
+        handleAccept={handleAcceptAdd}
+      />
     </div>
   );
 };

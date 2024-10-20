@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { IJobData } from "../../../redux/reducers/job";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { createJob } from "../../../redux/actions/jobActions";
 
 import "react-quill/dist/quill.snow.css";
@@ -221,13 +221,14 @@ export const AddDialog = (props: IAddDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [editorHtml, setEditorHtml] = useState<string>("");
   const [theme] = useState<string>("snow");
+  const currentUser = useAppSelector((state) => state.user.userData?.id);
   const [addJob, setAddJob] = useState<IJobData>({
     id: 3,
     title: "",
     content: "",
     img: "",
-    user_id: 1,
-    JobCategory_id: 1,
+    user_id: currentUser || 1,
+    JobCategory_id: 3,
     salary: "",
 
     createdAt: new Date().toISOString().split("T")[0],

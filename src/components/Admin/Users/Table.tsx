@@ -60,8 +60,8 @@ export default function TableComponent({
   };
 
   // Hàm xử lý cập nhật người dùng
-  const handleAcceptEdit = (user: IUserData) => {
-    dispatch(putUpdateUser(user));
+  const handleAcceptEdit = (user: IUserData , file:File) => {
+    dispatch(putUpdateUser(user ,file));
     setSelectedUser(null);
     setOpenEdit(false);
   };

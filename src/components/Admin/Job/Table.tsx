@@ -38,7 +38,7 @@ export default function TableComponent({
   }, []);
   const getTextFromHTML = (html: string): string => {
     const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.innerText; // Lấy văn bản từ HTML
+    return doc.body.innerText;
   };
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -108,8 +108,8 @@ export default function TableComponent({
                   <TableCell align="center">{job.id}</TableCell>
                   <TableCell align="right"></TableCell>
                   <TableCell align="left">
-                    {getTextFromHTML(job.content).length > 15
-                      ? `${getTextFromHTML(job.content).slice(0, 15)}...`
+                    {getTextFromHTML(job.content).length > 20
+                      ? `${getTextFromHTML(job.content).slice(0, 20)}...`
                       : getTextFromHTML(job.content)}
                   </TableCell>
                   <TableCell align="left">

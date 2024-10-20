@@ -1,0 +1,17 @@
+.Apply-layout {
+  padding: 50px;
+  box-sizing: border-box;
+
+ 
+  .MuiTableHead-root {
+    background: #212529;
+
+    .MuiTableCell-root {
+      color: #fdfdfd;
+    }
+  }
+
+  .MuiButtonBase-root .MuiSvgIcon-root {
+    display: none !important;
+  }
+}

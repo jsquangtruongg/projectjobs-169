@@ -22,6 +22,13 @@ export const getJob = (id: number) => async (dispatch: AppDispatch) => {
     dispatch(setError(error.response?.data.mess));
   }
 };
+export const setJobInit =
+  (jobData: IJobData) => async (dispatch: AppDispatch) => {
+    dispatch({
+      type: types.SET_JOB_INIT,
+      payload: { jobData },
+    });
+  };
 
 export const getJobAll =
   (content = "", createdAt = "", lastName = "") =>

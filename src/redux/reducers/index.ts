@@ -7,6 +7,8 @@ import blogCategory from "./blogCategory";
 import blogReducer from "./blog";
 import jobReducer from "./job";
 import jobCategoryReducer from "./jobCategory";
+import appLyReducer from "./apply";
+
 const rootReducer = combineReducers({
   global: globalReducer,
   auth: authReducer,
@@ -15,6 +17,7 @@ const rootReducer = combineReducers({
   blog: blogReducer,
   job: jobReducer,
   jobCategory: jobCategoryReducer,
+  apply: appLyReducer,
 });
 
 export default rootReducer;

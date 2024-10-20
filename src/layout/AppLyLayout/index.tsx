@@ -1,7 +1,6 @@
-import { Dashboard, Layers, ShoppingCart } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import "./style.scss";
+
 import {
   type Navigation,
   type Router,
@@ -9,70 +8,47 @@ import {
   DashboardLayout,
   Session,
 } from "@toolpad/core";
+import styles from "./style.module.scss";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getAdminInfo } from "../../redux/actions/userAction";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useAuth } from "../../hook/useAuth";
-const NAVIGATION: Navigation = [
-  {
-    segment: "user",
-    title: "User",
-    icon: <Dashboard />,
-  },
-  {
-    segment: "blog",
-    title: "Blog",
-    icon: <ShoppingCart />,
-  },
-  {
-    segment: "blog-category",
-    title: "Blog Category",
-    icon: <Layers />,
-  },
-  {
-    segment: "job",
-    title: "job",
-    icon: <Layers />,
-  },
-  {
-    segment: "job-category",
-    title: "Job Category",
-    icon: <Layers />,
-  },
-];
-const themeAdmin = createTheme({
+const NAVIGATION: Navigation = [];
+const themeAppLy = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-toolpad-color-scheme",
   },
   components: {
-    MuiPaper: {
+    MuiDrawer: {
       styleOverrides: {
         root: {
-          background: "#f0f2f5",
+          "&.MuiDrawer-root": {
+            display: "none", // Ẩn toàn bộ Drawer
+          },
+        },
+        docked: {
+          "&.MuiDrawer-docked": {
+            display: "none", // Ẩn Drawer docked
+          },
         },
       },
     },
+
     MuiButtonBase: {
       styleOverrides: {
         root: {
-          "&.MuiListItemButton-root .MuiSvgIcon-root": { color: "#212529" },
+          "&.MuiIconButton-root[aria-label='Collapse navigation menu']": {
+            display: "none", // Ẩn nút thu gọn menu
+          },
         },
       },
     },
   },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
+  colorSchemes: { light: true, dark: true },
 });
 
-const AdminLayout = () => {
+export const AppLyLayout = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.user);
@@ -109,28 +85,28 @@ const AdminLayout = () => {
       searchParams: new URLSearchParams(),
       navigate: (path) => {
         setPathname(String(path));
-        navigate(`/admin${String(path)}`);
       },
     };
   }, [pathname]);
   if (state.isLoading)
     return (
-      <div className="loading-data">
+      <div className={styles["loading-data"]}>
         <CircularProgress />
       </div>
     );
 
   return (
     <AppProvider
+      theme={themeAppLy}
       navigation={NAVIGATION}
       router={router}
-      theme={themeAdmin}
-      branding={{ logo: <></>, title: "Admin" }}
+      branding={{ logo: <></>, title: "Ứng Tuyển" }}
       session={session}
       authentication={authentication}
+      disableDrawer
     >
       <DashboardLayout>
-        <div className="admin-layout">
+        <div className={styles["Apply-layout"]}>
           <Outlet />
         </div>
       </DashboardLayout>
@@ -138,4 +114,6 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+
+
+

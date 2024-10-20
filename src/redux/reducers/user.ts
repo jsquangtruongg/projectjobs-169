@@ -12,7 +12,7 @@ export type IUserData = {
   firstName?: string;
   lastName?: string;
   email?: string;
-  avatar?: null;
+  avatar?: string;
   role_code?: string;
   createdAt?: string;
   updatedAt?: string;

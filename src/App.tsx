@@ -27,7 +27,7 @@ const App = () => {
           </Alert>
         </Snackbar>
       )}
-    </>
+    </> 
   );
 };
 

@@ -16,6 +16,9 @@ import UserAdminPage from "../pages/Admin/User";
 import BlogAdminPage from "../pages/Admin/Blog";
 import BlogCategoryAdminPage from "../pages/Admin/BlogCategory";
 import JobAdminPage from "../pages/Admin/job";
+import JobCategoryAdminPage from "../pages/Admin/JobCategory";
+import { AppLyLayout } from "../layout/AppLyLayout";
+import { AppLyComponent } from "../components/Client/AppLy";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +30,13 @@ const router = createBrowserRouter([
       { path: "blog", element: <BlogAdminPage /> },
       { path: "blog-category", element: <BlogCategoryAdminPage /> },
       { path: "job", element: <JobAdminPage /> },
+      { path: "job-category", element: <JobCategoryAdminPage /> },
     ],
+  },
+  {
+    element: <AppLyLayout />,
+    path: "/apply-layout",
+    children: [{ path: "", element: <AppLyComponent /> }],
   },
   {
     element: <PrivateRoute />,

@@ -1,3 +1,4 @@
+import { Key } from "@mui/icons-material";
 import { IUserData } from "../../redux/reducers/user";
 import { API } from "../config";
 
@@ -46,19 +47,39 @@ export const getUserAllAPI = async (
   };
 };
 
-export const editUser = async (userData: IUserData): Promise<IResponse> => {
-  const { data } = await API.put(
-    `/user/users/${userData.id}`,
-    { ...userData },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
+export const editUser = async (
+  userData: IUserData,
+  file: File | null
+): Promise<IResponse> => {
+  const formData = new FormData();
+  if (file) {
+    formData.append("avatar", file);
+  }
+  const { firstName, lastName, roleData, avatar, ...restUserData } = userData;
+  if (lastName) {
+    formData.append("lastName", lastName); // Thêm lastName nếu có
+  }
+
+  // Thêm firstName và role_code nếu có
+  if (firstName) {
+    formData.append("firstName", firstName);
+  }
+
+  
+  Object.keys(restUserData).forEach((key) => {
+    let value = restUserData[key as keyof typeof restUserData];
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
     }
-  );
+  });
+  const { data } = await API.put(`/user/users/${userData.id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return {
     mes: data.mes,
-    userData: data.data || [],
+    userData: data.data || ({} as IUserData),
     err: data.err,
   };
 };

@@ -40,7 +40,7 @@ export const getBlogAPI = async (id: number): Promise<IResponse> => {
     blogData: res.data.data,
     mes: res.data.mes,
     err: res.data.err,
-  };
+  };  
 };
 
 export const editBlog = async (blogData: IBlogData): Promise<IResponse> => {

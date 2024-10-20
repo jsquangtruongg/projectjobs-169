@@ -8,15 +8,14 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-
 import { useEffect, useState } from "react";
+import { IJobCategoryData } from "../../../redux/reducers/jobCategory";
+import { postCreateJobCategory } from "../../../redux/actions/jobCategoryActions";
 import { useAppDispatch } from "../../../redux/store";
-import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
-import { postCreateBlogCategory } from "../../../redux/actions/blogCategoryAction";
 
 export type IDeleteDialogProps = {
   open?: boolean;
-  title?: string;
+  title?: string; 
   handleClose: () => void;
   handleAccept: () => void;
 };
@@ -46,30 +45,29 @@ export const DeleteDialog = (props: IDeleteDialogProps) => {
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
-  blogCategoryData: IBlogCategoryData | null;
+  jobCategoryData: IJobCategoryData | null;
   handleClose: () => void;
-  handleAccept: (blog: IBlogCategoryData) => void;
+  handleAccept: (job: IJobCategoryData) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
-  const [blog, setBlog] = useState<IBlogCategoryData | null>(null);
+  const [jobCategory, setJobCategory] = useState<IJobCategoryData | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setBlog((prevData) => (prevData ? { ...prevData, [name]: value } : null));
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setJobCategory((prevData) =>
+      prevData ? { ...prevData, [name]: value } : null
+    );
   };
-
   useEffect(() => {
-    if (props.blogCategoryData) {
-      setBlog(props.blogCategoryData);
+    if (props.jobCategoryData) {
+      setJobCategory(props.jobCategoryData);
     }
-  }, [props.blogCategoryData]);
-
+  }, [props.jobCategoryData]);
   const handleAccepts = () => {
-    if (!blog) return;
-    props.handleAccept(blog);
+    if (!jobCategory) return;
+    props.handleAccept(jobCategory);
     props.handleClose();
   };
-
   return (
     <Dialog
       open={props.open ?? false}
@@ -93,26 +91,13 @@ export const EditDialog = (props: IEditDialogProps) => {
           autoComplete="off"
         >
           <TextField
-            onChange={handleChange}
-            value={blog?.title}
             label="Tên bài viết"
             name="title"
             size="small"
-          />
-          <TextField
+            value={jobCategory?.title}
             onChange={handleChange}
-            label="Danh mục"
-            value={blog?.describe}
-            name="describe"
-            size="small"
           />
-          <TextField
-            onChange={handleChange}
-            value={blog?.userData.lastName}
-            label="Tên"
-            name="lastName"
-            size="small"
-          />
+          <TextField label="Tên" name="lastName" size="small" />
         </Box>
       </DialogContent>
       <DialogActions>
@@ -129,18 +114,14 @@ export const EditDialog = (props: IEditDialogProps) => {
 
 export type IAddDialogProps = {
   open?: boolean;
-
   handleClose: () => void;
   handleAccept: () => void;
 };
 
 export const AddDialog = (props: IAddDialogProps) => {
-  const [file, setFile] = useState<File | null>(null);
-  const [addBlogCategory, setAddBlogCategory] = useState<IBlogCategoryData>({
-    id: 1,
+  const [addJobCategory, setAddJobCategory] = useState<IJobCategoryData>({
+    id: 2,
     title: "",
-    img: "",
-    describe: "",
     user_id: 1,
     createdAt: "",
     updatedAt: "",
@@ -150,22 +131,23 @@ export const AddDialog = (props: IAddDialogProps) => {
       lastName: "",
       id: 1,
     },
-    blogData: {
+    Jobs: {
       id: 1,
+      img: "",
       content: "",
-      title: "",
     },
   });
   const dispatch = useAppDispatch();
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setFile(event.target.files[0]);
-    }
-  };
   const handleAccepts = async () => {
-    if (!addBlogCategory || !file) return;
-    await dispatch(postCreateBlogCategory(addBlogCategory, file));
+    if (!addJobCategory) return;
+    await dispatch(postCreateJobCategory(addJobCategory));
     props.handleClose();
+  };
+  const handleChangeTextField = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    setAddJobCategory((prevData) => ({ ...prevData, [name]: value }));
   };
   return (
     <Dialog
@@ -174,7 +156,7 @@ export const AddDialog = (props: IAddDialogProps) => {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title" style={{ textAlign: "center" }}>
-        Thêm mới thông tin blog
+        Thêm mới thông tin JobCategory
       </DialogTitle>
       <DialogContent>
         <Box
@@ -191,41 +173,28 @@ export const AddDialog = (props: IAddDialogProps) => {
         >
           <TextField
             label="ID"
-            name="id"
+            name="user_id"
             size="small"
-            value={addBlogCategory.id}
-            onChange={(event) =>
-              setAddBlogCategory({
-                ...addBlogCategory,
-                id: parseInt(event.target.value),
-              })
-            }
+            value={addJobCategory.id}
+            onChange={handleChangeTextField}
           />
           <TextField
             label="Tên bài viết"
             name="title"
             size="small"
-            value={addBlogCategory.title}
-            onChange={(event) =>
-              setAddBlogCategory({
-                ...addBlogCategory,
-                title: event.target.value,
-              })
-            }
+            value={addJobCategory.title}
+            onChange={handleChangeTextField}
           />
+
           <TextField
-            label="Mô tả"
-            name="describe"
+            label="User ID"
+            name="user_id"
             size="small"
-            value={addBlogCategory.describe}
-            onChange={(event) =>
-              setAddBlogCategory({
-                ...addBlogCategory,
-                describe: event.target.value,
-              })
-            }
+            value={addJobCategory.user_id}
+            onChange={handleChangeTextField}
           />
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+
+          <TextField label="" name="createdAt" type="date" size="small" />
         </Box>
       </DialogContent>
       <DialogActions>

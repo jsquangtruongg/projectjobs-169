@@ -19,9 +19,11 @@ export default function FilterComponent(props: IFilterComponentProps) {
     content: "",
     img: "",
     user_id: 2,
+    salary:"",
+    title:"",
     createdAt: "",
     updatedAt: "",
-    JobCategory_id:1,
+    JobCategory_id: 1,
     userData: {
       id: 2,
       avatar: null,
@@ -29,6 +31,11 @@ export default function FilterComponent(props: IFilterComponentProps) {
       firstName: "",
       lastName: "",
     },
+    categoryData:{
+       title: "",
+       describe: "",
+
+    }
   });
 
   useEffect(() => {

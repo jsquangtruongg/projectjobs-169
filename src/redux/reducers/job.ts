@@ -14,7 +14,7 @@ export type ICategory = {
 };
 
 export type IJobData = {
-  id: number;
+  id: number | string;
   title: string;
   content: string;
   img: string | File;
@@ -45,11 +45,6 @@ const jobReducer = (
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case types.GET_JOB:
-      return {
-        ...state,
-        jobData: payload.jobData || [],
-      };
     case types.GET_JOB_ALL:
       return {
         ...state,

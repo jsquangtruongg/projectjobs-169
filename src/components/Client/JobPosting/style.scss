@@ -58,10 +58,10 @@
   }
   .group-icon-action {
     display: flex;
-
     justify-content: space-between;
     margin-bottom: 20px;
     .item-action {
+      cursor: pointer;
       display: flex;
       align-items: center;
       margin-top: 100px;

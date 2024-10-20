@@ -10,15 +10,21 @@ export default function JobComponent() {
     content: "",
     img: "",
     user_id: 2,
-    JobCategory_id: 1,
+    salary: "",
+    title: "",
     createdAt: "",
     updatedAt: "",
+    JobCategory_id: 1,
     userData: {
       id: 2,
       avatar: null,
+      email: "",
       firstName: "",
       lastName: "",
-      email: "",
+    },
+    categoryData: {
+      title: "",
+      describe: "",
     },
   });
 

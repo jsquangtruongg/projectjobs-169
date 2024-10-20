@@ -590,9 +590,10 @@
   border: 1px solid #68799f;
 }
 .poster-background {
-  width: 340px;
-  height: 370px;
-  background-size: cover;
+ width: 100%;
+  height: 100%;
+  object-fit: cover;
+
 }
 .poster_job {
   width: 340px;
