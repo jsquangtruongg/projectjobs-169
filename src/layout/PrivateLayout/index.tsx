@@ -14,10 +14,11 @@ import {
 import { useAuth } from "../../hook/useAuth";
 import { setUserInit } from "../../redux/actions/userAction";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-
+import  './style.scss'
 const PrivateRoute = () => {
   const [showFrom, setShowFrom] = useState(false);
   const userState = useAppSelector((state) => state.user);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user, removeUser } = useAuth();
@@ -50,6 +51,10 @@ const PrivateRoute = () => {
     navigate("/admin");
   };
 
+  const handleNavigateAppLy = () => {
+    navigate("/apply-layout");
+  };
+
   return user || !!isAuthenticated ? (
     <div className="client-layout">
       <div className="header-container">
@@ -69,12 +74,14 @@ const PrivateRoute = () => {
               classes={{ tooltip: "user-info-tooltip" }}
               title={
                 <div className="user-info-list">
-                  {userState.userData?.roleData?.id === 1 && (
-                    <div className="item" onClick={handleNavigateAdmin}>
-                      <ManageAccounts className="item-icon" />
-                      Admin
-                    </div>
-                  )}
+                  {userState?.userData?.roleData &&
+                    (userState.userData.roleData.id === 1 ||
+                      userState.userData.roleData.id === 2) && (
+                      <div className="item" onClick={handleNavigateAdmin}>
+                        <ManageAccounts className="item-icon" />
+                        Admin
+                      </div>
+                    )}
                   <div className="item">
                     <SettingsIcon className="item-icon" />
                     Cài Đặt
@@ -83,9 +90,19 @@ const PrivateRoute = () => {
                     <SendIcon className="item-icon" />
                     Trợ giúp & Hổ Trợ
                   </div>
-                  <div className="item">
+
+                  <div
+                    className="item"
+                    onClick={
+                      userState?.userData?.roleData &&
+                      (userState.userData.roleData.id === 1 ||
+                        userState.userData.roleData.id === 2)
+                        ? handleNavigateAppLy
+                        : undefined
+                    }
+                  >
                     <MarkEmailUnreadIcon className="item-icon" />
-                    Đóng góp ý kiến
+                    Thông Báo
                   </div>
                   <div className="item" onClick={handleLogout}>
                     <LogoutIcon className="item-icon" />
@@ -101,10 +118,12 @@ const PrivateRoute = () => {
                     " " +
                     userState.userData?.lastName}
                 </span>
-                <AccountCircle
-                  sx={{ width: "30px", height: "30px" }}
-                  onClick={toggleShowFrom}
-                />
+                <div onClick={toggleShowFrom}>
+                  {" "}
+                  {userState.userData?.avatar && (
+                    <img src={userState.userData.avatar as string} alt="user"  className="item-avatar"/>
+                  )}
+                </div>
               </div>
             </Tooltip>
           </div>

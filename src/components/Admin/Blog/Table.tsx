@@ -26,12 +26,17 @@ interface ITableComponentProps {
 
 export default function TableComponent({
   searchCriteria,
-}:ITableComponentProps) {
+}: ITableComponentProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IBlogData | null>(null);
+  const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const blogState = useAppSelector((state) => state.blog);
+  const getTextFromHTML = (html: string): string => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.innerText; // Lấy văn bản từ HTML
+  };
   useEffect(() => {
     dispatch(getBlogAll());
   }, []);
@@ -56,7 +61,6 @@ export default function TableComponent({
 
   const handleAcceptEdit = (blog: IBlogData) => {
     dispatch(putUpdateBlog(blog));
-    console.log(blog);
     setSelectedUser(null);
     setOpenEdit(false);
   };
@@ -65,20 +69,21 @@ export default function TableComponent({
     setSelectedUser(blog);
     setOpenEdit(true);
   };
-  useEffect(()=>{
-    if(searchCriteria.title ||
+  useEffect(() => {
+    if (
+      searchCriteria.title ||
       searchCriteria.content ||
       searchCriteria.userData.lastName
-    ){
+    ) {
       dispatch(
         getBlogAll(
           searchCriteria.title,
           searchCriteria.content,
           searchCriteria.userData.lastName
         )
-      )
+      );
     }
-  },[dispatch,searchCriteria])
+  }, [dispatch, searchCriteria]);
   return (
     <div>
       <>
@@ -101,17 +106,24 @@ export default function TableComponent({
                   <TableCell align="center">{blog.id}</TableCell>
                   <TableCell align="right"></TableCell>
                   <TableCell align="left">{blog.title}</TableCell>
-                  <TableCell align="left">{blog.content}</TableCell>
+                  <TableCell align="left">
+                    {" "}
+                    {getTextFromHTML(blog.content).length > 15
+                      ? `${getTextFromHTML(blog.content).slice(0, 15)}...`
+                      : getTextFromHTML(blog.content)}
+                  </TableCell>
                   <TableCell align="left">
                     {" "}
                     {blog.userData ? `${blog.userData.lastName}` : "Ẩn danh"}
                   </TableCell>
                   <TableCell align="center">
-                    <Tooltip title="Edit">
-                      <IconButton onClick={() => handleEditUser(blog)}>
-                        <Edit color="primary" />
-                      </IconButton>
-                    </Tooltip>
+                    {userState?.userData?.roleData?.id !== 1 && (
+                      <Tooltip title="Edit">
+                        <IconButton onClick={() => handleEditUser(blog)}>
+                          <Edit color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                    )}
                     <Tooltip title="Delete">
                       <IconButton onClick={() => handleDeleteUser(blog)}>
                         <Delete color="error" />

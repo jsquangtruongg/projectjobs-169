@@ -47,7 +47,6 @@ export const editBlogCategoryAPI = async (
       },
     }
   );
-  console.log("Response Data:", data);
   return {
     mes: data.mes,
     blogCategoryData: data.data || [],
@@ -69,20 +68,44 @@ export const deleteBlogCategoryAPI = async (id: number): Promise<IResponse> => {
 };
 
 export const createBlogCategoryAPI = async (
-  blogCategoryData: IBlogCategoryData
+  blogCategoryData: IBlogCategoryData,
+  file: File | null
 ): Promise<IResponse> => {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append("img", file);
+  }
+  const {
+    blogData,
+    createdAt,
+    id,
+    updatedAt,
+    userData,
+    img,
+    ...restBlogCategory
+  } = blogCategoryData;
+  Object.keys(restBlogCategory).forEach((key) => {
+    let value = restBlogCategory[key as keyof typeof restBlogCategory];
+
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
+    }
+  });
+
   const { data } = await API.post(
     "/blog-category",
-    { ...blogCategoryData },
+    formData,
+
     {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     }
   );
   return {
     mes: data.mes,
-    blogCategoryData: data.data || {},
+    blogCategoryData: data.data || ({} as IBlogCategoryData),
     err: data.err,
   };
 };
