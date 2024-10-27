@@ -1,6 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
-
 export type IUser = {
   id: number | string;
   firstName: string;
@@ -14,54 +13,58 @@ export type IJob = {
   content: string;
 };
 
-export type IApplyData = {
-  id: number | string;
+export type IApply = {
+  id: number;
   fullName: string;
   email: string;
   phone: string;
   img: string;
+};
+
+export type IApplyMemberData = {
+  id: number | string;
+  content: string;
   createdAt: string;
   updatedAt: string;
   user_id: string | number;
   job_id: string | number;
+  apply_id: string | number;
   userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
   jobs: IJob;
+  Applies: IApply;
 };
 
-export type IApply = {
+export type IApplyMember = {
   isLoading: boolean;
-  applyData: IApplyData[];
-  applyDataList: IApplyData[];
+  applyMemberData: IApplyMemberData[];
+  applyMemberDataList: IApplyMemberData[];
 };
 
-const initialState: IApply = {
+const initialState: IApplyMember = {
   isLoading: false,
-  applyData: [],
-  applyDataList: [],
+  applyMemberData: [],
+  applyMemberDataList: [],
 };
 
-const appLyReducer = (
+const appLyMemberReducer = (
   state = initialState,
-  action: PayloadAction<Partial<IApply>>
+  action: PayloadAction<Partial<IApplyMember>>
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case types.GET_APPLY:
+    case types.GET_ALL_APPLY_MEMBER:
       const newState = {
         ...state,
-        applyDataList: payload.applyDataList || [],
+        applyMemberDataList: payload.applyMemberDataList || [],
       };
+
       return newState;
-    case types.GET_ID_APPLY:
-      return {
-        ...state,
-        applyData: payload.applyData || [],
-      };
+
     default:
       return state;
   }
 };
 
-export default appLyReducer;
+export default appLyMemberReducer;

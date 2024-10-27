@@ -2,13 +2,14 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
 export type IUser = {
   id: number;
-  avatar: null;
+  avatar: string;
   firstName: string;
   lastName: string;
   email: string;
 };
 
 export type ICategory = {
+  id: number;
   title: string;
   describe: string;
 };
@@ -45,11 +46,17 @@ const jobReducer = (
 ) => {
   const { type, payload } = action;
   switch (type) {
+    case types.GET_JOB:
+      return {
+        ...state,
+        jobData: payload.jobData || [],
+      };
     case types.GET_JOB_ALL:
       return {
         ...state,
         jobDataList: payload.jobDataList || [],
       };
+
     default:
       return state;
   }

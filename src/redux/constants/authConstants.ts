@@ -50,3 +50,11 @@ export const GET_JOB_CATEGORY_ALL = "GET_JOB_CATEGORY_ALL";
 //Apply
 export const GET_APPLY = "GET_APPLY";
 export const GET_ID_APPLY = "GET_ID_APPLY";
+
+// ApplyMember
+
+export const GET_ALL_APPLY_MEMBER = " GET_ALL_APPLY_MEMBER";
+
+//BrowseApplyManager
+
+export const GET_ALL_BROWSE_APPLY = "GET_ALL_BROWSE_APPLY";

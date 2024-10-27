@@ -17,9 +17,10 @@ export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
   const [open, setOpen] = useState(false);
   const [jobItem, setJobItem] = useState<IJobData | null>(null);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getJobAll());    
+    dispatch(getJobAll());
   }, []);
 
   const handleOpen = (item: IJobData) => {
@@ -32,6 +33,7 @@ export const JobPostingComponent = () => {
   const handleAcceptAdd = () => {
     setOpen(false);
   };
+
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">

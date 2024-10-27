@@ -14,7 +14,24 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { getAdminInfo } from "../../redux/actions/userAction";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useAuth } from "../../hook/useAuth";
-const NAVIGATION: Navigation = [];
+import { Dashboard } from "@mui/icons-material";
+const NAVIGATION: Navigation = [
+  {
+    segment: "add-apply-manager",
+    title: "Danh Sách Ứng Tuyển",
+    icon: <Dashboard />,
+  },
+  {
+    segment: "delete-apply-manager",
+    title: "Danh Sách Đã Từ Chối",
+    icon: <Dashboard />,
+  },
+  {
+    segment: "browse-apply-manager",
+    title: "Danh Sách Đã Duyệt",
+    icon: <Dashboard />,
+  },
+];
 const themeAppLy = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-toolpad-color-scheme",
@@ -22,33 +39,29 @@ const themeAppLy = createTheme({
   components: {
     MuiDrawer: {
       styleOverrides: {
-        root: {
-          "&.MuiDrawer-root": {
-            display: "none", // Ẩn toàn bộ Drawer
-          },
-        },
-        docked: {
-          "&.MuiDrawer-docked": {
-            display: "none", // Ẩn Drawer docked
-          },
-        },
-      },
-    },
-
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          "&.MuiIconButton-root[aria-label='Collapse navigation menu']": {
-            display: "none", // Ẩn nút thu gọn menu
-          },
-        },
+        // root: {
+        //   "&.MuiDrawer-root": {
+        //     width: "120px", // Ẩn toàn bộ Drawer
+        //   },
+        // },
+        // // paper: {
+        // //   // Chỉnh sửa ở đây
+        // //   width: "300px !important", // Đặt chiều rộng
+        // //   backgroundColor: "#1b1c57", // Đặt màu nền
+        // //   overflowX: "hidden", // Tránh tràn
+        // // },
+        // docked: {
+        //   "&.MuiDrawer-docked": {
+        //     width: "115px",
+        //   },
+        // },
       },
     },
   },
   colorSchemes: { light: true, dark: true },
 });
 
-export const AppLyLayout = () => {
+export const AppLyManagerLayout = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.user);
@@ -85,6 +98,7 @@ export const AppLyLayout = () => {
       searchParams: new URLSearchParams(),
       navigate: (path) => {
         setPathname(String(path));
+        navigate(`/apply-manager-layout${String(path)}`);
       },
     };
   }, [pathname]);
@@ -113,7 +127,3 @@ export const AppLyLayout = () => {
     </AppProvider>
   );
 };
-
-
-
-

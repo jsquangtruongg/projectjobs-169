@@ -23,12 +23,14 @@ export type IListUser = IUserData;
 
 type IUser = {
   userData: IUserData | null;
+  userApply: IUserData | null;
   userDataList: IUserData[];
   isLoading?: boolean;
 };
 
 const initialState: IUser = {
   isLoading: false,
+  userApply: null,
   userData: null,
   userDataList: [],
 };
@@ -50,6 +52,11 @@ const userReducer = (
       return {
         ...state,
         userData: payload.userData,
+      };
+    case types.SET_USER_INIT:
+      return {
+        ...state,
+        userApply: payload.userData,
       };
     case types.USER_CHANGE_LOADING:
       return {

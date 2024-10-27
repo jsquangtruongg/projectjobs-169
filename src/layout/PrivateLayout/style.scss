@@ -1,6 +1,11 @@
-.item-avatar{
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50px;
+.item-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50px;
 }
+.header-box {
+  background-image: var(--main-bg-linear-gradient);
+  box-shadow: 0 -1px 10px 1px gray;
+}
+    

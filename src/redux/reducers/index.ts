@@ -8,7 +8,8 @@ import blogReducer from "./blog";
 import jobReducer from "./job";
 import jobCategoryReducer from "./jobCategory";
 import appLyReducer from "./apply";
-
+import appLyMemberReducer from "./applyMember";
+import browseApplyReducer from "./browseApplyManager";
 const rootReducer = combineReducers({
   global: globalReducer,
   auth: authReducer,
@@ -18,6 +19,8 @@ const rootReducer = combineReducers({
   job: jobReducer,
   jobCategory: jobCategoryReducer,
   apply: appLyReducer,
+  applyMember: appLyMemberReducer,
+  browseApplyManager: browseApplyReducer,
 });
 
 export default rootReducer;

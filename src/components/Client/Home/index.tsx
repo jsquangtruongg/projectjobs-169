@@ -29,17 +29,21 @@ import Tabs from "./Tabs";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useEffect } from "react";
 import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
-import { getJob } from "../../../redux/actions/jobActions";
+import { getJob, getJobAll } from "../../../redux/actions/jobActions";
 import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDissatisfiedOutlined";
 
 export const HomeComponent = () => {
   const jobCategoryState = useAppSelector((state) => state.jobCategory);
   const jobState = useAppSelector((state) => state.job);
-
+  console.log("wswsws", jobState.jobData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getJobALLCategory());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getJobAll());
   }, []);
 
   return (
@@ -115,6 +119,7 @@ export const HomeComponent = () => {
                   className={styles.item_sponsor}
                 >
                   <div className={styles.form_recruitment_post}>
+                    
                     {jobState.jobData.length === 0 ? (
                       <div>
                         <p style={{ display: "flex" }}>
@@ -134,7 +139,7 @@ export const HomeComponent = () => {
                           )}
                           <p className={styles.text_title}>{jobItem.title}</p>
                           <span className={styles.salary_received}>
-                           {jobItem.salary}
+                            {jobItem.salary}
                           </span>
                           <div className={styles.from_img_avt_post}>
                             <img

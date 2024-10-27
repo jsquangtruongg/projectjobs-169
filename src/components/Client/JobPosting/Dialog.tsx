@@ -24,6 +24,10 @@ export const AddDialog = (props: IEditDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
   const currentUser = props.jobItem?.userData.id || "";
   const currentJob = props.jobItem?.id || "";
+  const userApplyState = useAppSelector(
+    (state) => state.user.userData?.id || ""
+  );
+
   const [addApply, setAddApply] = useState<IApplyData>({
     id: 1,
     fullName: "",
@@ -34,6 +38,7 @@ export const AddDialog = (props: IEditDialogProps) => {
     updatedAt: "",
     user_id: currentUser,
     job_id: currentJob,
+    userApply_id: userApplyState,
     userData: {
       id: 1,
       firstName: "",
@@ -46,15 +51,29 @@ export const AddDialog = (props: IEditDialogProps) => {
       img: "",
       content: "",
     },
+    userApply: {
+      id: 1,
+      firstName: "",
+      lastName: "",
+      email: "",
+      avatar: "",
+    },
   });
 
   useEffect(() => {
-    setAddApply({ ...addApply, job_id: currentJob, user_id: currentUser });
+    setAddApply({
+      ...addApply,
+      userApply_id: userApplyState,
+      job_id: currentJob,
+      user_id: currentUser,
+    });
   }, [currentUser, currentJob]);
   const dispatch = useAppDispatch();
+
   const handleAccepts = async () => {
     if (!addApply) return;
-    await dispatch(createApply(addApply));
+
+    await dispatch(createApply(addApply, file as File));
     props.handleClose();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,6 +162,13 @@ export const AddDialog = (props: IEditDialogProps) => {
             name="job_id"
             size="small"
             value={addApply.job_id}
+            onChange={handleChange}
+          />
+          <TextField
+            label="userApply_id"
+            name="userApply_id"
+            size="small"
+            value={userApplyState}
             onChange={handleChange}
           />
 

@@ -19,23 +19,23 @@ export default function FilterComponent(props: IFilterComponentProps) {
     content: "",
     img: "",
     user_id: 2,
-    salary:"",
-    title:"",
+    salary: "",
+    title: "",
     createdAt: "",
     updatedAt: "",
     JobCategory_id: 1,
     userData: {
       id: 2,
-      avatar: null,
+      avatar: "",
       email: "",
       firstName: "",
       lastName: "",
     },
-    categoryData:{
-       title: "",
-       describe: "",
-
-    }
+    categoryData: {
+      id: 1,
+      title: "",
+      describe: "",
+    },
   });
 
   useEffect(() => {

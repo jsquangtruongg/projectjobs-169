@@ -7,7 +7,7 @@ import { IApplyData } from "../reducers/apply";
 export const getAllApply = () => async (dispatch: AppDispatch) => {
   try {
     const { applyDataList } = await getApplyAllAPI();
-    
+
     dispatch({
       type: types.GET_APPLY,
       payload: { applyDataList },
@@ -30,9 +30,9 @@ export const getIdApply = (id: number) => async (dispatch: AppDispatch) => {
   }
 };
 export const createApply =
-  (data: IApplyData) => async (dispatch: AppDispatch) => {
+  (data: IApplyData, file: File) => async (dispatch: AppDispatch) => {
     try {
-      await createAppLyAPI(data);
+      await createAppLyAPI(data, file);
       dispatch(getAllApply());
     } catch (error: any) {
       dispatch(setError(error.response?.data.mess));

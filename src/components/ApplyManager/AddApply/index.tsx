@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import icon from "../../../assets/images/Rectangle25.png";
 import { BrowseDialog, FroFile, RefuseDialog } from "./Dialog";
 import "./style.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getIdApply } from "../../../redux/actions/applyAction";
 import { IApplyData } from "../../../redux/reducers/apply";
 
-export const AppLyComponent = () => {
+export const AppLyManagerComponent = () => {
   const [openProFile, setOpenProFile] = useState(false);
   const [openBrowse, setOpenBrowse] = useState(false);
   const [openRefuse, setOpenRefuse] = useState(false);
   const proFileState = useAppSelector((state) => state.apply);
+  const currentUser = useAppSelector((state) => state.user.userData?.id);
   const [itemApply, setItemApply] = useState<IApplyData | null>(null);
-
+  const [applyItem, setApplyItem] = useState<IApplyData | null>(null);
   const handleClickOpen = (item: IApplyData) => {
     setItemApply(item);
     setOpenProFile(true);
@@ -21,8 +20,8 @@ export const AppLyComponent = () => {
   const handleClickClose = () => {
     setOpenProFile(false);
   };
-
-  const handleClickOpenBrowse = () => {
+  const handleClickOpenBrowse = (item: IApplyData) => {
+    setApplyItem(item);
     setOpenBrowse(true);
   };
   const handleAcceptBrowse = () => {
@@ -31,7 +30,6 @@ export const AppLyComponent = () => {
   const handleClosetBrowse = () => {
     setOpenBrowse(false);
   };
-
   const handleClickRefuse = () => {
     setOpenRefuse(true);
   };
@@ -47,46 +45,72 @@ export const AppLyComponent = () => {
   };
   return (
     <div className="heading-apply">
-      {proFileState.applyDataList.map((proFile: IApplyData, index: number) => (
-        <div className="from-check-apply" key={index}>
-          <div className="from-click-app">
-            <img src={icon} alt="" />
+      {proFileState.applyDataList
+        .filter((proFile: IApplyData) => proFile.userData.id === currentUser)
+        .map((proFile: IApplyData, index: number) => (
+          <div className="from-check-apply" key={index}>
+            <div className="img-job">
+              {" "}
+              <img src={proFile.jobs.img as string} alt="" />
+            </div>
             <div className="item-text-title">
               <p className="title-source">Từ bài đăng:</p>
-              <p>
+              <p
+                style={{
+                  fontFamily: `"Times New Roman", Times, serif`,
+                  fontSize: "17px",
+                  fontWeight: "600",
+                }}
+              >
                 {" "}
-                {getTextFromHTML(proFile.jobs.content).length > 20
-                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 20)}...`
+                {getTextFromHTML(proFile.jobs.content).length > 18
+                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 18)}...`
                   : getTextFromHTML(proFile.jobs.content)}
               </p>
             </div>
             <div className="item-text-title">
               <p className="title-source">Ứng tuyển:</p>
-              <p>{proFile.fullName}</p>
+              <p
+                style={{
+                  fontFamily: `"Times New Roman", Times, serif`,
+                  fontSize: "17px",
+                  fontWeight: "600",
+                }}
+              >
+                {proFile.fullName}
+              </p>
             </div>
             <div className="from-click-btn">
               <button type="button" onClick={() => handleClickOpen(proFile)}>
                 {" "}
                 Xem Hồ Sơ
               </button>
-              <button type="button" onClick={handleClickOpenBrowse}>
+              <button
+                type="button"
+                style={{ backgroundColor: "green" }}
+                onClick={() => handleClickOpenBrowse(proFile)}
+              >
                 {" "}
                 Duyệt
               </button>
-              <button type="button" onClick={handleClickRefuse}>
+              <button
+                type="button"
+                style={{ backgroundColor: "red" }}
+                onClick={handleClickRefuse}
+              >
                 {" "}
                 Từ Chối
               </button>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
       <FroFile
         open={openProFile}
         handleClose={handleClickClose}
         itemApply={itemApply}
       />
       <BrowseDialog
+        ItemApply={applyItem}
         open={openBrowse}
         handleAccept={handleAcceptBrowse}
         handleClose={handleClosetBrowse}

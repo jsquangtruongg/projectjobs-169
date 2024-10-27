@@ -14,7 +14,7 @@ import {
 import { useAuth } from "../../hook/useAuth";
 import { setUserInit } from "../../redux/actions/userAction";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import  './style.scss'
+import "./style.scss";
 const PrivateRoute = () => {
   const [showFrom, setShowFrom] = useState(false);
   const userState = useAppSelector((state) => state.user);
@@ -51,8 +51,12 @@ const PrivateRoute = () => {
     navigate("/admin");
   };
 
-  const handleNavigateAppLy = () => {
-    navigate("/apply-layout");
+  const handleNavigateAppLyManager = () => {
+    navigate("/apply-manager-layout");
+  };
+
+  const handleNavigateAppLyMember = () => {
+    navigate("/apply-member-layout");
   };
 
   return user || !!isAuthenticated ? (
@@ -94,11 +98,11 @@ const PrivateRoute = () => {
                   <div
                     className="item"
                     onClick={
-                      userState?.userData?.roleData &&
-                      (userState.userData.roleData.id === 1 ||
-                        userState.userData.roleData.id === 2)
-                        ? handleNavigateAppLy
-                        : undefined
+                      userState?.userData?.roleData?.code &&
+                      (userState.userData.roleData.code === "R1" ||
+                        userState.userData.roleData.code === "R2")
+                        ? handleNavigateAppLyManager
+                        : handleNavigateAppLyMember
                     }
                   >
                     <MarkEmailUnreadIcon className="item-icon" />
@@ -121,7 +125,11 @@ const PrivateRoute = () => {
                 <div onClick={toggleShowFrom}>
                   {" "}
                   {userState.userData?.avatar && (
-                    <img src={userState.userData.avatar as string} alt="user"  className="item-avatar"/>
+                    <img
+                      src={userState.userData.avatar as string}
+                      alt="user"
+                      className="item-avatar"
+                    />
                   )}
                 </div>
               </div>

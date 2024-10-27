@@ -14,7 +14,7 @@ export type IResponses = {
 };
 export const getApplyAllAPI = async (): Promise<IResponses> => {
   const res = await API.get("/job-apply");
- 
+
   return {
     mes: res.data.mes,
     applyDataList: res.data.data || [],
@@ -33,21 +33,35 @@ export const getIdApplyAPI = async (id: number): Promise<IResponse> => {
 };
 
 export const createAppLyAPI = async (
-  applyData: IApplyData
+  applyData: IApplyData,
+  file: File | null
 ): Promise<IResponse> => {
+  const formData = new FormData();
+  if (file) {
+    formData.append("img", file);
+  }
+  const { updatedAt, createdAt, ...resApplyData } = applyData;
+
+  Object.keys(resApplyData).forEach((key) => {
+    let value = resApplyData[key as keyof typeof resApplyData];
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
+    }
+  });
+
   const { data } = await API.post(
     "/job-apply",
-    { ...applyData },
+    formData,
+
     {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     }
   );
-  console.log("aaaa", data);
   return {
     mes: data.mes,
-    applyData: data.data || {},
+    applyData: data.data || ({} as IApplyData),
     err: data.err,
   };
 };

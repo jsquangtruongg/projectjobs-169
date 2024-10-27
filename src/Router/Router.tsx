@@ -17,8 +17,12 @@ import BlogAdminPage from "../pages/Admin/Blog";
 import BlogCategoryAdminPage from "../pages/Admin/BlogCategory";
 import JobAdminPage from "../pages/Admin/job";
 import JobCategoryAdminPage from "../pages/Admin/JobCategory";
-import { AppLyLayout } from "../layout/AppLyLayout";
-import { AppLyComponent } from "../components/Client/AppLy";
+import { AppLyManagerLayout } from "../layout/AppLyManagerLayout";
+import AppLyManagerComponent from "../pages/AppLyManager/addApply";
+import { AppLyMemberLayout } from "../layout/ApplyMemberLayout";
+import { AppLyMemberComponent } from "../components/Client/AppLyMember";
+import DeleteApplyPage from "../pages/AppLyManager/deleteApply";
+import BrowseApplyPage from "../pages/AppLyManager/browseApply";
 
 const router = createBrowserRouter([
   {
@@ -34,9 +38,19 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <AppLyLayout />,
-    path: "/apply-layout",
-    children: [{ path: "", element: <AppLyComponent /> }],
+    element: <AppLyManagerLayout />,
+    path: "/apply-manager-layout",
+    children: [
+      { path: "", element: <AppLyManagerComponent /> },
+      { path: "add-apply-manager", element: <AppLyManagerComponent /> },
+      { path: "delete-apply-manager", element: <DeleteApplyPage /> },
+      { path: "browse-apply-manager", element: <BrowseApplyPage /> },
+    ],
+  },
+  {
+    element: <AppLyMemberLayout />,
+    path: "/apply-member-layout",
+    children: [{ path: "", element: <AppLyMemberComponent /> }],
   },
   {
     element: <PrivateRoute />,

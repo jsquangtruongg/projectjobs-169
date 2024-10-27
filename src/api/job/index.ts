@@ -18,7 +18,6 @@ export type IJobResponse = {
 
 export const getJobAPI = async (id: number): Promise<IResponse> => {
   const res = await API.get(`/job/id?jobCategory_id=${id}`);
-  console.log("abc", res.data);
   return {
     jobData: res.data.data,
     mes: res.data.mes,
