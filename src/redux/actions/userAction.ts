@@ -36,7 +36,6 @@ export const getUserAll =
     }
   };
 
-
 export const getAdminInfo = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({
@@ -71,9 +70,9 @@ export const removeUser = () => async (dispatch: AppDispatch) => {
 };
 
 export const putUpdateUser =
-  (data: IUserData) => async (dispatch: AppDispatch) => {
+  (data: IUserData ,file:File) => async (dispatch: AppDispatch) => {
     try {
-      await editUser(data);
+      await editUser(data ,file);
       dispatch(getUserAll());
     } catch (error) {
       console.error(error);

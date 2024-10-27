@@ -49,7 +49,6 @@ const blogCategoryReducer = (
         ...state,
         blogCategoryDataList: payload.blogCategoryDataList || [],
       };
-      console.log("State after:", newState);
       return newState;
 
     default:

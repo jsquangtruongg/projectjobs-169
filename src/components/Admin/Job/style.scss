@@ -1,0 +1,15 @@
+.MuiDialog-paper {
+  width: 600px !important;
+}
+
+.MuiDialog-paperWidthSm {
+  width: 600px !important;
+}
+.resizable-img {
+  max-width: 100%;
+  height: auto;
+  resize: both; /* Cho phép thu nhỏ và phóng to */
+  overflow: auto; /* Đảm bảo hình ảnh không vượt quá khung */
+  display: block; /* Đảm bảo hình ảnh là block để resize hoạt động */
+  cursor: nwse-resize;
+}

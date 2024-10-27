@@ -66,15 +66,15 @@ export const BlogCategoryComponent = () => {
               ) : (
                 filterBlogs.map(
                   (blogCategoryItem: IBlogCategoryData, index: number) => (
-                    <div className="item-blog" key={index}>
+                    <div
+                      className="item-blog"
+                      key={index}
+                      onClick={() => handleReadBlogClick(blogCategoryItem.id)}
+                    >
                       <div className="img-wrap">
-                        <img
-                          src={imgPost}
-                          alt=""
-                          onClick={() =>
-                            handleReadBlogClick(blogCategoryItem.id)
-                          }
-                        />
+                        {blogCategoryItem.img && (
+                          <img src={blogCategoryItem.img as string} alt="Job" />
+                        )}
                       </div>
                       <div className="item-title">{blogCategoryItem.title}</div>
                       <p className="item-content">

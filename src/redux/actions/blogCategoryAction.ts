@@ -18,7 +18,6 @@ export const getBlogCategory =
         describe,
         lastName
       );
-      console.log("Blog Category Data:", blogCategoryDataList);
       dispatch({
         type: types.GET_BLOG_CATEGORY,
         payload: { blogCategoryDataList },
@@ -49,9 +48,9 @@ export const deleteBlogCategory =
   };
 
 export const postCreateBlogCategory =
-  (data: IBlogCategoryData) => async (dispatch: AppDispatch) => {
+  (data: IBlogCategoryData, file: File) => async (dispatch: AppDispatch) => {
     try {
-      await createBlogCategoryAPI(data);
+      await createBlogCategoryAPI(data, file);
       dispatch(getBlogCategory());
     } catch (error: any) {
       dispatch(setError(error.response?.data.mess));

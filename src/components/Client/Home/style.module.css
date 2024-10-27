@@ -242,7 +242,8 @@ body {
   align-items: center;
 }
 .form_poster {
-  width: 340px;
+  width: 260px;
+  height: 250px;
 }
 .poster_job {
   width: 340px;
@@ -251,7 +252,7 @@ body {
 }
 .form_recruitment_post {
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 25px;
   display: flex;
   margin-top: 30px;
   margin-left: 30px;
@@ -300,7 +301,7 @@ body {
   margin-left: 70px;
 }
 .form_contact_job {
-  margin-top: 50px;
+  margin-top: 120px;
   display: flex;
   justify-content: space-between;
 }

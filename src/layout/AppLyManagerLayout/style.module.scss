@@ -1,0 +1,20 @@
+.Apply-layout {
+  padding: 50px;
+  box-sizing: border-box;
+
+  .MuiTableHead-root {
+    background: #212529;
+
+    .MuiTableCell-root {
+      color: #fdfdfd;
+    }
+  }
+}
+.MuiDrawer-paper {
+  width: 100px !important; /* Ghi đè chiều rộng */
+  box-sizing: border-box;
+  background-image: none;
+  -webkit-transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  overflow-x: hidden;
+}
