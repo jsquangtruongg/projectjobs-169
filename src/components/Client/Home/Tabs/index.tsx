@@ -38,7 +38,7 @@ export default function Tabs({ children }: TabsProps) {
       {" "}
       {/* Sử dụng styles từ module */}
       <ul className={styles.tabList}>
-        <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi</p>{" "}
+        <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi Bật</p>{" "}
         {/* Sử dụng styles từ module */}
         {children.map((tab) => {
           const { title } = tab.props;
