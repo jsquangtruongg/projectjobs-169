@@ -18,6 +18,7 @@ import { IApplyData } from "../../../redux/reducers/apply";
 import ReactQuill from "react-quill";
 import { createApplyMember } from "../../../redux/actions/applyMemberAction";
 import { IApplyMemberData } from "../../../redux/reducers/applyMember";
+import { IDeleteApplyData } from "../../../redux/reducers/deleteApply";
 export type IEditDialogProps = {
   open?: boolean;
   title?: string;
@@ -151,7 +152,10 @@ export const FroFile = (props: IEditDialogProps) => {
                           marginTop: "10px",
                         }}
                       >
-                        <img src={props.itemApply.Applies.img} alt="" />
+                        <img
+                          src={props.itemApply.Applies.img as string  }
+                          alt=""
+                        />
                       </div>
                     </div>
                   </div>

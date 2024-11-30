@@ -12,11 +12,13 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { getJobAll } from "../../../redux/actions/jobActions";
 import { AddDialog } from "./Dialog";
 import { IJobData } from "../../../redux/reducers/job";
-
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import map from "../../../assets/images/danh_dau.png";
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
   const [open, setOpen] = useState(false);
   const [jobItem, setJobItem] = useState<IJobData | null>(null);
+  const [searchJob, setSearchJob] = useState<string>("");
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -37,6 +39,16 @@ export const JobPostingComponent = () => {
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
+        <div className="field-search">
+          <img src={map} alt="" />
+          <input placeholder="Tìm kiếm việc làm bạn muốn!" value={searchJob} />
+          <div className="btn-search">
+            Search
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 15, marginLeft: 10 }}
+            />
+          </div>
+        </div>
         {jobState.jobDataList.map((job, index: number) => (
           <div className="posting-item" key={index}>
             <div className="author-information">

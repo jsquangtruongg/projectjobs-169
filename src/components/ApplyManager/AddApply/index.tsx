@@ -63,8 +63,8 @@ export const AppLyManagerComponent = () => {
                 }}
               >
                 {" "}
-                {getTextFromHTML(proFile.jobs.content).length > 18
-                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 18)}...`
+                {getTextFromHTML(proFile.jobs.content).length > 15
+                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 15)}...`
                   : getTextFromHTML(proFile.jobs.content)}
               </p>
             </div>

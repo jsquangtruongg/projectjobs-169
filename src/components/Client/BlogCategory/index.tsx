@@ -12,6 +12,21 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { getBlogCategory } from "../../../redux/actions/blogCategoryAction";
 import { IBlogCategoryData } from "../../../redux/reducers/blogCategory";
 import { CircularProgress } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from "swiper/modules";
 export const BlogCategoryComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -41,7 +56,33 @@ export const BlogCategoryComponent = () => {
   return (
     <div className="blog-category-container">
       <div className="section-banner">
-        <img src={ImgBanner} alt="" />
+        <Swiper
+          cssMode={true}
+          navigation={true}
+          pagination={true}
+          mousewheel={true}
+          keyboard={true}
+          loop={true}
+          autoplay={{
+            delay: 2000, // 1 giây
+            disableOnInteraction: false, // Không dừng autoplay khi tương tác
+          }}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            {" "}
+            <img src={ImgBanner} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <img src={imgPost} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <img src={logo} alt="" />
+          </SwiperSlide>
+        </Swiper>
       </div>
       <div className="layout-container blog-category-box ">
         <div className="main">

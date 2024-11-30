@@ -23,7 +23,7 @@ export default function FilterComponent(props: IFilterComponentProps) {
     title: "",
     createdAt: "",
     updatedAt: "",
-    JobCategory_id: 1,
+    jobCategory_id: 1,
     userData: {
       id: 2,
       avatar: "",

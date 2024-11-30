@@ -228,7 +228,7 @@ export const AddDialog = (props: IAddDialogProps) => {
     content: "",
     img: "",
     user_id: currentUser || 1,
-    JobCategory_id: 1,
+    jobCategory_id: 1,
     salary: "",
 
     createdAt: new Date().toISOString().split("T")[0],
@@ -383,7 +383,7 @@ export const AddDialog = (props: IAddDialogProps) => {
             label="Danh Mục Job"
             name="JobCategory_id"
             size="small"
-            value={addJob.JobCategory_id}
+            value={addJob.jobCategory_id}
             onChange={handleChange}
           />
 

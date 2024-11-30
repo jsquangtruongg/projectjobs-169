@@ -1,6 +1,11 @@
 import { AppDispatch } from "../store";
 
-import { createAppLyAPI, getApplyAllAPI, getIdApplyAPI } from "../../api/apply";
+import {
+  createAppLyAPI,
+  deleteApplyAPI,
+  getApplyAllAPI,
+  getIdApplyAPI,
+} from "../../api/apply";
 import * as types from "../constants/authConstants";
 import { setError } from "./globalAction";
 import { IApplyData } from "../reducers/apply";
@@ -38,3 +43,12 @@ export const createApply =
       dispatch(setError(error.response?.data.mess));
     }
   };
+
+export const deleteApply = (id: number) => async (dispatch: AppDispatch) => {
+  try {
+    await deleteApplyAPI(id);
+    dispatch(getAllApply());
+  } catch (error: any) {
+    dispatch(setError(error.response?.data.mess));
+  }
+};

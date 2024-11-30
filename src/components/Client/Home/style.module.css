@@ -618,3 +618,33 @@ body {
   width: 100%;
   height: 15px;
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 20px; /* Góc trên bên trái */
+  border-bottom-left-radius: 20px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mySwiper img {
+  width: 100%;
+  height: 40%;
+  object-fit: cover; /* Giữ tỷ lệ của ảnh */
+}

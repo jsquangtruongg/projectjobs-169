@@ -10,6 +10,7 @@ import jobCategoryReducer from "./jobCategory";
 import appLyReducer from "./apply";
 import appLyMemberReducer from "./applyMember";
 import browseApplyReducer from "./browseApplyManager";
+import DeleteAppLyReducer from "./deleteApply";
 const rootReducer = combineReducers({
   global: globalReducer,
   auth: authReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   apply: appLyReducer,
   applyMember: appLyMemberReducer,
   browseApplyManager: browseApplyReducer,
+  deleteApply: DeleteAppLyReducer,
 });
 
 export default rootReducer;

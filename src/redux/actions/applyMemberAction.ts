@@ -10,6 +10,8 @@ import { setError } from "./globalAction";
 import { IApplyMemberData } from "../reducers/applyMember";
 import { getAllBrowseApplyManager } from "./browseApplyManagerAction";
 import { createBrowseApplyManagerAPI } from "../../api/browseApplyManager";
+import { deleteApplyAPI } from "../../api/apply";
+import { getAllApply } from "./applyAction";
 
 export const getAllApplyMember = () => async (dispatch: AppDispatch) => {
   try {
@@ -27,8 +29,9 @@ export const createApplyMember =
   (data: IApplyMemberData) => async (dispatch: AppDispatch) => {
     try {
       await createApplyMemberAPI(data);
-      await createBrowseApplyManagerAPI(data);
-      
+      const response = await createBrowseApplyManagerAPI(data);
+      console.log("Response from createBrowseApplyManagerAPI:", response);
+
       dispatch(getAllBrowseApplyManager());
       dispatch(getAllApplyMember());
     } catch (error: any) {

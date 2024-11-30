@@ -14,15 +14,16 @@ export default function JobComponent() {
     title: "",
     createdAt: "",
     updatedAt: "",
-    JobCategory_id: 1,
+    jobCategory_id: 1,
     userData: {
       id: 2,
-      avatar: null,
+      avatar: "",
       email: "",
       firstName: "",
       lastName: "",
     },
     categoryData: {
+      id: 1,
       title: "",
       describe: "",
     },

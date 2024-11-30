@@ -90,7 +90,7 @@ export const createJobAPI = async (
     let value = restJobData[key as keyof typeof restJobData];
 
     // Convert `user_id` and `JobCategory_id` to string
-    if (key === "user_id" || key === "JobCategory_id") {
+    if (key === "user_id" || key === "jobCategory_id") {
       value = String(value); // Chuyển đổi thành chuỗi
     }
 

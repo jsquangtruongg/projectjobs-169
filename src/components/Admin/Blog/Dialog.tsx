@@ -191,7 +191,7 @@ export const AddDialog = (props: IAddDialogProps) => {
     img: "",
     user_id: 2,
     salary: "",
-    blog_category_id: 2,
+    blog_category_id: 4,
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {

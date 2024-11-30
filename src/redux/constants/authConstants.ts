@@ -1,3 +1,5 @@
+import { experimental_sx } from "@mui/material";
+
 // Auth
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
@@ -58,3 +60,7 @@ export const GET_ALL_APPLY_MEMBER = " GET_ALL_APPLY_MEMBER";
 //BrowseApplyManager
 
 export const GET_ALL_BROWSE_APPLY = "GET_ALL_BROWSE_APPLY";
+
+//DeleteApply
+
+export const GET_ALL_DELETE_APPLY = "GET_ALL_DELETE_APPLY";

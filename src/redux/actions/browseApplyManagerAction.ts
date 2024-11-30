@@ -15,6 +15,7 @@ export const getAllBrowseApplyManager = () => async (dispatch: AppDispatch) => {
       type: types.GET_ALL_BROWSE_APPLY,
       payload: { browseApplyManagerDataList },
     });
+    console.log(browseApplyManagerDataList);    
   } catch (error: any) {
     dispatch(setError(error.response.data.mess));
   }

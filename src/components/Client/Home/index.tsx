@@ -13,7 +13,9 @@ import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
 import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
 import styles from "./style.module.css";
 import posterJob from "../../../assets/images/RectangleJob.png";
+import imgPost from "../../../assets/images/Rectangle25.png";
 
+import ImgBanner from "../../../assets/images/backgroundPoster.png";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -31,7 +33,21 @@ import { useEffect } from "react";
 import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
 import { getJob, getJobAll } from "../../../redux/actions/jobActions";
 import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDissatisfiedOutlined";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from "swiper/modules";
 export const HomeComponent = () => {
   const jobCategoryState = useAppSelector((state) => state.jobCategory);
   const jobState = useAppSelector((state) => state.job);
@@ -50,34 +66,64 @@ export const HomeComponent = () => {
     <div className="home-container">
       <div className="banner-container">
         <div className="banner-box">
-          <div className="form-search">
-            <span className="banner-title">
-              Bạn Muốn Tìm Việc Làm Theo Sở Thích
-            </span>
-            <p className="banner-sub-title">
-              Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
-              <br /> bao giờ hết
-            </p>
-            <div className="field-search">
-              <img src={map} alt="" />
-              <input placeholder="Tìm kiếm việc làm bạn muốn!" />
-              <div className="btn-search">
-                Search
-                <ArrowForwardIosOutlinedIcon
-                  style={{ fontSize: 15, marginLeft: 10 }}
-                />
+          <div style={{ display: "flex", paddingTop: "50px" }}>
+            <div className="form-search">
+              <span className="banner-title">
+                Bạn Muốn Tìm Việc Làm Theo Sở Thích
+              </span>
+              <p className="banner-sub-title">
+                Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
+                <br /> bao giờ hết
+              </p>
+              <div className="field-search">
+                <img src={map} alt="" />
+                <input placeholder="Tìm kiếm việc làm bạn muốn!" />
+                <div className="btn-search">
+                  Search
+                  <ArrowForwardIosOutlinedIcon
+                    style={{ fontSize: 15, marginLeft: 10 }}
+                  />
+                </div>
+              </div>
+              <p className="label-relationship">
+                Quan hệ đối tác của chúng tôi
+              </p>
+              <div className="ground-logo-relationship">
+                <img src={iconTrave} alt="" />
+                <img src={iconTicked} alt="" />
+                <img src={iconAirbnb} alt="" />
+                <img src={iconTripadvisor} alt="" />
               </div>
             </div>
-            <p className="label-relationship">Quan hệ đối tác của chúng tôi</p>
-            <div className="ground-logo-relationship">
-              <img src={iconTrave} alt="" />
-              <img src={iconTicked} alt="" />
-              <img src={iconAirbnb} alt="" />
-              <img src={iconTripadvisor} alt="" />
+            <div className="statistical">
+              <Swiper
+                cssMode={true}
+                pagination={true}
+                mousewheel={true}
+                keyboard={true}
+                loop={true}
+                autoplay={{
+                  delay: 2000, // 1 giây
+                  disableOnInteraction: false, // Không dừng autoplay khi tương tác
+                }}
+                modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  {" "}
+                  <img src={ImgBanner} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  {" "}
+                  <img src={imgPost} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  {" "}
+                  <img src={logo} alt="" />
+                </SwiperSlide>
+              </Swiper>
             </div>
-          </div>
-          <div className="statistical">
-            <div className="statistical-item">
+            {/* <div className="statistical-item">
               <div className="avatar">
                 <img src={posterJob} alt="" className="avatar1" />
                 <img src={posterJob} alt="" className="avatar2" />
@@ -96,7 +142,7 @@ export const HomeComponent = () => {
                 <p className={styles.result_member}>100+ Job</p>
                 <span className={styles.text_job}>Tuyển hàng tháng</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -119,7 +165,6 @@ export const HomeComponent = () => {
                   className={styles.item_sponsor}
                 >
                   <div className={styles.form_recruitment_post}>
-                    
                     {jobState.jobData.length === 0 ? (
                       <div>
                         <p style={{ display: "flex" }}>

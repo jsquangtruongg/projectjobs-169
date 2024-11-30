@@ -4,12 +4,15 @@ import { BrowseDialog, FroFile, RefuseDialog } from "./Dialog";
 import { IApplyData } from "../../../redux/reducers/apply";
 import { IApplyMemberData } from "../../../redux/reducers/browseApplyManager";
 import { getAllBrowseApplyManager } from "../../../redux/actions/browseApplyManagerAction";
+import { IDeleteApplyData } from "../../../redux/reducers/deleteApply";
+import { getAllDelete } from "../../../redux/actions/deleteApplyAction";
 
 export default function BrowseApplyComponent() {
   const [openProFile, setOpenProFile] = useState(false);
   const [openBrowse, setOpenBrowse] = useState(false);
   const [openRefuse, setOpenRefuse] = useState(false);
   const proFileState = useAppSelector((state) => state.browseApplyManager);
+  console.log("first", proFileState);
   const currentUser = useAppSelector((state) => state.user.userData?.id);
   const [itemApply, setItemApply] = useState<IApplyMemberData | null>(null);
   const [applyItem, setApplyItem] = useState<IApplyMemberData | null>(null);
@@ -68,8 +71,8 @@ export default function BrowseApplyComponent() {
                 }}
               >
                 {" "}
-                {getTextFromHTML(proFile.jobs.content).length > 18
-                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 18)}...`
+                {getTextFromHTML(proFile.jobs.content).length > 15
+                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 15)}...`
                   : getTextFromHTML(proFile.jobs.content)}
               </p>
             </div>

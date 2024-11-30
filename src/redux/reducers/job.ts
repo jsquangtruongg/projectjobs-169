@@ -12,7 +12,7 @@ export type ICategory = {
   id: number;
   title: string;
   describe: string;
-};
+};    
 
 export type IJobData = {
   id: number | string;
@@ -21,7 +21,7 @@ export type IJobData = {
   img: string | File;
   salary: string;
   user_id: number;
-  JobCategory_id: number;
+  jobCategory_id: number;
   createdAt: string;
   updatedAt: string;
   userData: IUser;

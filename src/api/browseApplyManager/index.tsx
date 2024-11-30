@@ -1,4 +1,4 @@
-import { IApplyMemberData } from "../../redux/reducers/applyMember";
+import { IApplyMemberData } from "../../redux/reducers/browseApplyManager";
 import { IBrowseApplyManagerData } from "../../redux/reducers/browseApplyManager";
 import { API } from "../config";
 
@@ -16,7 +16,7 @@ export type IResponses = {
 
 export const getAllBrowseApplyManagerAPI = async (): Promise<IResponses> => {
   const res = await API.get("/browse-apply-manager");
-
+  console.log("abc", res.data);
   return {
     mes: res.data.mes,
     browseApplyManagerDataList: res.data.data || [],

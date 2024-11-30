@@ -243,7 +243,7 @@ export const BrowseDialog = (props: BrowseDialogProps) => {
   const handleAccepts = async () => {
     if (!addApplyMember) return;
     await dispatch(createApplyMember(addApplyMember));
-
+    
     props.handleClose();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,5 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
+
 export type IUser = {
   id: number | string;
   firstName: string;
@@ -7,13 +8,11 @@ export type IUser = {
   email: string;
   avatar: string;
 };
-
 export type IJob = {
   id: number;
   img: string;
   content: string;
 };
-
 export type IApply = {
   id: number;
   fullName: string;
@@ -22,62 +21,52 @@ export type IApply = {
   img: string;
 };
 
-export type IBrowseApplyManagerData = {
+export type IDeleteApplyData = {
   id: number | string;
+  fullName: string;
+  email: string;
+  phone: string;
+  img: string;
   createdAt: string;
   updatedAt: string;
   user_id: string | number;
   job_id: string | number;
-  applyMember_id: string | number;
   userApply_id: string | number;
-  userData: IUser;
-  userApply: IUser;
-  jobs: IJob;
-  Applies: IApply;
-};
-
-export type IApplyMemberData = {
-  id: number | string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user_id: string | number;
-  job_id: string | number;
   apply_id: string | number;
-  userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
   jobs: IJob;
   Applies: IApply;
 };
-export type IBrowseApplyManager = {
+
+export type IDeleteApply = {
   isLoading: boolean;
-  browseApplyManagerData: IBrowseApplyManagerData[];
-  browseApplyManagerDataList: IApplyMemberData[];
+  DeleteApplyData: IDeleteApplyData[];
+  DeleteApplyDataList: IDeleteApplyData[];
 };
 
-const initialState: IBrowseApplyManager = {
+const initialState: IDeleteApply = {
   isLoading: false,
-  browseApplyManagerData: [],
-  browseApplyManagerDataList: [],
+  DeleteApplyData: [],
+  DeleteApplyDataList: [],
 };
 
-const browseApplyReducer = (
+const DeleteAppLyReducer = (
   state = initialState,
-  action: PayloadAction<Partial<IBrowseApplyManager>>
+  action: PayloadAction<Partial<IDeleteApply>>
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case types.GET_ALL_BROWSE_APPLY:
+    case types.GET_ALL_DELETE_APPLY:
       const newState = {
         ...state,
-        browseApplyManagerDataList: payload.browseApplyManagerDataList || [],
+        DeleteApplyDataList: payload.DeleteApplyDataList || [],
       };
-      console.log("êrererere", newState);
       return newState;
+
     default:
       return state;
   }
 };
 
-export default browseApplyReducer;
+export default DeleteAppLyReducer;

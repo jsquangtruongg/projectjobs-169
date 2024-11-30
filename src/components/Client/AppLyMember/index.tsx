@@ -66,7 +66,7 @@ export const AppLyMemberComponent = () => {
             </div>
             <div className="item-text-title">
               <p className="title-source">Ứng tuyển:</p>
-              <p></p>
+              <p>{feedBack.userApply.lastName}</p>
             </div>
             <div className="from-click-btn">
               <button
