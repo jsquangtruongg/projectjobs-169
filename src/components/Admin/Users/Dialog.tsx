@@ -11,6 +11,8 @@ import {
 
 import { IUserData } from "../../../redux/reducers/user";
 import { useEffect, useState } from "react";
+import { putUpdateUser } from "../../../redux/actions/userAction";
+import { useAppDispatch } from "../../../redux/store";
 
 export type IDeleteDialogProps = {
   open?: boolean;
@@ -47,16 +49,17 @@ export type IEditDialogProps = {
   title?: string;
   userData: IUserData | null;
   handleClose: () => void;
-  handleAccept: (user: IUserData) => void;
+  handleAccept: (user: IUserData, file: File) => void;
 };
 export const EditDialog = (props: IEditDialogProps) => {
   const [user, setUser] = useState<IUserData | null>(null);
-
+  const [file, setFile] = useState<File | null>(null);
   useEffect(() => {
     if (props.userData) {
       setUser(props.userData);
     }
   }, [props.userData]);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -65,10 +68,18 @@ export const EditDialog = (props: IEditDialogProps) => {
       [name]: value,
     }));
   };
-
-  const handleAccepts = () => {
+  const createBlogWrapper = (userData: IUserData, file: File | null) => {
+    return putUpdateUser(userData, file as File);
+  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+  const handleAccepts = async () => {
     if (!user) return;
-    props.handleAccept(user);
+    await dispatch(createBlogWrapper(user, file));
+    props.handleClose();
   };
 
   return (
@@ -106,6 +117,13 @@ export const EditDialog = (props: IEditDialogProps) => {
             value={user?.lastName}
             onChange={handleChange}
             size="small"
+          />
+
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
           />
           <TextField
             label="Vai trò"

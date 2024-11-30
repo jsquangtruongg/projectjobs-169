@@ -13,7 +13,9 @@ import iconAirbnb from "../../../assets/images/traveloka_logo 4.png";
 import iconTripadvisor from "../../../assets/images/traveloka_logo 5.png";
 import styles from "./style.module.css";
 import posterJob from "../../../assets/images/RectangleJob.png";
+import imgPost from "../../../assets/images/Rectangle25.png";
 
+import ImgBanner from "../../../assets/images/backgroundPoster.png";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -26,40 +28,102 @@ import RamenDiningRoundedIcon from "@mui/icons-material/RamenDiningRounded";
 import WatchLaterSharpIcon from "@mui/icons-material/WatchLaterSharp";
 import "./style.scss";
 import Tabs from "./Tabs";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { useEffect } from "react";
+import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
+import { getJob, getJobAll } from "../../../redux/actions/jobActions";
+import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDissatisfiedOutlined";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from "swiper/modules";
 export const HomeComponent = () => {
+  const jobCategoryState = useAppSelector((state) => state.jobCategory);
+  const jobState = useAppSelector((state) => state.job);
+  console.log("wswsws", jobState.jobData);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getJobALLCategory());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getJobAll());
+  }, []);
+
   return (
     <div className="home-container">
       <div className="banner-container">
         <div className="banner-box">
-          <div className="form-search">
-            <span className="banner-title">
-              Bạn Muốn Tìm Việc Làm Theo Sở Thích
-            </span>
-            <p className="banner-sub-title">
-              Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
-              <br /> bao giờ hết
-            </p>
-            <div className="field-search">
-              <img src={map} alt="" />
-              <input placeholder="Tìm kiếm việc làm bạn muốn!" />
-              <div className="btn-search">
-                Search
-                <ArrowForwardIosOutlinedIcon
-                  style={{ fontSize: 15, marginLeft: 10 }}
-                />
+          <div style={{ display: "flex", paddingTop: "50px" }}>
+            <div className="form-search">
+              <span className="banner-title">
+                Bạn Muốn Tìm Việc Làm Theo Sở Thích
+              </span>
+              <p className="banner-sub-title">
+                Mọi thứ bạn cần tìm việc làm sẽ có ở đây, nơi bạn sẽ dễ dàng hơn
+                <br /> bao giờ hết
+              </p>
+              <div className="field-search">
+                <img src={map} alt="" />
+                <input placeholder="Tìm kiếm việc làm bạn muốn!" />
+                <div className="btn-search">
+                  Search
+                  <ArrowForwardIosOutlinedIcon
+                    style={{ fontSize: 15, marginLeft: 10 }}
+                  />
+                </div>
+              </div>
+              <p className="label-relationship">
+                Quan hệ đối tác của chúng tôi
+              </p>
+              <div className="ground-logo-relationship">
+                <img src={iconTrave} alt="" />
+                <img src={iconTicked} alt="" />
+                <img src={iconAirbnb} alt="" />
+                <img src={iconTripadvisor} alt="" />
               </div>
             </div>
-            <p className="label-relationship">Quan hệ đối tác của chúng tôi</p>
-            <div className="ground-logo-relationship">
-              <img src={iconTrave} alt="" />
-              <img src={iconTicked} alt="" />
-              <img src={iconAirbnb} alt="" />
-              <img src={iconTripadvisor} alt="" />
+            <div className="statistical">
+              <Swiper
+                cssMode={true}
+                pagination={true}
+                mousewheel={true}
+                keyboard={true}
+                loop={true}
+                autoplay={{
+                  delay: 2000, // 1 giây
+                  disableOnInteraction: false, // Không dừng autoplay khi tương tác
+                }}
+                modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  {" "}
+                  <img src={ImgBanner} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  {" "}
+                  <img src={imgPost} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  {" "}
+                  <img src={logo} alt="" />
+                </SwiperSlide>
+              </Swiper>
             </div>
-          </div>
-          <div className="statistical">
-            <div className="statistical-item">
+            {/* <div className="statistical-item">
               <div className="avatar">
                 <img src={posterJob} alt="" className="avatar1" />
                 <img src={posterJob} alt="" className="avatar2" />
@@ -78,7 +142,7 @@ export const HomeComponent = () => {
                 <p className={styles.result_member}>100+ Job</p>
                 <span className={styles.text_job}>Tuyển hàng tháng</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -88,142 +152,67 @@ export const HomeComponent = () => {
           <p className={styles.recommended}>Khuyến cáo của chúng tôi</p>
         </div>
         <div className={styles.bar_item_employer}>
-          {/* <div className={styles.from_item_employer}>
-            <div className={styles.item_employer}>
-              <HomeOutlinedIcon style={{ marginRight: 10 }} />
-              Kinh Doanh
-            </div>
-            <div className="category-item">
-              <HomeWorkRoundedIcon style={{ marginRight: 10 }} />
-              Marketiing
-            </div>
-            <div className="category-item">
-              <EdgesensorLowRoundedIcon style={{ marginRight: 10 }} />
-              Công Nghệ
-            </div>
-            <div className="category-item">
-              <KeyboardHideRoundedIcon style={{ marginRight: 10 }} />
-              Truyền Thông
-            </div>
-            <div className="btn-group-pre-next">
-              <div className="btn-pre">
-                <NavigateBeforeRoundedIcon />
-              </div>
-              <div className="btn-next">
-                <NavigateNextRoundedIcon />
-              </div>
-            </div>
-          </div> */}
-          <Tabs>
-            <div title="Kinh Doanh" className={styles.item_sponsor}>
-              <div className={styles.form_recruitment_post}>
-                <div className={styles.form_poster}>
-                  <img src={poster1} alt="" className={styles.poster_job} />
-                  <p className={styles.text_title}>
-                    Tuyển Nhân Viên Kinh Doanh
-                  </p>
-                  <span className={styles.salary_received}>$20.000.000</span>
-                  <div className={styles.from_img_avt_post}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.avatar_post}
-                    />
-                    <div className={styles.from_text_name}>
-                      <p className={styles.text_name_post}>Quang Trường</p>
-                      <span>Trưởng phòng nhân sự</span>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.form_poster}>
-                  <img src={poster1} alt="" className={styles.poster_job} />
-                  <p className={styles.text_title}>
-                    Tuyển Nhân Viên Kinh Doanh
-                  </p>
-                  <span className={styles.salary_received}>$20.000.000</span>
-                  <div className={styles.from_img_avt_post}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.avatar_post}
-                    />
-                    <div className={styles.from_text_name}>
-                      <p className={styles.text_name_post}>Quang Trường</p>
-                      <span>Trưởng phòng nhân sự</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div title="Marketing">
-              <div className={styles.form_recruitment_post}>
-                <div className={styles.form_recruitment_post}>
-                  <div className={styles.form_poster}>
-                    <img src={poster1} alt="" className={styles.poster_job} />
-                    <p className={styles.text_title}>
-                      Tuyển Nhân Viên Kinh Doanh
-                    </p>
-                    <span className={styles.salary_received}>$20.000.000</span>
-                    <div className={styles.from_img_avt_post}>
-                      <img
-                        src={avatarPost}
-                        alt=""
-                        className={styles.avatar_post}
-                      />
-                      <div className={styles.from_text_name}>
-                        <p className={styles.text_name_post}>Quang Trường</p>
-                        <span>Trưởng phòng nhân sự</span>
+          {jobCategoryState.jobCategoryDataList.length && (
+            <Tabs
+              onChangeTab={(id: string) => {
+                dispatch(getJob(Number(id) || 0));
+              }}
+            >
+              {jobCategoryState.jobCategoryDataList.map((item) => (
+                <div
+                  key={item.id}
+                  title={item.title}
+                  className={styles.item_sponsor}
+                >
+                  <div className={styles.form_recruitment_post}>
+                    {jobState.jobData.length === 0 ? (
+                      <div>
+                        <p style={{ display: "flex" }}>
+                          Không có Bài viết nào được đăng
+                        </p>
+                        <SentimentDissatisfiedOutlinedIcon />
                       </div>
-                    </div>
+                    ) : (
+                      jobState.jobData.map((jobItem, index) => (
+                        <div className={styles.form_poster} key={index}>
+                          {jobItem.img && (
+                            <img
+                              src={jobItem.img as string}
+                              alt="Job"
+                              className="poster-background"
+                            />
+                          )}
+                          <p className={styles.text_title}>{jobItem.title}</p>
+                          <span className={styles.salary_received}>
+                            {jobItem.salary}
+                          </span>
+                          <div className={styles.from_img_avt_post}>
+                            <img
+                              src={avatarPost}
+                              alt=""
+                              className={styles.avatar_post}
+                            />
+                            <div className={styles.from_text_name}>
+                              <p className={styles.text_name_post}>
+                                {jobItem.userData
+                                  ? `${jobItem.userData.lastName}`
+                                  : "Tác giả ẩn danh"}
+                              </p>
+                              <span>
+                                {jobItem.userData
+                                  ? `${jobItem.userData.email}`
+                                  : "Ẩn danh"}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-            <div title="Công Nghệ">
-              <div className={styles.form_recruitment_post}>
-                <div className={styles.form_poster}>
-                  <img src={poster1} alt="" className={styles.poster_job} />
-                  <p className={styles.text_title}>
-                    Tuyển Nhân Viên Kinh Doanh
-                  </p>
-                  <span className={styles.salary_received}>$20.000.000</span>
-                  <div className={styles.from_img_avt_post}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.avatar_post}
-                    />
-                    <div className={styles.from_text_name}>
-                      <p className={styles.text_name_post}>Quang Trường</p>
-                      <span>Trưởng phòng nhân sự</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div title="Truyền Thông">
-              <div className={styles.form_recruitment_post}>
-                <div className={styles.form_poster}>
-                  <img src={poster1} alt="" className={styles.poster_job} />
-                  <p className={styles.text_title}>
-                    Tuyển Nhân Viên Kinh Doanh
-                  </p>
-                  <span className={styles.salary_received}>$20.000.000</span>
-                  <div className={styles.from_img_avt_post}>
-                    <img
-                      src={avatarPost}
-                      alt=""
-                      className={styles.avatar_post}
-                    />
-                    <div className={styles.from_text_name}>
-                      <p className={styles.text_name_post}>Quang Trường</p>
-                      <span>Trưởng phòng nhân sự</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Tabs>
+              ))}
+            </Tabs>
+          )}
         </div>
 
         <div className={styles.form_contact_job}>
@@ -297,6 +286,7 @@ export const HomeComponent = () => {
           <div className={styles.item_btn_welcome}>
             <div className={styles.item_welcome}>Welcome</div>
           </div>
+
           <div className={styles.from_job_apply}>
             <div className={styles.form_job_apply_lef}>
               <div className={styles.item_job_apply}>

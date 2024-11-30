@@ -22,7 +22,6 @@ export default function FilterComponent(props: IFilterComponentProps) {
 
   const handleAccepts = () => {
     if (!searchUser) return;
-    console.log("Search criteria:", searchUser);
     props.handleAccept(searchUser);
   };
 

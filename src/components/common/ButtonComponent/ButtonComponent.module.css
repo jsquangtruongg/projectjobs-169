@@ -1,12 +1,10 @@
 .item_fun_click {
   width: 122px;
   height: 34px;
-  background-color: rgba(240, 243, 253, 0.2);
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #3C4563;
 }
 
 .dropdown {
@@ -29,13 +27,10 @@
 .dropdown_item {
   display: flex;
   justify-content: center;
-  color: #333;
   white-space: nowrap;
   align-items: center;
-  background-color: rgba(240, 243, 253, 0.2);
   border-radius: 20px;
   margin-bottom: 10px;
-  color: #3C4563;
   width: 122px;
   height: 34px;
 }

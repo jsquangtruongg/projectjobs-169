@@ -1,3 +1,5 @@
+import { experimental_sx } from "@mui/material";
+
 // Auth
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
@@ -28,18 +30,13 @@ export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const SET_ERROR = "SET_ERROR";
 
-
-
 export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
-
-
-
-
-
 
 //JOB
 
 export const GET_JOB = "GET_JOB";
+export const GET_JOB_ALL = "GET_JOB_ALL";
+export const SET_JOB_INIT = "SET_JOB_INIT";
 
 //Blog
 export const GET_BLOG_ALL = "GET_BLOG_ALL";
@@ -47,3 +44,23 @@ export const GET_BLOG = "GET_BLOG";
 export const PUT_UPDATE_BLOG = "PUT_UPDATE_BLOG";
 export const DELETE_BLOG = "DELETE_BLOG";
 export const CREATE_BLOG = "CREATE_BLOG";
+
+//JobCategory
+
+export const GET_JOB_CATEGORY_ALL = "GET_JOB_CATEGORY_ALL";
+
+//Apply
+export const GET_APPLY = "GET_APPLY";
+export const GET_ID_APPLY = "GET_ID_APPLY";
+
+// ApplyMember
+
+export const GET_ALL_APPLY_MEMBER = " GET_ALL_APPLY_MEMBER";
+
+//BrowseApplyManager
+
+export const GET_ALL_BROWSE_APPLY = "GET_ALL_BROWSE_APPLY";
+
+//DeleteApply
+
+export const GET_ALL_DELETE_APPLY = "GET_ALL_DELETE_APPLY";

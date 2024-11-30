@@ -7,27 +7,58 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ReplySharpIcon from "@mui/icons-material/ReplySharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./style.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { getJob } from "../../../redux/actions/jobActions";
+import { getJobAll } from "../../../redux/actions/jobActions";
+import { AddDialog } from "./Dialog";
 import { IJobData } from "../../../redux/reducers/job";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import map from "../../../assets/images/danh_dau.png";
 export const JobPostingComponent = () => {
   const jobState = useAppSelector((state) => state.job);
+  const [open, setOpen] = useState(false);
+  const [jobItem, setJobItem] = useState<IJobData | null>(null);
+  const [searchJob, setSearchJob] = useState<string>("");
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getJob());
+    dispatch(getJobAll());
   }, []);
+
+  const handleOpen = (item: IJobData) => {
+    setOpen(true);
+    setJobItem(item);
+  };
+  const handleCloseAdd = () => {
+    setOpen(false);
+  };
+  const handleAcceptAdd = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="job-posting-container">
       <div className="layout-container job-posting-box">
-        {jobState.jobData.map((job: IJobData, index: number) => (
+        <div className="field-search">
+          <img src={map} alt="" />
+          <input placeholder="Tìm kiếm việc làm bạn muốn!" value={searchJob} />
+          <div className="btn-search">
+            Search
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 15, marginLeft: 10 }}
+            />
+          </div>
+        </div>
+        {jobState.jobDataList.map((job, index: number) => (
           <div className="posting-item" key={index}>
             <div className="author-information">
               <div className="author-info">
                 <img src={avatarPost} alt="" />
                 <div className="author-name">
-                  <p>{job.userData ? `${job.userData.lastName}` : "Ẩn danh"}</p>{" "}
+                  <div></div>
+                  <p>
+                    {job.userData ? `${job.userData.lastName}` : "Ẩn danh"}
+                  </p>{" "}
                   <p>
                     {new Date(job.createdAt).toLocaleDateString("vi-VN", {
                       year: "numeric",
@@ -40,8 +71,11 @@ export const JobPostingComponent = () => {
               <ClearOutlinedIcon />
             </div>
             <div className="posting-content">
-              <p>{job.content}</p>
-              <img src={poster23} alt="" />
+              {/* <p>{job.content}</p> */}
+              <div
+                className="content-container"
+                dangerouslySetInnerHTML={{ __html: job?.content || "" }}
+              ></div>
             </div>
             <div className="group-icon-action">
               <div className="item-action">
@@ -52,9 +86,9 @@ export const JobPostingComponent = () => {
                 <ModeCommentOutlinedIcon className={styles.icon_feeling} />
                 <p>Bình Luận</p>
               </div>
-              <div className="item-action">
+              <div className="item-action" onClick={() => handleOpen(job)}>
                 <FavoriteSharpIcon className={styles.icon_feeling} />
-                <p>Quan Tâm</p>
+                <p>Tham Gia</p>
               </div>
               <div className="item-action">
                 <ReplySharpIcon className={styles.icon_feeling} />
@@ -65,6 +99,12 @@ export const JobPostingComponent = () => {
         ))}
       </div>
       <div className={styles.end}></div>
+      <AddDialog
+        open={open}
+        jobItem={jobItem}
+        handleClose={handleCloseAdd}
+        handleAccept={handleAcceptAdd}
+      />
     </div>
   );
 };

@@ -5,7 +5,7 @@
   .banner-container {
     height: 100%;
     display: flex;
-    background-image: url("../../../assets/images/imagehouse.png");
+    // background-image: url("../../../assets/images/imagehouse.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-size: 60% 100%;
@@ -83,8 +83,8 @@
       max-width: 500px;
     }
     .statistical {
-      width: 100%;
-      height: 110px;
+      width: 60%;
+      height: 560px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -102,7 +102,8 @@
       height: 100%;
       border-radius: 20px;
       background-color: white;
-
+      position: relative;
+      left: 10%;
       .avatar {
         display: flex;
       }
@@ -589,6 +590,12 @@
   width: 340px;
   border: 1px solid #68799f;
 }
+.poster-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
 .poster_job {
   width: 340px;
   height: 382px;
@@ -638,7 +645,7 @@
   margin-left: 70px;
 }
 .form_contact_job {
-  margin-top: 50px;
+  margin-top: 120px;
   display: flex;
   justify-content: space-between;
 }
@@ -947,7 +954,7 @@
 .from_end_contact {
   margin-bottom: 50px;
 }
-.poster{
+.poster {
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -955,4 +962,34 @@
 .end {
   width: 100%;
   height: 15px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 20px; /* Góc trên bên trái */
+  border-bottom-left-radius: 20px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mySwiper img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover; /* Giữ tỷ lệ của ảnh */
 }

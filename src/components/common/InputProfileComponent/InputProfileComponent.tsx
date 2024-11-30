@@ -1,26 +1,24 @@
 import styles from "./InputProfileComponent.module.css";
 interface InputProfileComponent {
   name: string;
-  placeholder?: string;
+  text?: string;
 }
 
 export const InputTextProfileComponent: React.FC<InputProfileComponent> = (
   props
 ) => {
-  const { name, placeholder } = props;
+  const { name,text } = props;
   return (
     <div className={styles.item_enter_information}>
-      <p>{name}</p>
+      <p>{name} </p>
       <div className={styles.item_enter}>
-        <input
-          type="text"
-          placeholder={placeholder}
-          className={styles.enter_input}
-        />
+        <p className={styles.enter_input}> {text} </p>
       </div>
     </div>
   );
 };
+
+
 interface SelectTextComponentProps {
   name: string;
   options: string[];
@@ -32,7 +30,9 @@ export const SelectTextComponent: React.FC<SelectTextComponentProps> = (
   const { name, options, value } = props;
   return (
     <div>
-      <p>{name}</p>
+      <p>{name}
+       
+      </p>
       <div className={styles.item_enter}>
         <select className={styles.item_select} value={value} name="" id="">
           {options.map((option, index) => (
