@@ -100,7 +100,17 @@ export default function FilterComponent(props: IFilterComponentProps) {
         />
       </Box>
 
-      
+      <Box>
+        <Button variant="contained" onClick={handleOpenAddDialog}>
+          Thêm mới
+          <AddIcon />
+        </Button>
+        <AddDialog
+          open={isAddDialogOpen}
+          handleClose={handleCloseAddDialog}
+          handleAccept={handleAcceptAddDialog}
+        />
+      </Box>
 
       <Box>
         <Button variant="contained" onClick={handleAccepts}>
