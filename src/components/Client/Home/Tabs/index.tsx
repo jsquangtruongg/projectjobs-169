@@ -53,7 +53,15 @@ export default function Tabs({ children }: TabsProps) {
           );
         })}
       </ul>
-      
+      <div className={styles.tabContent}>
+        {" "}
+        {/* Sử dụng styles từ module */}
+        {children.map((tab) => {
+          if (tab.props.title !== activeTab) return null;
+
+          return tab.props.children;
+        })}
+      </div>
     </div>
   );
 }
