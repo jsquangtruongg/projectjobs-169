@@ -35,33 +35,7 @@ export default function Tabs({ children }: TabsProps) {
 
   return (
     <div className={styles.tabs}>
-      {" "}
-      {/* Sử dụng styles từ module */}
-      <ul className={styles.tabList}>
-        <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi Bật</p>{" "}
-        {/* Sử dụng styles từ module */}
-        {children.map((tab) => {
-          const { title } = tab.props;
-
-          return (
-            <Tab
-              key={title}
-              title={title}
-              onClick={onClickTabItem}
-              active={title === activeTab ? true : false}
-            />
-          );
-        })}
-      </ul>
-      <div className={styles.tabContent}>
-        {" "}
-        {/* Sử dụng styles từ module */}
-        {children.map((tab) => {
-          if (tab.props.title !== activeTab) return null;
-
-          return tab.props.children;
-        })}
-      </div>
+      
     </div>
   );
 }
