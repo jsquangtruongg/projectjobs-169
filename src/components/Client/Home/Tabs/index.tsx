@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import styles from "./style.module.css"; // Import CSS module
 
-
+interface TabProps {
+  title: string;
+  onClick: (title: string) => void;
+  active: boolean;
+}
 
 export const Tab = ({ active = false, title, onClick }: TabProps) => {
   const onClickTab = () => {
@@ -18,9 +22,7 @@ export const Tab = ({ active = false, title, onClick }: TabProps) => {
   );
 };
 
-interface TabsProps {
-  children: React.ReactElement[];
-}
+
 
 export default function Tabs({ children }: TabsProps) {
   const [activeTab, setActiveTab] = useState<string>(
