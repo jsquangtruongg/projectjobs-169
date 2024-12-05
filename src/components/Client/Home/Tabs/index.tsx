@@ -22,7 +22,9 @@ export const Tab = ({ active = false, title, onClick }: TabProps) => {
   );
 };
 
-
+interface TabsProps {
+  children: React.ReactElement[];
+}
 
 export default function Tabs({ children }: TabsProps) {
   const [activeTab, setActiveTab] = useState<string>(
