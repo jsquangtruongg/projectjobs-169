@@ -65,17 +65,3 @@ export default function Tabs({ children }: TabsProps) {
     </div>
   );
 }
-
-
-
-
-// import styles from "./style.module.css";
-// import avatarPost from "../../../assets/images/avatar.jpg";
-// import poster23 from "../../../assets/images/Rectangle23.png";
-// import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-// import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-// import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-// import ReplySharpIcon from "@mui/icons-material/ReplySharp";
-// import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
-// import { getJob } from "../../../redux/actions/jobActions";
-// import { IJobData } from "../../../redux/reducers/job";
