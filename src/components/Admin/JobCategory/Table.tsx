@@ -78,7 +78,7 @@ export default function TableComponent({}: ITableComponentProps) {
             <TableRow>
               <TableCell align="center">STT</TableCell>
               <TableCell>Avatar</TableCell>
-              <TableCell align="left">Họ</TableCell>
+              <TableCell align="left">Mục</TableCell>
               <TableCell align="left">Tên</TableCell>
               <TableCell align="left">Vai trò</TableCell>
               <TableCell align="center">Hành động</TableCell>

@@ -10,7 +10,7 @@ export const InputTextProfileComponent: React.FC<InputProfileComponent> = (
   const { name,text } = props;
   return (
     <div className={styles.item_enter_information}>
-      <p>{name} </p>
+      <p className={styles.item_text}>{name} </p>
       <div className={styles.item_enter}>
         <p className={styles.enter_input}> {text} </p>
       </div>

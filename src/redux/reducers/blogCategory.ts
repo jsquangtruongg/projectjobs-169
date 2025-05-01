@@ -5,6 +5,7 @@ export type IBlog = {
   id: number;
   title: string;
   content: string;
+  img: string;
 };
 
 export type IUser = {
@@ -22,7 +23,7 @@ export type IBlogCategoryData = {
   img: string;
   createdAt: string;
   updatedAt: string;
-  blogData: IBlog;
+  blogs: IBlog[];
   userData: IUser;
 };
 
@@ -51,6 +52,13 @@ const blogCategoryReducer = (
       };
       return newState;
 
+    case types.GET_ID_BLOG_CATEGORY_DETAIL:
+      const a = {
+        ...state,
+        blogCategoryData: payload.blogCategoryData || [],
+      };
+      console.log("a", a);
+      return a;
     default:
       return state;
   }

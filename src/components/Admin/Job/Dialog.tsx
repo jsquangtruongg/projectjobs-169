@@ -230,7 +230,13 @@ export const AddDialog = (props: IAddDialogProps) => {
     user_id: currentUser || 1,
     jobCategory_id: 1,
     salary: "",
-
+    experience: "",
+    location: "",
+    Education:"",
+    Grade:"",
+    positions_needed:"",
+    work_type:"",
+    like_count: 0,
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {
@@ -290,9 +296,33 @@ export const AddDialog = (props: IAddDialogProps) => {
       open={props.open ?? false}
       onClose={props.handleClose}
       aria-labelledby="responsive-dialog-title"
+      sx={{
+        "& .MuiDialog-container": {
+          overflow: "hidden",
+          height: "auto",
+          marginTop: "50px",
+        },
+        "& .MuiDialog-paper": {
+          maxWidth: "100%",
+          margin: "0",
+          borderRadius: "12px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+          overflowY: "auto",
+          maxHeight: "90vh",
+          display: "flex",
+          flexDirection: "column",
+        },
+        "& .MuiDialog-paperWidthSm": {
+          width: "1200px !important",
+          maxWidth: "none",
+        },
+        "& .MuiDialogContent-root": {
+          overflowY: "clip",
+        },
+      }}
     >
       <DialogTitle id="responsive-dialog-title" style={{ textAlign: "center" }}>
-        Thêm mới thông tin blog
+        Thêm mới thông tin công việc
       </DialogTitle>
       <DialogContent>
         <Box
@@ -320,6 +350,7 @@ export const AddDialog = (props: IAddDialogProps) => {
             theme={theme}
             value={editorHtml}
             onChange={handleEditorChange}
+            style={{ height: "300px", marginBottom: "50px" }}
             modules={{
               toolbar: [
                 [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -356,49 +387,73 @@ export const AddDialog = (props: IAddDialogProps) => {
             bounds={"#root"}
             placeholder="Nội dung bài viết..."
           />
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-          <TextField
-            label="Ngày tạo"
-            name="createdAt"
-            size="small"
-            type="date"
-            value={addJob.createdAt.split("T")[0]}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Lương"
-            name="salary"
-            size="small"
-            value={addJob.salary}
-            onChange={handleChange}
-          />
-          <TextField
-            label="User_id"
-            name="user_id"
-            size="small"
-            value={addJob.user_id}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Danh Mục Job"
-            name="JobCategory_id"
-            size="small"
-            value={addJob.jobCategory_id}
-            onChange={handleChange}
-          />
 
-          <TextField
-            label="Họ người dùng"
-            name="lastName"
-            size="small"
-            value={addJob.userData.lastName}
-            onChange={(e) =>
-              setAddJob({
-                ...addJob,
-                userData: { ...addJob.userData, lastName: e.target.value },
-              })
-            }
-          />
+          <div className="from-input">
+            <TextField
+              className="field-text"
+              label="Ngày tạo"
+              name="createdAt"
+              size="small"
+              type="date"
+              value={addJob.createdAt.split("T")[0]}
+              onChange={handleChange}
+            />
+            <TextField
+              className="field-text"
+              label="Lương"
+              name="salary"
+              size="small"
+              value={addJob.salary}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="from-input">
+            <TextField
+              label="Địa Điểm"
+              name="location"
+              size="small"
+              value={addJob.location}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Kinh nghiệm"
+              name="experience"
+              size="small"
+              value={addJob.experience}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="from-input">
+            <TextField
+              label="User_id"
+              name="user_id"
+              size="small"
+              value={addJob.user_id}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Danh Mục Job"
+              name="JobCategory_id"
+              size="small"
+              value={addJob.jobCategory_id}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="from-input">
+            <TextField
+              label="Họ người dùng"
+              name="lastName"
+              size="small"
+              value={addJob.userData.lastName}
+              onChange={(e) =>
+                setAddJob({
+                  ...addJob,
+                  userData: { ...addJob.userData, lastName: e.target.value },
+                })
+              }
+            />
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+          </div>
         </Box>
       </DialogContent>
       <DialogActions>

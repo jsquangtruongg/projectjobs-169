@@ -32,7 +32,7 @@ export type IApplyMemberData = {
   userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
-  jobs: IJob;
+  job: IJob;
   Applies: IApply;
 };
 

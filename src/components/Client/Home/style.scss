@@ -1,24 +1,28 @@
 .home-container {
   width: 100%;
   height: 100%;
-  margin-top: -50px;
-  .banner-container {
-    height: 100%;
-    display: flex;
-    // background-image: url("../../../assets/images/imagehouse.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-size: 60% 100%;
-    border-bottom-left-radius: 100px;
-    background-position: right;
-    height: calc(100vh - 100px);
-    @media (max-width: 1200px) {
-      background-size: 100% 100%;
+  margin-top: 50px;
+
+  .from-container-top {
+    padding: 0px 20px;
+    .banner-container {
+      height: 100%;
+      display: flex;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-size: 60% 100%;
+      background-position: right;
+      border-radius: 12px;
+      border: solid 1px #ddd;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      @media (max-width: 1200px) {
+        background-size: 100% 100%;
+      }
     }
   }
   .banner-box {
     width: 100%;
-    padding: 0 30px;
     display: flex;
     flex-direction: column;
 
@@ -29,6 +33,7 @@
     }
     .form-search {
       margin-top: 50px;
+      padding: 10px;
       width: 35%;
       flex-grow: 1;
       @media (max-width: 1200px) {
@@ -62,7 +67,14 @@
         padding: 0px 0px 0px 20px;
         background: none;
       }
+      .icon-map {
+        transition: transform 0.2s ease;
+      }
+      .icon-map:hover {
+        transform: scale(1.2);
+      }
       .btn-search {
+        cursor: pointer;
         width: 150px;
         height: 100%;
         background-color: #10b981;
@@ -71,6 +83,13 @@
         align-items: center;
         border-radius: 32px;
         color: white;
+        transition:
+          background-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .btn-search:hover {
+        background-color: #075038;
+        transform: scale(1.05);
       }
     }
     .label-relationship {
@@ -84,7 +103,7 @@
     }
     .statistical {
       width: 60%;
-      height: 560px;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -92,6 +111,17 @@
       padding: 10px;
       @media (max-width: 1200px) {
         justify-content: flex-start;
+      }
+      .from-img-home {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
       }
     }
     .statistical-item {
@@ -158,85 +188,294 @@
   }
   .job-category {
     margin-top: 30px;
-    .title {
-      display: flex;
-      margin-left: 30px;
-      align-items: center;
-      gap: 5px;
-      p {
-        color: #f59e0b;
+    .from-job-category {
+      padding: 0px 20px;
+      .from-job-top {
+        height: 100%;
+        width: 100%;
+        border-radius: 12px;
+        border: solid 1px #ddd;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        .title {
+          display: flex;
+          margin-left: 30px;
+          align-items: center;
+          gap: 5px;
+          p {
+            color: #f59e0b;
+          }
+          .text_recommended {
+            color: #f59e0b;
+          }
+        }
+        .tab-category {
+          display: flex;
+          align-items: flex-start;
+          width: 100%;
+          padding: 10px;
+          @media (max-width: 1200px) {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .label-content {
+            display: flex;
+            align-items: center;
+            font-size: 23px;
+            font-weight: 900;
+            height: 52px;
+            width: 250px;
+            margin-right: 60px;
+            color: #1b1c57;
+          }
+        }
+        .list-tab-category {
+          flex-grow: 1;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 10px;
+          @media (max-width: 1200px) {
+            width: 100%;
+          }
+          .category-item {
+            width: 180px;
+            height: 52px;
+            border: 1px solid #888b97;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888b97;
+            font-weight: 600;
+            font-size: 17px;
+          }
+          .category-item.active {
+            width: 180px;
+            height: 52px;
+            background-color: #d1fae5;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            font-weight: 600;
+            border: none;
+            font-size: 17px;
+          }
+          .btn-group-pre-next {
+            display: flex;
+            gap: 10px;
+          }
+          .btn-pre,
+          .btn-next {
+            width: 60px;
+            height: 52px;
+            background-color: #e0e3eb;
+            border-radius: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
-      .text_recommended {
-        color: #f59e0b;
+    }
+    .from-branch-job {
+      padding: 0px 20px;
+      .from-company-top {
+        padding: 30px 0px;
+        border-radius: 12px;
+        border: solid 1px #ddd;
+        display: flex;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-top: 50px;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        .item-company {
+          width: 85%;
+          height: 100%;
+          background: #fff;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          overflow: hidden;
+          .from-banner-job {
+            width: 100%;
+            height: 150px;
+            .header-img {
+              width: 100%;
+              display: flex;
+              align-items: center;
+              padding: 0px 30px;
+              height: 100%;
+              background-image: url("/src/assets/images/Seo.jpg");
+              background-size: cover; /* Phủ kín */
+              background-position: center; /* Căn giữa ảnh */
+              background-repeat: no-repeat; /* Không lặp */
+              border-top-left-radius: 20px;
+              border-top-right-radius: 20px;
+              .header-trademark {
+                color: white;
+                font-size: 30px;
+                font-weight: 700;
+                font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+                  serif;
+                margin-bottom: 15px;
+              }
+              .note-detail {
+                color: #00ffc3;
+                font-size: 18px;
+                font-weight: 400;
+                font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+                  serif;
+              }
+            }
+          }
+          .from-sidle-main {
+            padding: 20px;
+            .from-pagination {
+              position: relative;
+              display: flex;
+              justify-content: space-between;
+              height: 100%; // thêm dòng này để các mũi tên căn giữa theo chiều cao slide
+              .custom-prev,
+              .custom-next {
+                position: absolute; /* thêm dòng này */
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 10;
+                background-color: white; /* nếu muốn nền dễ nhìn hơn */
+                padding: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+
+              .custom-prev {
+                left: -30px; /* prev nằm bên trái */
+                top: -220px;
+              }
+
+              .icon-pagination-left {
+                color: #00ffc3;
+              }
+
+              .icon-pagination-right {
+                color: #00ffc3;
+              }
+              .custom-next {
+                top: -220px;
+                right: -30px; /* next nằm bên phải */
+              }
+            }
+          }
+          .from-btn-more {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .btn-more {
+              color: #25d3ca;
+              font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+                serif;
+              font-size: 18px;
+              width: 200px;
+              border: solid 1px #25d3ca;
+              border-radius: 10px;
+              height: 50px;
+            }
+          }
+          .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            padding: 20px;
+          }
+
+          .company-card {
+            border: 1px solid #f0c6a0;
+            border-radius: 10px;
+            background: #fff;
+            transition: box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            &:hover {
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            .item-cart-job {
+              padding: 12px;
+              .from-card {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+                .logo {
+                  width: 80px;
+                  height: 80px;
+                  flex-shrink: 0;
+
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    border-radius: 8px;
+                  }
+                }
+
+                .info {
+                  text-align: justify;
+                  h3 {
+                    font-size: 19px;
+                    font-weight: bold;
+                    margin: 0;
+                    color: #333;
+                    line-height: 1.4;
+                  }
+
+                  .industry {
+                    font-size: 14px;
+                    color: #777;
+                    margin-top: 4px;
+                  }
+                }
+              }
+            }
+
+            .item-icon-wor {
+              display: flex;
+              padding: 5px;
+              background: linear-gradient(270deg, #fff5eb, #fffaf2);
+              align-items: center;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;
+
+              gap: 6px;
+
+              .icon-word {
+                width: 25px;
+                height: 25px;
+                color: #f7941d;
+              }
+
+              .jobs {
+                font-size: 15px;
+                color: #591e00;
+                display: flex;
+                font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+                  serif;
+                align-items: center;
+                margin: 0;
+              }
+            }
+          }
+        }
       }
-    }
-  }
-  .tab-category {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    padding: 10px;
-    @media (max-width: 1200px) {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .label-content {
-      display: flex;
-      align-items: center;
-      font-size: 23px;
-      font-weight: 900;
-      height: 52px;
-      width: 250px;
-      margin-right: 60px;
-      color: #1b1c57;
-    }
-  }
-  .list-tab-category {
-    flex-grow: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    @media (max-width: 1200px) {
-      width: 100%;
-    }
-    .category-item {
-      width: 180px;
-      height: 52px;
-      border: 1px solid #888b97;
-      border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888b97;
-      font-weight: 600;
-      font-size: 17px;
-    }
-    .category-item.active {
-      width: 180px;
-      height: 52px;
-      background-color: #d1fae5;
-      border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #10b981;
-      font-weight: 600;
-      border: none;
-      font-size: 17px;
-    }
-    .btn-group-pre-next {
-      display: flex;
-      gap: 10px;
-    }
-    .btn-pre,
-    .btn-next {
-      width: 60px;
-      height: 52px;
-      background-color: #e0e3eb;
-      border-radius: 32px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
   }
   .list-post {
@@ -539,6 +778,7 @@
 }
 .bar_item_employer {
   display: flex;
+  height: 100%;
   margin-left: 30px;
   align-items: center;
 }
@@ -706,6 +946,12 @@
   position: relative;
   bottom: -75%;
   left: -20px;
+}
+.from_new_job {
+  border: solid 1px #ddd;
+  height: 100%;
+  padding: 30px;
+  width: 100%;
 }
 .item_line_job {
   text-align: center;
@@ -963,33 +1209,209 @@
   width: 100%;
   height: 15px;
 }
-
-.swiper {
+.icon-pagination-left.disabled,
+.icon-pagination-right.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
+}
+.from-banner-main {
+  margin-top: 50px;
   width: 100%;
-  height: 100%;
-  border-top-left-radius: 20px; /* Góc trên bên trái */
-  border-bottom-left-radius: 20px;
+  height: 500px;
+  .from-banner-img {
+    width: 100%;
+    height: 100%;
+    background-image: url("/src/assets/images/banerMain.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
+.from-job-hot {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
+  .top-nganh-nghe {
+    width: 85%;
+    padding: 20px 20px;
+    .item-job-hot {
+      display: flex;
+      justify-content: space-between;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #00c853;
+      margin-bottom: 16px;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    }
+    .item-job-hot {
+      padding: 0px 10px;
+      margin-bottom: 20px;
+      display: flex;
+      width: 100%;
+
+      .from-pagination {
+        width: 80px;
+        justify-content: space-between;
+        display: flex;
+
+        .custom-prev-list,
+        .custom-next-list {
+          width: 30px;
+          height: 30px;
+          border: solid 1px #00c853;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s;
+
+          .icon-pagination-list,
+          .icon-pagination-next {
+            width: 15px;
+            height: 15px;
+            color: #00c853;
+          }
+          .icon-pagination-list.disabled,
+          .icon-pagination-next.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    .card {
+      border: 1px solid #e0e0e0;
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      width: 280px;
+      transition:
+        box-shadow 0.3s,
+        border-color 0.3s;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: #25d3ca;
+      }
+
+      .icon-job {
+        margin-bottom: 8px;
+      }
+
+      .name {
+        font-weight: 600;
+        margin-bottom: 8px;
+        margin-top: 8px;
+      }
+
+      .jobs {
+        color: #00c853;
+      }
+    }
+  }
+}
+.logo-slider {
+  height: 300px;
+  margin-top: 40px;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  background: white;
 }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.logo-track {
+  width: max-content;
+  will-change: transform;
+  display: flex;
+  animation: scroll 40s linear infinite;
 }
-.mySwiper img {
-  width: 100%;
-  height: 80%;
-  object-fit: cover; /* Giữ tỷ lệ của ảnh */
+
+.logo-item {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
+  margin: 0 20px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-item {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.logo-item:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.logo-item img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.wave {
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.logo-item.up {
+  margin-top: -40px;
+} /* cao hơn */
+.logo-item.mid {
+  margin-top: 0px;
+} /* chính giữa */
+.logo-item.down {
+  margin-top: 40px;
+} /* thấp hơn */
+
+.wave {
+  animation: wave 2s ease-in-out infinite;
+  /* Không cần delay ở đây, delay từ inline style sẽ áp dụng */
 }

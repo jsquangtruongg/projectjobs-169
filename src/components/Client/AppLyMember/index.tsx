@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FroFileFeedBack, RefuseDialog } from "./Dialog";
-import "../AppLyMember/style.scss";
+import "./style.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { IApplyMemberData } from "../../../redux/reducers/applyMember";
 import { getAllApplyMember } from "../../../redux/actions/applyMemberAction";
@@ -44,7 +44,7 @@ export const AppLyMemberComponent = () => {
   }, []);
 
   return (
-    <div className="heading-apply">
+    <div className="heading-apply  ">
       {feedBackState.applyMemberDataList
         .filter(
           (feedBack: IApplyMemberData) => feedBack.userApply_id === currentCV
@@ -53,15 +53,15 @@ export const AppLyMemberComponent = () => {
           <div className="from-check-apply" key={index}>
             <div className="img-job">
               {" "}
-              <img src={feedBack.jobs.img} alt="" />
+              <img src={feedBack.job.img} alt="" />
             </div>
             <div className="item-text-title">
               <p className="title-source">Từ bài đăng:</p>
               <p style={{ marginTop: "2px" }}>
                 {" "}
-                {getTextFromHTML(feedBack.jobs.content).length > 18
-                  ? `${getTextFromHTML(feedBack.jobs.content).slice(0, 18)}...`
-                  : getTextFromHTML(feedBack.jobs.content)}
+                {getTextFromHTML(feedBack.job.content).length > 18
+                  ? `${getTextFromHTML(feedBack.job.content).slice(0, 18)}...`
+                  : getTextFromHTML(feedBack.job.content)}
               </p>
             </div>
             <div className="item-text-title">

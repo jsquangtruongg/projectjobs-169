@@ -30,6 +30,8 @@ export const PUT_UPDATE_USER = "PUT_UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const SET_ERROR = "SET_ERROR";
 
+//BLOG CATEGORY
+export const GET_ID_BLOG_CATEGORY_DETAIL = "GET_ID_BLOG_CATEGORY_DETAIL";
 export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
 
 //JOB
@@ -41,6 +43,8 @@ export const SET_JOB_INIT = "SET_JOB_INIT";
 //Blog
 export const GET_BLOG_ALL = "GET_BLOG_ALL";
 export const GET_BLOG = "GET_BLOG";
+export const GET_BLOG_ID_DETAIL = "GET_BLOG_ID_DETAIL";
+
 export const PUT_UPDATE_BLOG = "PUT_UPDATE_BLOG";
 export const DELETE_BLOG = "DELETE_BLOG";
 export const CREATE_BLOG = "CREATE_BLOG";
@@ -64,3 +68,9 @@ export const GET_ALL_BROWSE_APPLY = "GET_ALL_BROWSE_APPLY";
 //DeleteApply
 
 export const GET_ALL_DELETE_APPLY = "GET_ALL_DELETE_APPLY";
+
+export const UPDATE_JOB_LIKE = "UPDATE_JOB_LIKE";
+
+//
+export const PUT_COMMENT_JOB = "PUT_COMMENT_JOB";
+export const GET_COMMENT_JOB_ALL = "GET_COMMENT_JOB_ALL";

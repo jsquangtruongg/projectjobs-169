@@ -35,7 +35,7 @@ export default function TableComponent({
   const blogState = useAppSelector((state) => state.blog);
   const getTextFromHTML = (html: string): string => {
     const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.innerText; // Lấy văn bản từ HTML
+    return doc.body.innerText;
   };
   useEffect(() => {
     dispatch(getBlogAll());
@@ -135,7 +135,6 @@ export default function TableComponent({
             </TableBody>
           </Table>
         </TableContainer>
-        {/* Import */}
         <DeleteDialog
           open={openDelete}
           handleClose={handleCloseDelete}

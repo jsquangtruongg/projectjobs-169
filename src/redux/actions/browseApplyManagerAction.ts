@@ -5,7 +5,6 @@ import {
   getAllBrowseApplyManagerAPI,
 } from "../../api/browseApplyManager";
 import { setError } from "./globalAction";
-import { IBrowseApplyManagerData } from "../reducers/browseApplyManager";
 import { IApplyMemberData } from "../reducers/applyMember";
 
 export const getAllBrowseApplyManager = () => async (dispatch: AppDispatch) => {
@@ -15,7 +14,7 @@ export const getAllBrowseApplyManager = () => async (dispatch: AppDispatch) => {
       type: types.GET_ALL_BROWSE_APPLY,
       payload: { browseApplyManagerDataList },
     });
-    console.log(browseApplyManagerDataList);    
+    console.log(browseApplyManagerDataList);
   } catch (error: any) {
     dispatch(setError(error.response.data.mess));
   }

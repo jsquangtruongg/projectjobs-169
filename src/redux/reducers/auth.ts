@@ -33,7 +33,7 @@ const authReducer = (
 
     default:
       return state;
-  }
+  } 
 };
 
 export default authReducer;

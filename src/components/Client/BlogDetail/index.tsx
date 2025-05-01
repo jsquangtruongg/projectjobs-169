@@ -1,114 +1,147 @@
-import avatarPost from "../../../assets/images/avatar.jpg";
+import "./style.scss";
 import logo from "../../../assets/images/logo.png";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import "./style.scss";
 import EmailIcon from "@mui/icons-material/Email";
-import { useEffect } from "react";
-import { getBlog } from "../../../redux/actions/blogActions";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { useParams } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { getBlogDetail } from "../../../redux/actions/blogActions";
+import { useParams } from "react-router-dom";
+import parse from "html-react-parser";
 
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-export const BlogDetailComponent = () => {
-  const blogDetailState = useAppSelector((state) => state.blog);
+const BlogDetailComponent = () => {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const { blogCategoryId } = useParams();
+  const stateBlogDetail = useAppSelector((state) => state.blog);
+  console.log("stateBlogDetail", stateBlogDetail);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [processedContent, setProcessedContent] = useState<string | null>(null);
+
+  const [toc, setToc] = useState<{ id: string; text: string }[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const generateContentWithIds = (html: string): string => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    const headings = Array.from(doc.querySelectorAll("h2, h3"));
+    headings.forEach((heading) => {
+      if (!heading.id) {
+        heading.id =
+          heading.textContent?.toLowerCase().replace(/\s+/g, "-") || "";
+      }
+    });
+
+    return doc.body.innerHTML;
+  };
+  // Gọi API khi có id
   useEffect(() => {
-    dispatch(getBlog(Number(blogCategoryId) || 0));
+    if (id) {
+      const blogId = parseInt(id);
+      if (!isNaN(blogId)) {
+        dispatch(getBlogDetail(blogId));
+      }
+    }
+  }, [id, dispatch]);
+
+  // Tạo mục lục khi có content
+  useEffect(() => {
+    const content = stateBlogDetail.blogData?.content;
+    if (!content || typeof content !== "string") return;
+
+    const updatedContent = generateContentWithIds(content);
+    setProcessedContent(updatedContent);
+
+    // Tạo TOC
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(updatedContent, "text/html");
+    const headings = Array.from(doc.querySelectorAll("h2, h3"));
+    const newToc = headings.map((heading) => ({
+      id: heading.id,
+      text: heading.textContent || "",
+    }));
+
+    setToc(newToc);
+  }, [stateBlogDetail.blogData]);
+
+  // Theo dõi scroll để cập nhật activeId
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!contentRef.current) return;
+
+      const headings = contentRef.current.querySelectorAll("h2, h3");
+      let currentId = "";
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top <= 150) {
+          currentId = heading.id;
+        }
+      });
+      setActiveId(currentId);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const firstBlog = blogDetailState.blogData[0];
+
+  const handleClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveId(id);
+    }
+  };
+
+  const blogData = stateBlogDetail.blogData;
+
   return (
-    <div className="blog-detail-container">
-      <div className="layout-container">
-        {firstBlog && (
-          <>
-            <p className="title-page">{firstBlog.title}</p>
-            <div className="author-info">
-              <div className="author-name">
-                <img src={avatarPost} alt="" />
-                <div>
-                  {firstBlog.userData
-                    ? `${firstBlog.userData.lastName}`
-                    : "Ẩn danh"}
-                </div>
+    <div className="from-heading">
+      {blogData ? (
+        <div className="from-header-top">
+          <div className="from">
+            <div className="heading">
+              <p className="title-header">{blogData.title}</p>
+              <div className="from-img">
+                {blogData.img && (
+                  <img
+                    src={blogData.img as string}
+                    alt="DTU"
+                    className="item-img"
+                  />
+                )}
               </div>
-              <p>
-                {new Date(firstBlog.updatedAt).toLocaleDateString("vi-VN", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                })}
+            </div>
+          </div>
+
+          <div className="from-main">
+            <nav className="table-of-contents">
+              <h2 className="toc-title">Mục lục</h2>
+              <ul className="toc-list">
+                {toc.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`toc-item ${activeId === item.id ? "active" : ""}`}
+                  >
+                    <a onClick={() => handleClick(item.id)}>{item.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="blog-content" ref={contentRef}>
+              <p className="txt-content">
+                {processedContent ? (
+                  parse(processedContent)
+                ) : (
+                  <p>Không có nội dung</p>
+                )}
               </p>
             </div>
-            <div className="img-main"></div>
-            <div className="content-blog ">
-              <div
-                className="content-container"
-                dangerouslySetInnerHTML={{ __html: firstBlog.content || "" }}
-              ></div>
-            </div>
-          </>
-        )}
-        <div className="list-blog">
-          {blogDetailState.blogData.length === 0 ? (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div>
-                <div
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "700",
-                    color: "#b2abab",
-                  }}
-                >
-                  Chưa Có Bài Viết Nào Được Đăng
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  <SentimentVeryDissatisfiedIcon
-                    style={{
-                      color: "#b2abab",
-                      fontSize: "50px",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            blogDetailState.blogData.map((blog, index: number) => (
-              <div className="item-blog" key={index}>
-                <div className="img-wrap">
-                  {blog.img && <img src={blog.img as string} alt="Job" />}
-                </div>
-                <div className="item-title">Công Nghệ</div>
-                <p className="item-content">{blog.title}</p>
-                <div className="info-person-posting">
-                  <div className="person-contact">
-                    <img src={avatarPost} alt="" />
-                    <div className="name-author">
-                      {blog.userData
-                        ? `${blog.userData.lastName}`
-                        : "Tác giả ẩn danh"}
-                    </div>
-                  </div>
-                  <p className="date">
-                    {new Date(blog.createdAt).toLocaleDateString("vi-VN", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    })}
-                  </p>
-                </div>
-              </div>
-            ))
-          )}
+            <div className="from-right"></div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <p>Không có nội dung</p>
+      )}
       <div className="section-footer">
         <div className="layout-container footer-box">
           <div className="footer-left">
@@ -158,3 +191,5 @@ export const BlogDetailComponent = () => {
     </div>
   );
 };
+
+export default BlogDetailComponent;

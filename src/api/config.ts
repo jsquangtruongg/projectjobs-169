@@ -3,10 +3,13 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { io } from "socket.io-client";
 export const API = axios.create({
   baseURL: "http://localhost:8000/api/v1",
 });
 
+export const socket = io("http://localhost:8000");
+console.log(socket, "aaa");
 const authInterceptorRequest = (
   req: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
@@ -25,7 +28,6 @@ const authInterceptorRequest = (
 const authInterceptorResponse = async (
   response: AxiosResponse
 ): Promise<AxiosResponse> => {
-  // Xử lý phản hồi thành công ở đây nếu cần
   return response;
 };
 

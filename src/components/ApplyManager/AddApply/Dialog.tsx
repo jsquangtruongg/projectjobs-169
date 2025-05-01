@@ -53,7 +53,7 @@ export const FroFile = (props: IEditDialogProps) => {
             flexDirection: "column",
           },
           "& .MuiDialog-paperWidthSm": {
-            width: "900px !important",
+            width: "1200px !important",
             maxWidth: "none",
           },
           "& .MuiDialogContent-root": {
@@ -61,7 +61,6 @@ export const FroFile = (props: IEditDialogProps) => {
           },
         }}
       >
-        <div className="item">
           <DialogTitle
             style={{
               textAlign: "center",
@@ -78,8 +77,10 @@ export const FroFile = (props: IEditDialogProps) => {
           >
             Thông Tin Tuyển Dụng
           </DialogTitle>
+        <div className="item">
           <DialogContent
             sx={{
+              
               height: "1000px",
               flex: "1 1 auto",
               overflowY: "auto",
@@ -93,7 +94,7 @@ export const FroFile = (props: IEditDialogProps) => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
-                padding: "10px",
+                padding: "20px",
               }}
               noValidate
               autoComplete="off"
@@ -102,10 +103,7 @@ export const FroFile = (props: IEditDialogProps) => {
                 {props.itemApply && (
                   <div>
                     <div className="from-CV">
-                      <img
-                        src={props.itemApply.userApply.avatar as string}
-                        alt="avatar"
-                      />
+                      <img src={props.itemApply.img as string} alt="avatar" />
                     </div>
                     <div
                       style={{
@@ -146,12 +144,22 @@ export const FroFile = (props: IEditDialogProps) => {
                       </p>
                       <div
                         style={{
-                          display: "flex",
-                          justifyContent: "center",
+                          height: "100%",
+                          width: "100%",
                           marginTop: "10px",
+                          padding: "30px",
+                          marginBottom: "100px",
                         }}
                       >
-                        <img src={props.itemApply.img} alt="" />
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "contain",
+                          }}
+                          src={props.itemApply.img}
+                          alt=""
+                        />
                       </div>
                     </div>
                   </div>
@@ -209,7 +217,7 @@ export const BrowseDialog = (props: BrowseDialogProps) => {
       email: "",
       avatar: "",
     },
-    jobs: {
+    job: {
       id: 1,
       img: "",
       content: "",
@@ -243,7 +251,7 @@ export const BrowseDialog = (props: BrowseDialogProps) => {
   const handleAccepts = async () => {
     if (!addApplyMember) return;
     await dispatch(createApplyMember(addApplyMember));
-    
+
     props.handleClose();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

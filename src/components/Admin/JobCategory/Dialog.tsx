@@ -15,7 +15,7 @@ import { useAppDispatch } from "../../../redux/store";
 
 export type IDeleteDialogProps = {
   open?: boolean;
-  title?: string; 
+  title?: string;
   handleClose: () => void;
   handleAccept: () => void;
 };
@@ -120,7 +120,7 @@ export type IAddDialogProps = {
 
 export const AddDialog = (props: IAddDialogProps) => {
   const [addJobCategory, setAddJobCategory] = useState<IJobCategoryData>({
-    id: 2,
+    id: 1,
     title: "",
     user_id: 1,
     createdAt: "",

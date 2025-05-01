@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./ButtonComponent.module.css";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 interface ButtonComponentsProps {
   name: string;
   id?: string;
@@ -48,24 +49,27 @@ export const ButtonDropComponent: React.FC<ButtonComponentsProps> = (props) => {
     if (item.trim() === "Blog Việc") {
       navigate("/blog-category");
     }
+    if (item.trim() === "Bài Viết") {
+      navigate("/blog");
+    }
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
     <div className={styles.dropdown}>
-      <label
-        htmlFor={name}
-        className={styles.item_fun_click}
+      <Tooltip
+        title=""
+        classes={{ tooltip: "user-info-tooltip" }}
         onClick={toggleDropdown}
       >
-        {name}
-        <ExpandMoreOutlinedIcon style={{ fontSize: 25, marginLeft: 5 }} />
-      </label>
-      {items && items.length > 0 && (
-        <div
-          className={`${styles.dropdown_content} ${
-            dropdownOpen ? styles.show : ""
-          }`}
-        >
+        <label htmlFor={name} className={styles.item_fun_click}>
+          {name}
+          <ExpandMoreOutlinedIcon style={{ fontSize: 25, marginLeft: 5 }} />
+        </label>
+      </Tooltip>
+
+      {dropdownOpen && items && items.length > 0 && (
+        <div className={styles.dropdown_content}>
           {items.map((item, index) => (
             <div
               key={index}

@@ -70,9 +70,9 @@ export const removeUser = () => async (dispatch: AppDispatch) => {
 };
 
 export const putUpdateUser =
-  (data: IUserData ,file:File) => async (dispatch: AppDispatch) => {
+  (data: IUserData, file: File | null) => async (dispatch: AppDispatch) => {
     try {
-      await editUser(data ,file);
+      await editUser(data, file);
       dispatch(getUserAll());
     } catch (error) {
       console.error(error);

@@ -38,6 +38,7 @@ export const LoginPageComponent = () => {
     password: "",
   });
   const [errors, setErrors] = useState<Errors>({});
+
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -79,7 +80,7 @@ export const LoginPageComponent = () => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
-
+    console.log(formData)
     if (Object.keys(formErrors).length === 0) {
       dispatch(
         loginAction(

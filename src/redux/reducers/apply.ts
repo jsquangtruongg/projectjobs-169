@@ -27,7 +27,7 @@ export type IApplyData = {
   userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
-  jobs: IJob;
+  job: IJob;
 };
 
 export type IApply = {
@@ -49,6 +49,7 @@ const appLyReducer = (
   const { type, payload } = action;
   switch (type) {
     case types.GET_APPLY:
+      console.log("📥 Dữ liệu nhận được:", payload.applyDataList);
       const newState = {
         ...state,
         applyDataList: payload.applyDataList || [],

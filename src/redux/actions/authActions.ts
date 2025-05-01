@@ -39,8 +39,10 @@ export const loginAction =
   async (dispatch: AppDispatch) => {
     localStorage.removeItem("profile");
     try {
+      console.log("Login data:", data);
       const { accessToken } = await login(data);
 
+      console.log("Access token:", accessToken);
       await dispatch({ type: types.SIGN_IN_SUCCESS, payload: { accessToken } });
 
       localStorage.setItem("profile", JSON.stringify({ accessToken }));

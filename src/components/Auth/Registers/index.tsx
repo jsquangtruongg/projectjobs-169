@@ -65,10 +65,10 @@ function RegisterPageComponent() {
   const validateForm = (): Errors => {
     const newErrors: Errors = {};
     if (!formData.username.trim()) {
-      newErrors.username = "Tên không được để trống";
+      newErrors.username = "Họ không được để trống";
     }
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Họ không được để trống";
+      newErrors.lastName = "Tên không được để trống";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email không được để trống";

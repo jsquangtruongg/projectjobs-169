@@ -1,186 +1,221 @@
-.blog-detail-container {
-  padding-top: 20px;
-  .title-page {
-    font-weight: 900;
-    font-size: 35px;
-    text-align: center;
-  }
-  .author-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
+.from-heading {
+  width: 100%;
+  .from {
+    height: 100%;
     width: 100%;
-    .author-name {
-      display: flex;
-      align-items: center;
-      img {
-        width: 35px;
-        height: 35px;
-        border-radius: 30px;
-        margin-right: 10px;
-      }
-      p {
-        color: #888b97;
-        font-weight: 500;
-      }
-    }
-  }
-  .img-main {
-    width: 100%;
-    margin-top: 20px;
-    img {
+    padding: 10px 250px;
+
+    .heading {
       width: 100%;
-      height: 500px;
-      object-fit: cover;
-    }
-  }
-  .content-blog {
-    display: flex;
-    justify-content: center;
-    p {
-      font-size: 20px;
-      line-height: 2;
-      margin-top: 40px;
-    }
-  }
-  .list-blog {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 16px;
-    margin-top: 30px;
-  }
-  .item-blog {
-    padding: 10px;
-    height: auto;
-    border: 1.5px solid #888b97;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    max-width: 280px;
-    @media (max-width: 1200px) {
-      max-width: unset;
-    }
-    .img-wrap {
-      width: 100%;
-      img {
-        height: 150px;
+      height: 100%;
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+
+      .title-header {
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-weight: 800;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .from-img {
+        margin-top: 30px;
         width: 100%;
-        object-fit: cover;
-      }
-    }
-    .item-title {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4b6bfb;
-      width: 100px;
-      height: 28px;
-      background-color: rgba(99, 203, 193, 0.3);
-      border-radius: 24px;
-      height: 30px;
-    }
-    .item-content {
-      font-size: 20px;
-      line-height: 1.5;
-      font-weight: 900;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      flex-grow: 1;
-    }
-    .info-person-posting {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 50px;
-    }
-    .person-contact {
-      display: flex;
-      align-items: center;
-      img {
-        width: 35px;
-        height: 35px;
-        border-radius: 30px;
-        margin-right: 10px;
-      }
-      .name-author {
-        color: #888b97;
-        font-weight: 500;
-      }
-      .date {
-        color: #888b97;
-        font-weight: 500;
-        margin-left: 35px;
-      }
-    }
-  }
-  .section-footer {
-    margin-top: 50px;
-    background-color: #212529;
-    width: 100%;
-    padding: 10px 0;
-    color: white;
-    .footer-box {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      grid-gap: 16px;
-      @media (max-width: 1200px) {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-    }
-    .footer-left {
-      .logo-white {
-        display: flex;
-        align-items: center;
-        span {
-          margin-left: 7px;
-          font-weight: 700;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 12px;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+        will-change: transform;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+        &:hover {
+          transform: scale(1.02);
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
         }
       }
-      .describe {
-        margin-top: 20px;
-        line-height: 1.4;
-        color: #888b97;
-        font-size: 15px;
-        font-weight: 400;
-      }
-      .icon-ground {
-        margin-top: 20px;
-        display: flex;
-        gap: 20px;
+
+      .item-img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
-    .footer-right {
-      display: flex;
-      justify-content: flex-end;
-      gap: 80px;
-      @media (max-width: 1200px) {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        grid-gap: 16px;
-        justify-content: start;
+  }
+
+  // Animation keyframes
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .from-main {
+    display: flex;
+    justify-content: space-between;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+
+    .toc-title {
+      font-size: 25px;
+      font-weight: 900;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .blog-content {
+      padding: 10px 50px;
+      width: 70%;
+
+      .txt-content {
+        line-height: 1.7;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-size: 18px;
       }
     }
-    .footer-right-box {
+
+    h2.ql-align-justify {
+      font-size: 30px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .toc-item {
+      margin-bottom: 8px;
+    }
+
+    .toc-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .toc-item a {
+      display: block;
+      color: #007acc;
+      text-decoration: none;
+      font-size: 1rem;
+      transition:
+        color 0.3s ease-in-out,
+        transform 0.3s ease-in-out,
+        text-decoration 0.3s ease-in-out;
+      margin-top: 20px;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      line-height: 1.3;
+      font-size: 17px;
+    }
+
+    .toc-item a:hover {
+      color: #005f99;
+      text-decoration: none;
+      transform: translateX(5px);
+      cursor: pointer;
+    }
+
+    .table-of-contents {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 24px 0;
+      max-width: 250px;
+      height: fit-content;
+      position: sticky;
+      top: 150px;
+    }
+
+    .from-right {
+      width: 250px;
+    }
+  }
+
+  // Hiệu ứng animation
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .table-of-contents {
+      max-width: 100%;
+      padding: 12px;
+    }
+  }
+}
+.section-footer {
+  margin-top: 50px;
+  background-color: #212529;
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+  .footer-box {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 16px;
+    @media (max-width: 1200px) {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      .link-page-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 5px;
+      gap: 20px;
+    }
+  }
+  .footer-left {
+    .logo-white {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 7px;
+        font-weight: 700;
       }
-      .link-page-item {
-        color: #888b97;
-      }
+    }
+    .describe {
+      margin-top: 20px;
+      line-height: 1.4;
+      color: #888b97;
+      font-size: 15px;
+      font-weight: 400;
+    }
+    .icon-ground {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+  }
+  .footer-right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 80px;
+    @media (max-width: 1200px) {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-gap: 16px;
+      justify-content: start;
+    }
+  }
+  .footer-right-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .link-page-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .link-page-item {
+      color: #888b97;
     }
   }
 }

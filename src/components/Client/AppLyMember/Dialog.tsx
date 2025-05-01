@@ -6,12 +6,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./style.scss";
 import avatar from "../../../assets/images/avatar.jpg";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { useAppDispatch } from "../../../redux/store";
 import { IApplyMemberData } from "../../../redux/reducers/applyMember";
 import { getAllApplyMember } from "../../../redux/actions/applyMemberAction";
 
@@ -78,8 +77,8 @@ export const FroFileFeedBack = (props: IEditDialogProps) => {
           <DialogContent
             sx={{
               height: "1000px",
-              flex: "1 1 auto", // Giúp phần nội dung chiếm khoảng trống còn lại
-              overflowY: "auto", // Đảm bảo cuộn trong nội dung
+              flex: "1 1 auto",
+              overflowY: "auto",
               padding: "10px",
             }}
           >
@@ -105,6 +104,7 @@ export const FroFileFeedBack = (props: IEditDialogProps) => {
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
+                        overflow: "hidden",
                       }}
                     >
                       <div className="text_name">
@@ -155,9 +155,9 @@ export const FroFileFeedBack = (props: IEditDialogProps) => {
             fontWeight: "600",
             color: "#fff",
             position: "sticky",
-            bottom: 0, // Đặt cố định ở dưới
+            bottom: 0,
             backgroundColor: "#00b14f",
-            boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.2)", // Bóng đổ phía trên
+            boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.2)",
             zIndex: 10,
           }}
           id="responsive-dialog-title"

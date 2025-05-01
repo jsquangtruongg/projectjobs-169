@@ -13,3 +13,12 @@
   display: block; /* Đảm bảo hình ảnh là block để resize hoạt động */
   cursor: nwse-resize;
 }
+
+.from-input {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  .MuiTextField-root {
+    width: 500px !important ;
+  }
+}

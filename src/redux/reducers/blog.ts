@@ -29,13 +29,13 @@ export type IBlogData = {
 
 export type IBlog = {
   isLoading: boolean;
-  blogData: IBlogData[];
+  blogData: IBlogData | null;
   blogDataList: IBlogData[];
 };
 
 const initialState: IBlog = {
   isLoading: false,
-  blogData: [],
+  blogData: null,
   blogDataList: [],
 };
 
@@ -47,9 +47,17 @@ const blogReducer = (
 
   switch (type) {
     case types.GET_BLOG:
+      const b = {
+        ...state,
+        blogData: payload.blogData,
+      };
+      console.log("bbbbb", b);
+
+      return b;
+    case types.GET_BLOG_ID_DETAIL:
       return {
         ...state,
-        blogData: payload.blogData || [],
+        blogData: payload.blogData,
       };
     case types.GET_BLOG_ALL:
       return {

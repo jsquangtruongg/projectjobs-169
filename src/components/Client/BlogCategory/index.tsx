@@ -31,6 +31,7 @@ export const BlogCategoryComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();
   const blogCategoryState = useAppSelector((state) => state.blogCategory);
+  console.log("first,", blogCategoryState.blogCategoryDataList);
   const [filterBlogs, setFilterBlogs] = useState<IBlogCategoryData[]>([]);
   useEffect(() => {
     dispatch(getBlogCategory());
@@ -57,34 +58,73 @@ export const BlogCategoryComponent = () => {
     <div className="blog-category-container">
       <div className="section-banner">
         <Swiper
+          style={{
+            padding: "0px 20px",
+            height: "380px",
+            width: "100%",
+            borderRadius: "50px",
+            marginTop: "20px",
+            marginRight: "20px",
+          }}
           cssMode={true}
-          navigation={true}
           pagination={true}
           mousewheel={true}
           keyboard={true}
           loop={true}
           autoplay={{
-            delay: 2000, // 1 giây
-            disableOnInteraction: false, // Không dừng autoplay khi tương tác
+            delay: 3000,
+            disableOnInteraction: false,
           }}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+          modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            {" "}
-            <img src={ImgBanner} alt="" />
+          <SwiperSlide className="item-swiper-slide">
+            <div className="blog-content">
+              <p className="txt-title">Cố Gắng Để Sau Này Không Hối Tiếc</p>
+              <div className=" from-txt-detail">
+                <p className="txt-detail">
+                  Trên con đường thành công sẽ không có dấu chân của người lười
+                  biến
+                </p>
+              </div>
+            </div>
           </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <img src={imgPost} alt="" />
+          <SwiperSlide className="item-swiper-slide">
+            <div className="blog-content">
+              <p className="txt-title">Ngày Hôm Nay Phải Hơn Ngày Hôm Qua</p>
+              <div className=" from-txt-detail">
+                <p className="txt-detail">
+                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
+                  hot và hơn thế nữa tại Đại Học Tốt!
+                </p>
+              </div>
+            </div>
           </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <img src={logo} alt="" />
+          <SwiperSlide className="item-swiper-slide">
+            <div className="blog-content">
+              <p className="txt-title">Khám phá bài viết mới nhất 2023</p>
+              <div className=" from-txt-detail">
+                <p className="txt-detail">
+                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
+                  hot và hơn thế nữa tại Đại Học Tốt!
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="item-swiper-slide">
+            <div className="blog-content">
+              <p className="txt-title">Khám phá bài viết mới nhất 2024</p>
+              <div className=" from-txt-detail">
+                <p className="txt-detail">
+                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
+                  hot và hơn thế nữa tại Đại Học Tốt!
+                </p>
+              </div>
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className="layout-container blog-category-box ">
+      <div className=" blog-category-box ">
         <div className="main">
           <div className="section-search">
             <div className="search-box">
@@ -117,7 +157,9 @@ export const BlogCategoryComponent = () => {
                           <img src={blogCategoryItem.img as string} alt="Job" />
                         )}
                       </div>
-                      <div className="item-title">{blogCategoryItem.title}</div>
+                      <div className="from-item-title">
+                        <a className="item-title">{blogCategoryItem.title}</a>
+                      </div>
                       <p className="item-content">
                         {blogCategoryItem.describe}
                       </p>

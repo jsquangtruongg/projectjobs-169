@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./style.module.css"; // Import CSS module
+import styles from "./style.module.css";
 
 interface TabProps {
   active: boolean;
@@ -37,15 +37,13 @@ export default function Tabs({ children, onChangeTab }: TabsProps) {
   const onClickTabItem = (tabTitle: string, idTab: string) => {
     setActiveTab(tabTitle);
     onChangeTab(idTab);
+    console.log("Tab clicked:", { tabTitle, idTab });
   };
-
   return (
     <div className={styles.tabs}>
       {" "}
-      {/* Sử dụng styles từ module */}
       <ul className={styles.tabList}>
         <p className={styles.employer_job}>Nhà Tuyển Dụng Nỗi Bật</p>{" "}
-        {/* Sử dụng styles từ module */}
         {tabItem.map((tab, index) => {
           const { title } = tab.props;
           return (
@@ -60,8 +58,6 @@ export default function Tabs({ children, onChangeTab }: TabsProps) {
         })}
       </ul>
       <div className={styles.tabContent}>
-        {" "}
-        {/* Sử dụng styles từ module */}
         {tabItem.map((tab) => {
           if (tab.props.title !== activeTab) return null;
           return tab.props.children;

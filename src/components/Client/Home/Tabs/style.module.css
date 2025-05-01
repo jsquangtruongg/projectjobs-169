@@ -36,6 +36,7 @@
 
 .tabContent {
   padding: 20px;
+  height: 100%;
 }
 
 /* Các đoạn CSS khác */
@@ -71,3 +72,4 @@
   color: #16171a;
   line-height: 0px;
 }
+

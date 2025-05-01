@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { BrowseDialog, FroFile, RefuseDialog } from "./Dialog";
-import { IApplyData } from "../../../redux/reducers/apply";
 import { IApplyMemberData } from "../../../redux/reducers/browseApplyManager";
 import { getAllBrowseApplyManager } from "../../../redux/actions/browseApplyManagerAction";
-import { IDeleteApplyData } from "../../../redux/reducers/deleteApply";
-import { getAllDelete } from "../../../redux/actions/deleteApplyAction";
 
 export default function BrowseApplyComponent() {
   const [openProFile, setOpenProFile] = useState(false);
   const [openBrowse, setOpenBrowse] = useState(false);
   const [openRefuse, setOpenRefuse] = useState(false);
   const proFileState = useAppSelector((state) => state.browseApplyManager);
-  console.log("first", proFileState);
   const currentUser = useAppSelector((state) => state.user.userData?.id);
   const [itemApply, setItemApply] = useState<IApplyMemberData | null>(null);
   const [applyItem, setApplyItem] = useState<IApplyMemberData | null>(null);
@@ -59,7 +55,7 @@ export default function BrowseApplyComponent() {
           <div className="from-check-apply" key={index}>
             <div className="img-job">
               {" "}
-              <img src={proFile.jobs.img as string} alt="" />
+              <img src={proFile.job.img as string} alt="" />
             </div>
             <div className="item-text-title">
               <p className="title-source">Từ bài đăng:</p>
@@ -71,9 +67,9 @@ export default function BrowseApplyComponent() {
                 }}
               >
                 {" "}
-                {getTextFromHTML(proFile.jobs.content).length > 15
-                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 15)}...`
-                  : getTextFromHTML(proFile.jobs.content)}
+                {getTextFromHTML(proFile.job.content).length > 15
+                  ? `${getTextFromHTML(proFile.job.content).slice(0, 15)}...`
+                  : getTextFromHTML(proFile.job.content)}
               </p>
             </div>
             <div className="item-text-title">

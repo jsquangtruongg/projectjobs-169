@@ -213,7 +213,7 @@ export const BrowseDialog = (props: BrowseDialogProps) => {
       email: "",
       avatar: "",
     },
-    jobs: {
+    job: {
       id: 1,
       img: "",
       content: "",

@@ -17,8 +17,13 @@ export type ISignInResponse = {
   mes: string;
 };
 
-export const getJobALLCategoryAPI = async (): Promise<IResponses> => {
+export const getJobALLCategoryAPI = async (
+  title?: string
+): Promise<IResponses> => {
+  const params = new URLSearchParams();
+  if (title) params.append("title", title);
   const res = await API.get("/job-category");
+  console.log(res, "truong");
   return {
     mes: res.data.mes,
     jobCategoryDataList: res.data.data || [],
@@ -44,7 +49,7 @@ export const createJobCategoryAPI = async (
     err: data.err,
   };
 };
-  
+
 export const updateJobCategoryAPI = async (
   jobCategoryData: IJobCategoryData
 ): Promise<IResponse> => {

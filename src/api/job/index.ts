@@ -8,21 +8,37 @@ export type IResponse = {
 };
 
 export type IResponses = {
-  jobDataList: IJobData[];
+  jobDataList: IJobData[];  
   mes: "string";
   err: number;
 };
 export type IJobResponse = {
   mes: string;
 };
-
 export const getJobAPI = async (id: number): Promise<IResponse> => {
-  const res = await API.get(`/job/id?jobCategory_id=${id}`);
+  const res = await API.get(`/job/${id}`);
+  console.log(res, "áb");
+
   return {
     jobData: res.data.data,
     mes: res.data.mes,
     err: res.data.err,
   };
+};
+export const getJobsByUserId = async (user_id: number) => {
+  try {
+    const response = await API.get("/api/job/user", {
+      params: { user_id },
+    });
+    return {
+      getJobUser: response.data.data,
+      mes: response.data.mes,
+      err: response.data.err,
+    };
+  } catch (error) {
+    console.error("Lỗi khi nhận việc theo ID người dùng:", error);
+    return { err: 1, mess: "Lỗi khi truy xuất công việc của người dùng" };
+  }
 };
 
 export const getJobAllAPI = async (
@@ -35,7 +51,6 @@ export const getJobAllAPI = async (
   if (createdAt) params.append("createdAt", createdAt);
   if (lastName) params.append("lastName", lastName);
   const res = await API.get(`/job?${params.toString()}`);
-
   return {
     jobDataList: res.data.data || [],
     mes: res.data.mes,
@@ -83,19 +98,17 @@ export const createJobAPI = async (
     formData.append("img", file); // Chỉ thêm ảnh nếu có
   }
 
-  // Loại bỏ `id` trước khi gửi formData
   const { id, img, updatedAt, userData, createdAt, ...restJobData } = jobData;
 
   Object.keys(restJobData).forEach((key) => {
     let value = restJobData[key as keyof typeof restJobData];
 
-    // Convert `user_id` and `JobCategory_id` to string
     if (key === "user_id" || key === "jobCategory_id") {
-      value = String(value); // Chuyển đổi thành chuỗi
+      value = String(value);
     }
 
     if (value !== undefined && value !== null) {
-      formData.append(key, String(value)); // Ép kiểu tất cả về string
+      formData.append(key, String(value));
     }
   });
   for (const [key, value] of formData.entries()) {

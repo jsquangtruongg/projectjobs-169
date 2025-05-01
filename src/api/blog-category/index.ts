@@ -33,6 +33,16 @@ export const getBlogCategoryAPI = async (
   };
 };
 
+export const getBlogCategoryIdDetailAPI = async (
+  id: number
+): Promise<IResponse> => {
+  const res = await API.get(`/blog-category`, { params: { id } });
+  return {
+    mes: res.data.mes,
+    blogCategoryData: res.data.data,
+    err: res.data.err,
+  };
+};
 export const editBlogCategoryAPI = async (
   blogCategoryData: IBlogCategoryData
 ): Promise<IResponse> => {
@@ -77,7 +87,7 @@ export const createBlogCategoryAPI = async (
     formData.append("img", file);
   }
   const {
-    blogData,
+    blogs,
     createdAt,
     id,
     updatedAt,

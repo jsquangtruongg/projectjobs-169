@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { IBlogData } from "../../../redux/reducers/blog";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { postCreateBlog } from "../../../redux/actions/blogActions";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { Quill } from "react-quill";
@@ -72,7 +72,7 @@ export const EditDialog = (props: IEditDialogProps) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     const images = doc.querySelectorAll("img");
     images.forEach((img) => {
-      img.classList.add("resizable-img"); // Áp dụng class cho hình ảnh
+      img.classList.add("resizable-img");
     });
     setBlog((prevData) => (prevData ? { ...prevData, content: html } : null));
   };
@@ -184,14 +184,16 @@ export const AddDialog = (props: IAddDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [editorHtml, setEditorHtml] = useState<string>("");
   const [theme] = useState<string>("snow");
+  const currentUser = useAppSelector((state) => state.user.userData?.id);
+
   const [addBlog, setAddBlog] = useState<IBlogData>({
     id: 3,
     title: "",
     content: "",
     img: "",
-    user_id: 2,
+    user_id: currentUser || 1,
     salary: "",
-    blog_category_id: 4,
+    blog_category_id: 1,
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
     userData: {

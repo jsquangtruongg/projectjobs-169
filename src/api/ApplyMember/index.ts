@@ -31,9 +31,9 @@ export const createApplyMemberAPI = async (
 
     headers: {
       "Content-Type": "application/json",
-    },
+    },  
   });
-
+ 
   return {
     mes: data.mes,
     applyMemberData: data.data || {},

@@ -1,32 +1,35 @@
-.item_enter {
-  padding: 0px 0px 0px 10px;
-  width: 593px;
-  height: 52px;
-  background-color: #f9f9f9;
-  display: flex;
-  align-items: center;
-  border: 15px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-.enter_input {
-  color: #000;
-  width: 580px;
-  height: 45px;
-  outline: none;
-  border: none;
-  background-color: #f9f9f9;
-  display: flex;
-  align-items: center;
-}
 .item_enter_information {
-  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
 }
-.item_select {
-  color: #000;
-  width: 580px;
-  height: 45px;
-  outline: none;
-  border: none;
+
+.item_text {
+  font-size: 16px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.item_enter {
+  width: 500px;
+  height: 50px;
+  align-items: center;
   background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px 16px;
+  transition: border 0.2s ease;
+}
+
+.item_enter:hover {
+  border-color: #00b14f;
+}
+
+.enter_input {
+  font-size: 15px;
+  color: #555;
+  word-wrap: break-word;
 }

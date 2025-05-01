@@ -13,6 +13,11 @@ export type IUserData = {
   lastName?: string;
   email?: string;
   avatar?: string;
+  field?: string;
+  address?: string;
+  description?: string;
+  scale?: string;
+  education_levels?: string;
   role_code?: string;
   createdAt?: string;
   updatedAt?: string;

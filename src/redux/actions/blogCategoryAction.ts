@@ -3,6 +3,7 @@ import {
   deleteBlogCategoryAPI,
   editBlogCategoryAPI,
   getBlogCategoryAPI,
+  getBlogCategoryIdDetailAPI,
 } from "../../api/blog-category";
 import * as types from "../constants/authConstants";
 import { IBlogCategoryData } from "../reducers/blogCategory";
@@ -27,6 +28,19 @@ export const getBlogCategory =
     }
   };
 
+export const getBlogCategoryIdDetail =
+  (id: number) => async (dispatch: AppDispatch) => {
+    try {
+      const { blogCategoryData } = await getBlogCategoryIdDetailAPI(id);
+      console.log("abcd", blogCategoryData);
+      dispatch({
+        type: types.GET_ID_BLOG_CATEGORY_DETAIL,
+        payload: { blogCategoryData },
+      });
+    } catch (error: any) {
+      dispatch(setError(error.response?.data.mess));
+    }
+  };
 export const putUpdateBlogCategory =
   (data: IBlogCategoryData) => async (dispatch: AppDispatch) => {
     try {

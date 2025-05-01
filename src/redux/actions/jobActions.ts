@@ -3,6 +3,7 @@ import {
   deleteJobAPI,
   getJobAllAPI,
   getJobAPI,
+  getJobsByUserId,
   updateJobAPI,
 } from "../../api/job";
 import * as types from "../constants/authConstants";
@@ -19,9 +20,12 @@ export const getJob = (id: number) => async (dispatch: AppDispatch) => {
       payload: { jobData },
     });
   } catch (error: any) {
+    console.error("Lỗi khi fetch job:", error);
+
     dispatch(setError(error.response?.data.mess));
   }
 };
+
 export const setJobInit =
   (jobData: IJobData) => async (dispatch: AppDispatch) => {
     dispatch({
@@ -65,3 +69,8 @@ export const createJob =
       dispatch(getJobAll());
     } catch (error) {}
   };
+
+export const updateJobLike = (payload: { jobId: number; liked: boolean }) => ({
+  type: types.UPDATE_JOB_LIKE,
+  payload,
+});

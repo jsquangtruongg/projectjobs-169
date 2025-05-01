@@ -32,7 +32,7 @@ export type IBrowseApplyManagerData = {
   userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
-  jobs: IJob;
+  job: IJob;
   Applies: IApply;
 };
 
@@ -47,7 +47,7 @@ export type IApplyMemberData = {
   userApply_id: string | number;
   userData: IUser;
   userApply: IUser;
-  jobs: IJob;
+  job: IJob;
   Applies: IApply;
 };
 export type IBrowseApplyManager = {

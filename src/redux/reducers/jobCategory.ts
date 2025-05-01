@@ -1,7 +1,12 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
+import { JSX } from "react/jsx-runtime";
 
 export type IJob = {
+  map(
+    arg0: (jobItem: any, index: any) => JSX.Element
+  ): import("react").ReactNode;
+  length: number;
   id: number;
   img: string;
   content: string;
@@ -46,7 +51,6 @@ const jobCategoryReducer = (
         ...state,
         jobCategoryDataList: payload.jobCategoryDataList || [],
       };
-      console.log("newState", newState);
       return newState;
 
     default:

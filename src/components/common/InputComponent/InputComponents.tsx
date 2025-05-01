@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import styles from "./StyleInput.module.css";
 interface InputComponentsProps {
   name: string;
@@ -46,6 +46,44 @@ export const InputFromEmail: React.FC<InputComponentsProps> = (props) => {
         {...rest}
         id={id}
         type="text"
+        className={`${styles.input_field} ${error ? styles.input_error : ""}`}
+      />
+      {error && <span className={styles.error_text}>{error}</span>}
+    </div>
+  );
+};
+
+export const InputFromText: React.FC<InputComponentsProps> = (props) => {
+  const { name, id, error: externalError, value, onChange, ...rest } = props;
+  const [error, setError] = useState(externalError);
+
+  useEffect(() => {
+    setError(externalError); 
+  }, [externalError]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (error) setError(""); 
+    onChange(e); // Cập nhật giá trị từ props
+  };
+
+  const handleBlur = () => {
+    if (!value.trim()) {
+      setError("Tên không được để trống"); // Hiện lỗi nếu input trống khi mất focus
+    }
+  };
+
+  return (
+    <div className={styles.input_email}>
+      <label htmlFor={id} className={styles.input_label}>
+        {name}
+      </label>
+      <input
+        {...rest}
+        id={id}
+        type="text"
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur} // Kiểm tra lỗi khi mất focus
         className={`${styles.input_field} ${error ? styles.input_error : ""}`}
       />
       {error && <span className={styles.error_text}>{error}</span>}

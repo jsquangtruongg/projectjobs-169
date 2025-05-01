@@ -26,6 +26,7 @@ const ClientLayout = () => {
           </div>
         </div>
       </div>
+
       <Outlet />
     </div>
   );

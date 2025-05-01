@@ -10,11 +10,11 @@ export type IResponse = {
 export type IResponses = {
   applyDataList: IApplyData[];
   mes: "string";
-  err: number;  
+  err: number;
 };
 export const getApplyAllAPI = async (): Promise<IResponses> => {
   const res = await API.get("/job-apply");
-
+  console.log("first", res);
   return {
     mes: res.data.mes,
     applyDataList: res.data.data || [],

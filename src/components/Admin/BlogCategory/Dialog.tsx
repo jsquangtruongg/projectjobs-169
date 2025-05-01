@@ -174,7 +174,7 @@ export const AddDialog = (props: IAddDialogProps) => {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title" style={{ textAlign: "center" }}>
-        Thêm mới thông tin blog
+        Thêm mới thông tin mục blog
       </DialogTitle>
       <DialogContent>
         <Box

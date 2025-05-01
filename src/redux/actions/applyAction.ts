@@ -12,7 +12,7 @@ import { IApplyData } from "../reducers/apply";
 export const getAllApply = () => async (dispatch: AppDispatch) => {
   try {
     const { applyDataList } = await getApplyAllAPI();
-
+    console.log("aaaa", applyDataList);
     dispatch({
       type: types.GET_APPLY,
       payload: { applyDataList },

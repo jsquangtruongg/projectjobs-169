@@ -21,7 +21,10 @@ export default function FilterComponent(props: IFilterComponentProps) {
     user_id: 2,
     salary: "",
     title: "",
+    experience: "",
+    location: "",
     createdAt: "",
+    like_count: 0,
     updatedAt: "",
     jobCategory_id: 1,
     userData: {

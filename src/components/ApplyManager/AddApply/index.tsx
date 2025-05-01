@@ -9,6 +9,7 @@ export const AppLyManagerComponent = () => {
   const [openBrowse, setOpenBrowse] = useState(false);
   const [openRefuse, setOpenRefuse] = useState(false);
   const proFileState = useAppSelector((state) => state.apply);
+  console.log("áasasa", proFileState);
   const currentUser = useAppSelector((state) => state.user.userData?.id);
   const [itemApply, setItemApply] = useState<IApplyData | null>(null);
   const [applyItem, setApplyItem] = useState<IApplyData | null>(null);
@@ -51,7 +52,7 @@ export const AppLyManagerComponent = () => {
           <div className="from-check-apply" key={index}>
             <div className="img-job">
               {" "}
-              <img src={proFile.jobs.img as string} alt="" />
+              <img src={proFile.job.img as string} alt="" />
             </div>
             <div className="item-text-title">
               <p className="title-source">Từ bài đăng:</p>
@@ -63,9 +64,9 @@ export const AppLyManagerComponent = () => {
                 }}
               >
                 {" "}
-                {getTextFromHTML(proFile.jobs.content).length > 15
-                  ? `${getTextFromHTML(proFile.jobs.content).slice(0, 15)}...`
-                  : getTextFromHTML(proFile.jobs.content)}
+                {getTextFromHTML(proFile.job.content).length > 15
+                  ? `${getTextFromHTML(proFile.job.content).slice(0, 15)}...`
+                  : getTextFromHTML(proFile.job.content)}
               </p>
             </div>
             <div className="item-text-title">

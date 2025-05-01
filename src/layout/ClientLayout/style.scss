@@ -4,9 +4,11 @@
 
 .client-layout {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: relative;
-  padding-top: 100px;
+  padding-top: 70px;
+  padding-bottom: 20px;
+  background-color: #f3f5f7;
   .header-container {
     width: 100%;
     position: fixed;
@@ -45,25 +47,145 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     .account-name {
       display: flex;
       align-items: center;
       gap: 5px;
     }
   }
+  // .from-outlet {
+  //   padding: 0px 20px;
+  // }
 }
+// .item-list-drop {
+//   background-color: #74ebd5 !important  ;
+//   height: 10% !important;
+//   padding: 0px;
+// }
+.from-list-item {
+  overflow-y: auto;
+  max-height: 460px;
+}
+.txt-list-item {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.item-icon-list {
+  color: #10b981;
+}
+.item-list-drop {
+  padding: 12px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-radius: 8px !important;
+  margin-bottom: 0px !important;
+  transition: background-color 0.3s !important;
+
+  &:hover {
+    background-color: #b6efe5 !important;
+  }
+
+  .MuiListItemIcon-root {
+    min-width: 36px; // thu nhỏ khoảng cách icon
+    color: #606060; // màu icon
+  }
+
+  .MuiListItemText-primary {
+    font-weight: 600;
+    font-size: 15px;
+    color: #202020;
+  }
+}
+
+// Sub item khi collapse
+.sub-item {
+  padding-left: 48px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  height: 40px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  .MuiListItemIcon-root {
+    min-width: 30px;
+    color: #8c8c8c;
+  }
+
+  .MuiListItemText-primary {
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+}
+
 .MuiPopper-root .user-info-tooltip {
   padding: 0;
   background-color: transparent;
   color: black;
   font-size: 16px;
+  max-width: none !important;
 }
 .user-info-list {
-  background-color: #e8e9ee;
-  width: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 400px;
   height: fit-content;
+  padding: 20px;
+  .from-information {
+    border-bottom: solid 1px #9face6;
+    width: 100%;
+    height: 120px;
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .item-information {
+      display: flex;
+      align-items: center;
+      .img-avt {
+        width: 90px;
+        margin-right: 15px;
+        height: 90px;
+        border-radius: 50%;
+      }
+      .from-concat {
+        margin-top: 10px;
+        .item-name {
+          font-size: 16px;
+          font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+          margin-bottom: 15px;
+          font-weight: 600;
+        }
+        .check-successfully {
+          font-size: 15px;
+          font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+          margin-bottom: 15px;
+        }
+        .item-id {
+          display: flex;
+          .user-information {
+            margin-right: 5px;
+            font-size: 15px;
+            font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+              serif;
+            margin-bottom: 15px;
+          }
+        }
+      }
+    }
+  }
   .item {
     padding: 10px 5px 2px 5px;
+    justify-content: center;
+    background-color: #d9f3ee;
+    border-radius: 15px;
     width: 100%;
     height: 50px;
     display: flex;
@@ -74,7 +196,8 @@
     cursor: pointer;
     box-sizing: border-box;
     &:hover {
-      background-color: antiquewhite;
+      border-radius: 20px;
+      background-color: #acbdba;
     }
   }
 }

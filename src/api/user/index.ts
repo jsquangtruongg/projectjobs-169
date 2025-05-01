@@ -55,17 +55,30 @@ export const editUser = async (
   if (file) {
     formData.append("avatar", file);
   }
-  const { firstName, lastName, roleData, avatar, ...restUserData } = userData;
-  if (lastName) {
-    formData.append("lastName", lastName); // Thêm lastName nếu có
-  }
+  const {
+    firstName,
+    lastName,
+    roleData,
+    role_code,
+    email,
+    field,
+    address,
+    description,
+    scale,
+    avatar,
+    education_levels,
+    ...restUserData
+  } = userData;
+  if (lastName) formData.append("lastName", lastName);
+  if (email) formData.append("email", email);
+  if (firstName) formData.append("firstName", firstName);
+  if (field) formData.append("field", field);
+  if (address) formData.append("address", address);
+  if (description) formData.append("description", description);
+  if (scale) formData.append("scale", scale);
 
-  // Thêm firstName và role_code nếu có
-  if (firstName) {
-    formData.append("firstName", firstName);
-  }
+  if (education_levels) formData.append("education_levels", education_levels);
 
-  
   Object.keys(restUserData).forEach((key) => {
     let value = restUserData[key as keyof typeof restUserData];
     if (value !== undefined && value !== null) {

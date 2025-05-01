@@ -8,11 +8,14 @@ import ClientLayout from "../layout/ClientLayout";
 import ProfilePage from "../pages/Client/Profile";
 import AuthLayout from "../layout/AuthLayout";
 import BlogCategoryPage from "../pages/Client/BlogCategory";
-import BlogDetailPage from "../pages/Client/BlogDetail";
+import BlogCategoryDetailPage from "../pages/Client/BlogCategoryDetail";
 import JobPostingPage from "../pages/Client/JobPosting";
+import JobDetailPage from "../pages/Client/JobDetail";
+import BlogDetailPage from "../pages/Client/BlogDetail";
 import PrivateRoute from "../layout/PrivateLayout";
 import AdminLayout from "../layout/AdminLayout";
 import UserAdminPage from "../pages/Admin/User";
+import BoardsPage from "../pages/Boards/Boards";
 import BlogAdminPage from "../pages/Admin/Blog";
 import BlogCategoryAdminPage from "../pages/Admin/BlogCategory";
 import JobAdminPage from "../pages/Admin/job";
@@ -23,6 +26,8 @@ import { AppLyMemberLayout } from "../layout/ApplyMemberLayout";
 import { AppLyMemberComponent } from "../components/Client/AppLyMember";
 import DeleteApplyPage from "../pages/AppLyManager/deleteApply";
 import BrowseApplyPage from "../pages/AppLyManager/browseApply";
+import BoardsLayout from "../layout/BoardsLayout";
+import BlogPage from "../pages/Client/Blog";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +40,16 @@ const router = createBrowserRouter([
       { path: "blog-category", element: <BlogCategoryAdminPage /> },
       { path: "job", element: <JobAdminPage /> },
       { path: "job-category", element: <JobCategoryAdminPage /> },
+    ],
+  },
+  {
+    element: <BoardsLayout />,
+    path: "/boards",
+    children: [
+      {
+        path: "boards-page",
+        element: <BoardsPage />,
+      },
     ],
   },
   {
@@ -65,8 +80,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog-detail/:blogCategoryId",
-        element: <BlogDetailPage />,
+        element: <BlogCategoryDetailPage />,
       },
+      {
+        path: "/blog",
+        element: <BlogPage />,
+      },
+      { path: `/blog-details/:id`, element: <BlogDetailPage /> },
       {
         path: "/profile",
         element: <ProfilePage />,
@@ -74,6 +94,14 @@ const router = createBrowserRouter([
       {
         path: "/job-posting",
         element: <JobPostingPage />,
+      },
+      {
+        path: "/job/:id",
+        element: <JobPostingPage />,
+      },
+      {
+        path: "/job-detail/:id",
+        element: <JobDetailPage />,
       },
     ],
   },
