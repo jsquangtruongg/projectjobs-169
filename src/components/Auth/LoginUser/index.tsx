@@ -15,15 +15,11 @@ import {
 } from "../../common/InputComponent/InputComponents";
 
 interface FormData {
-  username: string;
-  lastName: string;
   email: string;
   password: string;
 }
 
 interface Errors {
-  username?: string;
-  lastName?: string;
   email?: string;
   password?: string;
 }
@@ -32,8 +28,6 @@ export const LoginPageComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<FormData>({
-    username: "",
-    lastName: "",
     email: "",
     password: "",
   });
@@ -80,7 +74,7 @@ export const LoginPageComponent = () => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
-    console.log(formData)
+    console.log(formData);
     if (Object.keys(formErrors).length === 0) {
       dispatch(
         loginAction(

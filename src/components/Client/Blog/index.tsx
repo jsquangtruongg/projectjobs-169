@@ -5,7 +5,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Autoplay, Keyboard, Mousewheel, Pagination } from "swiper/modules";
-
+import ScrollToTop from "../../../layout/ScrollLayout";
 import "swiper/css";
 
 import "./style.scss";
@@ -30,6 +30,7 @@ const BlogComponent = () => {
   };
   return (
     <>
+      <ScrollToTop />
       <div className="header">
         <Swiper
           style={{
@@ -110,7 +111,7 @@ const BlogComponent = () => {
                   style={{ "--i": index } as any}
                 >
                   <div className="from-img">
-                    <img src={avt} alt="" className="img-blog" />
+                    <img src={blog.img as string} alt="" className="img-blog" />
                   </div>
                   <p className="txt-title">{blog.title}</p>
                   <p className="txt-detail">
@@ -120,59 +121,6 @@ const BlogComponent = () => {
                 </div>
               ))
             )}
-
-            <div className="item-blog">
-              <div className="from-img">
-                <img src={avt} alt="" className="img-blog" />
-              </div>
-              <p className="txt-title">
-                DANH SÁCH ĐIỂM XÉT TUYỂN CÁC TRƯỜNG ĐẠI HỌC TP.HCM 2025 – CẬP
-                NHẬT MỚI NHẤT!
-              </p>
-              <p className="txt-detail">
-                Chào các bạn học sinh thân mến! Kỳ thi THPT Quốc gia 2025 đã đến
-                gần, và việc chọn trường ...
-              </p>
-            </div>
-            <div className="item-blog">
-              <div className="from-img">
-                <img src={avt} alt="" className="img-blog" />
-              </div>
-              <p className="txt-title">
-                DANH SÁCH ĐIỂM XÉT TUYỂN CÁC TRƯỜNG ĐẠI HỌC TP.HCM 2025 – CẬP
-                NHẬT MỚI NHẤT!
-              </p>
-              <p className="txt-detail">
-                Chào các bạn học sinh thân mến! Kỳ thi THPT Quốc gia 2025 đã đến
-                gần, và việc chọn trường ...
-              </p>
-            </div>
-            <div className="item-blog">
-              <div className="from-img">
-                <img src={avt} alt="" className="img-blog" />
-              </div>
-              <p className="txt-title">
-                DANH SÁCH ĐIỂM XÉT TUYỂN CÁC TRƯỜNG ĐẠI HỌC TP.HCM 2025 – CẬP
-                NHẬT MỚI NHẤT!
-              </p>
-              <p className="txt-detail">
-                Chào các bạn học sinh thân mến! Kỳ thi THPT Quốc gia 2025 đã đến
-                gần, và việc chọn trường ...
-              </p>
-            </div>
-            <div className="item-blog">
-              <div className="from-img">
-                <img src={avt} alt="" className="img-blog" />
-              </div>
-              <p className="txt-title">
-                DANH SÁCH ĐIỂM XÉT TUYỂN CÁC TRƯỜNG ĐẠI HỌC TP.HCM 2025 – CẬP
-                NHẬT MỚI NHẤT!
-              </p>
-              <p className="txt-detail">
-                Chào các bạn học sinh thân mến! Kỳ thi THPT Quốc gia 2025 đã đến
-                gần, và việc chọn trường ...
-              </p>
-            </div>
           </div>
         </div>
         <div className="section-footer">

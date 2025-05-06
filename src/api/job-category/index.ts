@@ -23,7 +23,7 @@ export const getJobALLCategoryAPI = async (
   const params = new URLSearchParams();
   if (title) params.append("title", title);
   const res = await API.get("/job-category");
-  console.log(res, "truong");
+  console.log(res, "truongg");
   return {
     mes: res.data.mes,
     jobCategoryDataList: res.data.data || [],

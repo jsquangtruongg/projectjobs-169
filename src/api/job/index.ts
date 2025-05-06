@@ -3,13 +3,23 @@ import { API } from "../config";
 
 export type IResponse = {
   jobData: IJobData;
-  mes: "string";
+  mes: string;
   err: number;
 };
 
 export type IResponses = {
-  jobDataList: IJobData[];  
-  mes: "string";
+  jobDataList: IJobData[];
+  mes: string;
+  err: number;
+};
+export type IResponsesUser = {
+  jobDataUser: IJobData[];
+  mes: string;
+  err: number;
+};
+export type IResponsesIdUser = {
+  userIdData: IJobData;
+  mes: string;
   err: number;
 };
 export type IJobResponse = {
@@ -17,7 +27,6 @@ export type IJobResponse = {
 };
 export const getJobAPI = async (id: number): Promise<IResponse> => {
   const res = await API.get(`/job/${id}`);
-  console.log(res, "áb");
 
   return {
     jobData: res.data.data,
@@ -25,20 +34,46 @@ export const getJobAPI = async (id: number): Promise<IResponse> => {
     err: res.data.err,
   };
 };
-export const getJobsByUserId = async (user_id: number) => {
+export const getAllJobsAPI = async (): Promise<IResponsesUser> => {
   try {
-    const response = await API.get("/api/job/user", {
-      params: { user_id },
-    });
-    return {
-      getJobUser: response.data.data,
-      mes: response.data.mes,
-      err: response.data.err,
-    };
+    const response = await API.get("/job/jobs");
+    console.log("response.data", response.data);
+
+    if (response.data.err === 0) {
+      return {
+        jobDataUser: response.data.data || [],
+        mes: response.data.mess || "Lấy công việc thành công",
+        err: response.data.err,
+      };
+    } else {
+      return {
+        err: 1,
+        mes: response.data.mess || "Lỗi không xác định",
+        jobDataUser: [],
+      };
+    }
   } catch (error) {
-    console.error("Lỗi khi nhận việc theo ID người dùng:", error);
-    return { err: 1, mess: "Lỗi khi truy xuất công việc của người dùng" };
+    console.error("Lỗi khi lấy tất cả công việc:", error);
+
+    return {
+      err: 1,
+      mes: "Lỗi khi truy xuất công việc",
+      jobDataUser: [],
+    };
   }
+};
+
+export const getIdJobsAPI = async (
+  userId: number
+): Promise<IResponsesIdUser> => {
+  const response = await API.get(`/job/jobs/${userId}`);
+  console.log("response.data", response.data);
+
+  return {
+    userIdData: response.data.data,
+    mes: response.data.mess,
+    err: response.data.err,
+  };
 };
 
 export const getJobAllAPI = async (

@@ -2,26 +2,30 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 100%;
+  justify-content: space-between;
+  margin-right: 50px;
   margin-bottom: 16px;
 }
 
 .item_text {
   font-size: 16px;
-  margin-top: 30px;
-  margin-bottom: 20px;
   font-weight: 600;
   color: #333;
+  margin: 16px 0 8px; /* giảm margin-top & bottom hợp lý */
 }
 
 .item_enter {
-  width: 500px;
-  height: 50px;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
   align-items: center;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 16px 16px;
+  padding: 12px 16px;
   transition: border 0.2s ease;
+  box-sizing: border-box;
 }
 
 .item_enter:hover {
@@ -32,4 +36,5 @@
   font-size: 15px;
   color: #555;
   word-wrap: break-word;
+  width: 100%;
 }

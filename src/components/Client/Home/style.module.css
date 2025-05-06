@@ -358,15 +358,7 @@ body {
   color: white;
   font-weight: 800;
 }
-.image_restaurant {
-  width: 528px;
-  height: 459px;
-  background-image: url("../../../assets/images/Rectangle17.png");
-  background-size: cover;
-}
-.outstanding_job_right {
-  margin-right: 70px;
-}
+
 .icon_restaurant {
   position: relative;
   bottom: -80%;
@@ -416,11 +408,6 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 24px;
-}
-.from_job_apply {
-  margin-left: 100px;
-  display: flex;
-  justify-content: space-between;
 }
 .img_poster {
   width: 35px;

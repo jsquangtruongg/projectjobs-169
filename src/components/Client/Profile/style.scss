@@ -134,16 +134,112 @@
   .from-input-profile {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    .from-input-lef {
+      width: 50%;
+      margin-right: 80px;
+      .input-fieldset {
+        margin-top: 30px;
+        border: 1px solid #00bfa6;
+        border-radius: 5px;
+        padding: 5px 12px;
+        position: relative;
+        width: 100%;
+        max-width: 400px;
 
-    .MuiTextField-root {
-      width: 400px !important ;
+        legend {
+          padding: 0 5px;
+          font-size: 13px;
+          color: #555;
+        }
+
+        .in-text {
+          width: 100%;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          padding: 6px 0;
+          box-sizing: border-box;
+          color: #000;
+        }
+      }
+    }
+    .from-input-right {
+      width: 50%;
+      .input-fieldset {
+        margin-top: 30px;
+        border: 1px solid #00bfa6;
+        border-radius: 5px;
+        padding: 5px 12px;
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+
+        legend {
+          padding: 0 5px;
+          font-size: 13px;
+          color: #555;
+        }
+
+        .in-text {
+          width: 100%;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          padding: 6px 0;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
+  .MuiTextField-root {
+    width: 400px !important ;
+  }
+}
+.input-fieldset {
+  margin-top: 30px;
+  border: 1px solid #00bfa6;
+  border-radius: 5px;
+  padding: 5px 12px;
+  position: relative;
+  width: 100%;
+
+  legend {
+    padding: 0 5px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .in-text {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 6px 0;
+    box-sizing: border-box;
+  }
+  .ql-container {
+    height: 85%;
+    line-height: 1.8;
+    .ql-editor {
+      height: 100%;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.9;
     }
   }
 }
-
+.text-from-profile {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 40px;
+  color: #00b894;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
 .from-avt-profile {
-  background-image: url("/src/assets/images/upProfile.png");
+  background-image: url("/src/assets/images/backgroundProfile.png");
   width: 100%;
   display: flex;
   justify-content: center;

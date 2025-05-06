@@ -1,9 +1,9 @@
 import {
   createJobAPI,
   deleteJobAPI,
+  getAllJobsAPI,
   getJobAllAPI,
   getJobAPI,
-  getJobsByUserId,
   updateJobAPI,
 } from "../../api/job";
 import * as types from "../constants/authConstants";

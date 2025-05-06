@@ -38,6 +38,7 @@ import {
 } from "@mui/material";
 import { API, socket } from "../../../api/config";
 import "./style.scss";
+import ScrollToTop from "../../../layout/ScrollLayout";
 
 const locations: Record<string, string[]> = {
   "Hà Nội": [
@@ -219,335 +220,342 @@ export const JobPostingComponent = () => {
     show: { opacity: 1, y: 0 },
   };
   return (
-    <div className="job-posting-container">
-      <div className="from-line-banner"></div>
-      <div className="from-banner">
-        <p className="txt-big-size">
-          Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc.
-        </p>
-        <p className="txt-small-size">
-          Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh
-          nghiệp uy tín tại Việt Nam
-        </p>
-        <div className="field-search">
-          <input
-            placeholder="Tìm kiếm việc làm bạn muốn!"
-            className="input-search"
-            onChange={handleChange}
-          />
-          <Box sx={{ borderLeft: 1, height: "30px", color: "#b3b7b9" }} />
+    <>
+      <ScrollToTop />
 
-          <div className="location-dropdown" ref={dropdownRef}>
-            <button
-              style={{ height: "50px", width: "140px" }}
-              onClick={() => setIsDropdownOpen((prev) => !prev)}
-            >
-              {selectedCity
-                ? `${selectedCity} (${selectedDistricts.length})`
-                : "Chọn địa điểm"}{" "}
-              {isDropdownOpen ? "▲" : "▼"}
-            </button>
-
-            {isDropdownOpen && (
-              <div className="popover-content">
-                <div className="location-list">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <input
-                      type="text"
-                      placeholder="Tìm tỉnh/thành phố..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="search-input"
-                    />
-                    <FmdGoodIcon />
-                  </div>
-
-                  {Object.keys(locations)
-                    .filter((city) =>
-                      city.toLowerCase().includes(search.toLowerCase())
-                    )
-                    .map((city) => (
-                      <button
-                        key={city}
-                        onClick={() => handleCitySelect(city)}
-                        className="selected"
-                      >
-                        {city}
-                      </button>
-                    ))}
-                </div>
-
-                <div className="district-list">
-                  {selectedCity ? (
-                    locations[selectedCity].map((district) => (
-                      <FormControlLabel
-                        key={district}
-                        control={
-                          <Checkbox
-                            checked={selectedDistricts.includes(district)}
-                            onChange={() => handleDistrictToggle(district)}
-                          />
-                        }
-                        label={district}
-                      />
-                    ))
-                  ) : (
-                    <p className="hint-text">Chọn tỉnh/thành phố trước</p>
-                  )}
-                </div>
-
-                <div className="dropdown-actions">
-                  <button onClick={clearSelection}>Bỏ chọn tất cả</button>
-                  <button onClick={() => setIsDropdownOpen(false)}>
-                    Áp dụng
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <Box sx={{ borderLeft: 1, height: "30px", color: "#b3b7b9" }} />
-
-          <div className="btn-search" onClick={handleSearch}>
-            Search
-            <ArrowForwardIosOutlinedIcon
-              style={{ fontSize: 15, marginLeft: 10 }}
+      <div className="job-posting-container">
+        <div className="from-line-banner"></div>
+        <div className="from-banner">
+          <p className="txt-big-size">
+            Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc.
+          </p>
+          <p className="txt-small-size">
+            Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn
+            doanh nghiệp uy tín tại Việt Nam
+          </p>
+          <div className="field-search">
+            <input
+              placeholder="Tìm kiếm việc làm bạn muốn!"
+              className="input-search"
+              onChange={handleChange}
             />
-          </div>
-        </div>
-        <Swiper
-          style={{
-            left: "25%",
-            top: "37%",
-            position: "absolute",
-            height: "275px",
-            overflow: "hidden",
-            width: "50%",
-            borderRadius: "20px",
-            marginTop: "20px",
-            marginRight: "20px",
-          }}
-          cssMode={true}
-          mousewheel={true}
-          keyboard={true}
-          spaceBetween={0}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="mySwiper-sidle"
-        >
-          <SwiperSlide className="from-sidle-item">
-            <img src={vpBank} alt="Slide 1" className="item-img-banner" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={It} alt="Slide 2" className="item-img-banner" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={Seo} alt="Slide 3" className="item-img-banner" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={BanHang} alt="Slide 4" className="item-img-banner" />
-          </SwiperSlide>
-        </Swiper>
-      </div>
-      <div className="job-posting-box">
-        <motion.div
-          className="from-nav"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
-          <div onClick={handleClickProfile} className="item-concat">
-            <img src={avatarPost} alt="" className="img-avt" />
-            <p className="txt-name">Nguyen Admin</p>
-          </div>
-          <div className="item-concat">
-            <MailOutlinedIcon className="img-boards" />
-            <p className="txt-name">Tin nhắn</p>
-          </div>
-          <div className="item-concat" onClick={handleClickBoards}>
-            <DashboardCustomizeOutlinedIcon className="img-boards" />
-            <p className="txt-name">Bảng báo cáo</p>
-          </div>
-          <div className="item-concat">
-            <AccessTimeOutlinedIcon className="img-boards" />
-            <p className="txt-name">Cập Nhập</p>
-          </div>
+            <Box sx={{ borderLeft: 1, height: "30px", color: "#b3b7b9" }} />
 
-          <div className="item-concat">
-            <PaymentOutlinedIcon className="img-boards" />
-            <p className="txt-name">Tiền điện tử</p>
-          </div>
-          <div className="item-concat">
-            <DashboardCustomizeOutlinedIcon className="img-boards" />
-            <p className="txt-name">Công việc</p>
-          </div>
-          <div className="item-concat">
-            <SettingsOutlinedIcon className="img-boards" />
-            <p className="txt-name">Cài đặt</p>
-          </div>
-          <div className="item-concat">
-            <CloudUploadOutlinedIcon className="img-boards" />
-            <p className="txt-name">Tải File</p>
-          </div>
-          <div className="item-concat">
-            <WaterfallChartOutlinedIcon className="img-boards" />
-            <p className="txt-name">Phân tích</p>
-          </div>
-        </motion.div>
-        <motion.div
-          className="from-main"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
-          <div className="from-show-job">
-            {jobState.jobDataList.length === 0 ? (
-              <div className="loading-data">
-                <CircularProgress />
-              </div>
-            ) : (
-              filteredJobs.map((job) => (
-                <div
-                  className="posting-item"
-                  key={job.id}
-                  ref={job.id === Number(id) ? jobRef : null}
-                >
-                  <div className="author-information">
-                    <div className="author-info">
-                      <img src={avatarPost} alt="" />
-                      <div className="author-name">
-                        <p className="item-name">
-                          {job.userData
-                            ? `${job.userData.lastName}`
-                            : "Ẩn danh"}
-                        </p>{" "}
-                        <p className="item-date">
-                          {new Date(job.createdAt).toLocaleDateString("vi-VN", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                    <ClearOutlinedIcon className="icon-block" />
-                  </div>
-                  <div
-                    className=""
-                    onClick={() => handleClickJobDetail(job.id)}
-                  >
-                    <p className="item-title-dev">{job.title}</p>
-                    <div className="from-location-time">
-                      <div className="item-location">
-                        <FavoriteBorderOutlinedIcon className="icon_feeling" />
-                        <p className="txt-location">{job.location}</p>
-                      </div>
-                      <div className="item-location">
-                        <AccessTimeOutlinedIcon className="icon_feeling" />
-                        <p className="txt-location">{job.work_type}</p>
-                      </div>
-                    </div>
-                    <div className="posting-content">
-                      <div className="content-container">
-                        {getTextFromHTML(job.content).length > 50
-                          ? `${getTextFromHTML(job.content).slice(0, 50)}... -> xem chi tiết hơn`
-                          : getTextFromHTML(job.content)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="group-icon-action">
+            <div className="location-dropdown" ref={dropdownRef}>
+              <button
+                style={{ height: "50px", width: "140px" }}
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+              >
+                {selectedCity
+                  ? `${selectedCity} (${selectedDistricts.length})`
+                  : "Chọn địa điểm"}{" "}
+                {isDropdownOpen ? "▲" : "▼"}
+              </button>
+
+              {isDropdownOpen && (
+                <div className="popover-content">
+                  <div className="location-list">
                     <div
-                      className="item-action"
-                      onClick={() => handleOpen(job)}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      <p>Tham Gia</p>
+                      <input
+                        type="text"
+                        placeholder="Tìm tỉnh/thành phố..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="search-input"
+                      />
+                      <FmdGoodIcon />
                     </div>
-                    <div
-                      className={`item-action-like ${likedJobs.includes(job.id) ? "liked" : ""}`}
-                      onClick={() => handleLike(job.id)}
-                    >
-                      <FavoriteBorderOutlinedIcon className="icon_feeling" />
-                      {/* <p>({job.like_count})</p> */}
-                    </div>
+
+                    {Object.keys(locations)
+                      .filter((city) =>
+                        city.toLowerCase().includes(search.toLowerCase())
+                      )
+                      .map((city) => (
+                        <button
+                          key={city}
+                          onClick={() => handleCitySelect(city)}
+                          className="selected"
+                        >
+                          {city}
+                        </button>
+                      ))}
+                  </div>
+
+                  <div className="district-list">
+                    {selectedCity ? (
+                      locations[selectedCity].map((district) => (
+                        <FormControlLabel
+                          key={district}
+                          control={
+                            <Checkbox
+                              checked={selectedDistricts.includes(district)}
+                              onChange={() => handleDistrictToggle(district)}
+                            />
+                          }
+                          label={district}
+                        />
+                      ))
+                    ) : (
+                      <p className="hint-text">Chọn tỉnh/thành phố trước</p>
+                    )}
+                  </div>
+
+                  <div className="dropdown-actions">
+                    <button onClick={clearSelection}>Bỏ chọn tất cả</button>
+                    <button onClick={() => setIsDropdownOpen(false)}>
+                      Áp dụng
+                    </button>
                   </div>
                 </div>
-              ))
-            )}
+              )}
+            </div>
+            <Box sx={{ borderLeft: 1, height: "30px", color: "#b3b7b9" }} />
+
+            <div className="btn-search" onClick={handleSearch}>
+              Search
+              <ArrowForwardIosOutlinedIcon
+                style={{ fontSize: 15, marginLeft: 10 }}
+              />
+            </div>
+          </div>
+          <Swiper
+            style={{
+              left: "25%",
+              top: "37%",
+              position: "absolute",
+              height: "275px",
+              overflow: "hidden",
+              width: "50%",
+              borderRadius: "20px",
+              marginTop: "20px",
+              marginRight: "20px",
+            }}
+            cssMode={true}
+            mousewheel={true}
+            keyboard={true}
+            spaceBetween={0}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
+            className="mySwiper-sidle"
+          >
+            <SwiperSlide className="from-sidle-item">
+              <img src={vpBank} alt="Slide 1" className="item-img-banner" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={It} alt="Slide 2" className="item-img-banner" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={Seo} alt="Slide 3" className="item-img-banner" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={BanHang} alt="Slide 4" className="item-img-banner" />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+        <div className="job-posting-box">
+          <motion.div
+            className="from-nav"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
+            <div onClick={handleClickProfile} className="item-concat">
+              <img src={avatarPost} alt="" className="img-avt" />
+              <p className="txt-name">Nguyen Admin</p>
+            </div>
+            <div className="item-concat">
+              <MailOutlinedIcon className="img-boards" />
+              <p className="txt-name">Tin nhắn</p>
+            </div>
+            <div className="item-concat" onClick={handleClickBoards}>
+              <DashboardCustomizeOutlinedIcon className="img-boards" />
+              <p className="txt-name">Bảng báo cáo</p>
+            </div>
+            <div className="item-concat">
+              <AccessTimeOutlinedIcon className="img-boards" />
+              <p className="txt-name">Cập Nhập</p>
+            </div>
+
+            <div className="item-concat">
+              <PaymentOutlinedIcon className="img-boards" />
+              <p className="txt-name">Tiền điện tử</p>
+            </div>
+            <div className="item-concat">
+              <DashboardCustomizeOutlinedIcon className="img-boards" />
+              <p className="txt-name">Công việc</p>
+            </div>
+            <div className="item-concat">
+              <SettingsOutlinedIcon className="img-boards" />
+              <p className="txt-name">Cài đặt</p>
+            </div>
+            <div className="item-concat">
+              <CloudUploadOutlinedIcon className="img-boards" />
+              <p className="txt-name">Tải File</p>
+            </div>
+            <div className="item-concat">
+              <WaterfallChartOutlinedIcon className="img-boards" />
+              <p className="txt-name">Phân tích</p>
+            </div>
+          </motion.div>
+          <motion.div
+            className="from-main"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
+            <div className="from-show-job">
+              {jobState.jobDataList.length === 0 ? (
+                <div className="loading-data">
+                  <CircularProgress />
+                </div>
+              ) : (
+                filteredJobs.map((job) => (
+                  <div
+                    className="posting-item"
+                    key={job.id}
+                    ref={job.id === Number(id) ? jobRef : null}
+                  >
+                    <div className="author-information">
+                      <div className="author-info">
+                        <img src={avatarPost} alt="" />
+                        <div className="author-name">
+                          <p className="item-name">
+                            {job.userData
+                              ? `${job.userData.lastName}`
+                              : "Ẩn danh"}
+                          </p>{" "}
+                          <p className="item-date">
+                            {new Date(job.createdAt).toLocaleDateString(
+                              "vi-VN",
+                              {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                              }
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <ClearOutlinedIcon className="icon-block" />
+                    </div>
+                    <div
+                      className=""
+                      onClick={() => handleClickJobDetail(job.id)}
+                    >
+                      <p className="item-title-dev">{job.title}</p>
+                      <div className="from-location-time">
+                        <div className="item-location">
+                          <FavoriteBorderOutlinedIcon className="icon_feeling" />
+                          <p className="txt-location">{job.location}</p>
+                        </div>
+                        <div className="item-location">
+                          <AccessTimeOutlinedIcon className="icon_feeling" />
+                          <p className="txt-location">{job.work_type}</p>
+                        </div>
+                      </div>
+                      <div className="posting-content">
+                        <div className="content-container">
+                          {getTextFromHTML(job.content).length > 50
+                            ? `${getTextFromHTML(job.content).slice(0, 50)}... -> xem chi tiết hơn`
+                            : getTextFromHTML(job.content)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="group-icon-action">
+                      <div
+                        className="item-action"
+                        onClick={() => handleOpen(job)}
+                      >
+                        <p>Tham Gia</p>
+                      </div>
+                      <div
+                        className={`item-action-like ${likedJobs.includes(job.id) ? "liked" : ""}`}
+                        onClick={() => handleLike(job.id)}
+                      >
+                        <FavoriteBorderOutlinedIcon className="icon_feeling" />
+                        {/* <p>({job.like_count})</p> */}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </motion.div>
+        </div>
+        <motion.div
+          className="section-footer-end"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          <div className="layout-container footer-box">
+            <div className="footer-left">
+              <div className="logo-white">
+                <img src={logo} alt="" />
+                <span className="txt-company">Toptimviec.com</span>
+              </div>
+              <p className="describe">
+                Chúng tôi cung cấp thông tin về các việc làm <br /> giúp bạn
+                thuận tiện hơn trong việc tìm kiếm <br />
+                công việc,chúng tôi thường xuyên cung cấp
+                <br />
+                các việc làm như,nhân viên sale,kinh
+                <br /> doanh,bán hàng
+              </p>
+              <div className="icon-ground">
+                <FacebookIcon style={{ marginRight: 30 }} />
+                <InstagramIcon style={{ marginRight: 30 }} />
+                <EmailIcon />
+              </div>
+            </div>
+            <div className="footer-right">
+              <div className="footer-right-box">
+                <p className="link-page-title">Công Việc</p>
+                <p className="link-page-item">Sale Bán Hàng</p>
+                <p className="link-page-item">Công Nghệ Thông Tin</p>
+                <p className="link-page-item">Truyền Thông</p>
+              </div>
+              <div className="footer-right-box">
+                <p className="link-page-title">Bài báo</p>
+                <p className="link-page-item">Bài viết phổ biến</p>
+                <p className="link-page-item">Đọc nhiều nhất</p>
+                <p className="link-page-item">đánh giá Cao</p>
+                <p className="link-page-item">Bài viết mới</p>
+              </div>
+              <div className="footer-right-box">
+                <p className="link-page-title">Liên hệ</p>
+                <p className="link-page-item">
+                  01 2/9 Quận Hải Châu ,Thành Pho đà nẵng
+                </p>
+                <p className="link-page-item">0925306503</p>
+                <p className="link-page-item">nguyenqtthangbinh@gmail.com</p>
+              </div>
+            </div>
           </div>
         </motion.div>
-      </div>
-      <motion.div
-        className="section-footer-end"
-        variants={container}
-        initial="hidden"
-        animate="show"
-      >
-        <div className="layout-container footer-box">
-          <div className="footer-left">
-            <div className="logo-white">
-              <img src={logo} alt="" />
-              <span className="txt-company">Toptimviec.com</span>
-            </div>
-            <p className="describe">
-              Chúng tôi cung cấp thông tin về các việc làm <br /> giúp bạn thuận
-              tiện hơn trong việc tìm kiếm <br />
-              công việc,chúng tôi thường xuyên cung cấp
-              <br />
-              các việc làm như,nhân viên sale,kinh
-              <br /> doanh,bán hàng
-            </p>
-            <div className="icon-ground">
-              <FacebookIcon style={{ marginRight: 30 }} />
-              <InstagramIcon style={{ marginRight: 30 }} />
-              <EmailIcon />
-            </div>
-          </div>
-          <div className="footer-right">
-            <div className="footer-right-box">
-              <p className="link-page-title">Công Việc</p>
-              <p className="link-page-item">Sale Bán Hàng</p>
-              <p className="link-page-item">Công Nghệ Thông Tin</p>
-              <p className="link-page-item">Truyền Thông</p>
-            </div>
-            <div className="footer-right-box">
-              <p className="link-page-title">Bài báo</p>
-              <p className="link-page-item">Bài viết phổ biến</p>
-              <p className="link-page-item">Đọc nhiều nhất</p>
-              <p className="link-page-item">đánh giá Cao</p>
-              <p className="link-page-item">Bài viết mới</p>
-            </div>
-            <div className="footer-right-box">
-              <p className="link-page-title">Liên hệ</p>
-              <p className="link-page-item">
-                01 2/9 Quận Hải Châu ,Thành Pho đà nẵng
-              </p>
-              <p className="link-page-item">0925306503</p>
-              <p className="link-page-item">nguyenqtthangbinh@gmail.com</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-      <AddDialog
-        open={open}
-        jobItem={jobItem}
-        handleClose={handleCloseAdd}
-        handleAccept={handleAcceptAdd}
-      />
+        <AddDialog
+          open={open}
+          jobItem={jobItem}
+          handleClose={handleCloseAdd}
+          handleAccept={handleAcceptAdd}
+        />
 
-      <Comment
-        handleClose={handleCommentAdd}
-        handleAccept={handleCommentClose}
-        open={comment}
-        filteredJob={selectedJob}
-      />
-    </div>
+        <Comment
+          handleClose={handleCommentAdd}
+          handleAccept={handleCommentClose}
+          open={comment}
+          filteredJob={selectedJob}
+        />
+      </div>
+    </>
   );
 };

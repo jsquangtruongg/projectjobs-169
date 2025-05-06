@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { getBlogDetail } from "../../../redux/actions/blogActions";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
+import ScrollToTop from "../../../layout/ScrollLayout";
 
 const BlogDetailComponent = () => {
   const { id } = useParams<{ id: string }>();
@@ -94,101 +95,105 @@ const BlogDetailComponent = () => {
   const blogData = stateBlogDetail.blogData;
 
   return (
-    <div className="from-heading">
-      {blogData ? (
-        <div className="from-header-top">
-          <div className="from">
-            <div className="heading">
-              <p className="title-header">{blogData.title}</p>
-              <div className="from-img">
-                {blogData.img && (
-                  <img
-                    src={blogData.img as string}
-                    alt="DTU"
-                    className="item-img"
-                  />
-                )}
+    <>
+      <ScrollToTop />
+
+      <div className="from-heading">
+        {blogData ? (
+          <div className="from-header-top-blog">
+            <div className="from">
+              <div className="heading">
+                <p className="title-header">{blogData.title}</p>
+                <div className="from-img">
+                  {blogData.img && (
+                    <img
+                      src={blogData.img as string}
+                      alt="DTU"
+                      className="item-img"
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="from-main">
-            <nav className="table-of-contents">
-              <h2 className="toc-title">Mục lục</h2>
-              <ul className="toc-list">
-                {toc.map((item) => (
-                  <li
-                    key={item.id}
-                    className={`toc-item ${activeId === item.id ? "active" : ""}`}
-                  >
-                    <a onClick={() => handleClick(item.id)}>{item.text}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <div className="from-main">
+              <nav className="table-of-contents">
+                <h2 className="toc-title">Mục lục</h2>
+                <ul className="toc-list">
+                  {toc.map((item) => (
+                    <li
+                      key={item.id}
+                      className={`toc-item ${activeId === item.id ? "active" : ""}`}
+                    >
+                      <a onClick={() => handleClick(item.id)}>{item.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-            <div className="blog-content" ref={contentRef}>
-              <p className="txt-content">
-                {processedContent ? (
-                  parse(processedContent)
-                ) : (
-                  <p>Không có nội dung</p>
-                )}
-              </p>
-            </div>
-            <div className="from-right"></div>
-          </div>
-        </div>
-      ) : (
-        <p>Không có nội dung</p>
-      )}
-      <div className="section-footer">
-        <div className="layout-container footer-box">
-          <div className="footer-left">
-            <div className="logo-white">
-              <img src={logo} alt="" />
-              <span>Toptimviec.com</span>
-            </div>
-            <p className="describe">
-              Chúng tôi cung cấp thông tin về các việc làm <br /> giúp bạn thuận
-              tiện hơn trong việc tìm kiếm <br />
-              công việc,chúng tôi thường xuyên cung cấp
-              <br />
-              các việc làm như,nhân viên sale,kinh
-              <br /> doanh,bán hàng
-            </p>
-            <div className="icon-ground">
-              <FacebookIcon style={{ marginRight: 30 }} />
-              <InstagramIcon style={{ marginRight: 30 }} />
-              <EmailIcon />
+              <div className="blog-content" ref={contentRef}>
+                <p className="txt-content">
+                  {processedContent ? (
+                    parse(processedContent)
+                  ) : (
+                    <p>Không có nội dung</p>
+                  )}
+                </p>
+              </div>
+              <div className="from-right"></div>
             </div>
           </div>
-          <div className="footer-right">
-            <div className="footer-right-box">
-              <p className="link-page-title">Công Việc</p>
-              <p className="link-page-item">Sale Bán Hàng</p>
-              <p className="link-page-item">Công Nghệ Thông Tin</p>
-              <p className="link-page-item">Truyền Thông</p>
-            </div>
-            <div className="footer-right-box">
-              <p className="link-page-title">Bài báo</p>
-              <p className="link-page-item">Bài viết phổ biến</p>
-              <p className="link-page-item">Đọc nhiều nhất</p>
-              <p className="link-page-item">đánh giá Cao</p>
-              <p className="link-page-item">Bài viết mới</p>
-            </div>
-            <div className="footer-right-box">
-              <p className="link-page-title">Liên hệ</p>
-              <p className="link-page-item">
-                01 2/9 Quận Hải Châu ,Thành Pho đà nẵng
+        ) : (
+          <p>Không có nội dung</p>
+        )}
+        <div className="section-footer">
+          <div className="layout-container footer-box">
+            <div className="footer-left">
+              <div className="logo-white">
+                <img src={logo} alt="" />
+                <span>Toptimviec.com</span>
+              </div>
+              <p className="describe">
+                Chúng tôi cung cấp thông tin về các việc làm <br /> giúp bạn
+                thuận tiện hơn trong việc tìm kiếm <br />
+                công việc,chúng tôi thường xuyên cung cấp
+                <br />
+                các việc làm như,nhân viên sale,kinh
+                <br /> doanh,bán hàng
               </p>
-              <p className="link-page-item">0925306503</p>
-              <p className="link-page-item">nguyenqtthangbinh@gmail.com</p>
+              <div className="icon-ground">
+                <FacebookIcon style={{ marginRight: 30 }} />
+                <InstagramIcon style={{ marginRight: 30 }} />
+                <EmailIcon />
+              </div>
+            </div>
+            <div className="footer-right">
+              <div className="footer-right-box">
+                <p className="link-page-title">Công Việc</p>
+                <p className="link-page-item">Sale Bán Hàng</p>
+                <p className="link-page-item">Công Nghệ Thông Tin</p>
+                <p className="link-page-item">Truyền Thông</p>
+              </div>
+              <div className="footer-right-box">
+                <p className="link-page-title">Bài báo</p>
+                <p className="link-page-item">Bài viết phổ biến</p>
+                <p className="link-page-item">Đọc nhiều nhất</p>
+                <p className="link-page-item">đánh giá Cao</p>
+                <p className="link-page-item">Bài viết mới</p>
+              </div>
+              <div className="footer-right-box">
+                <p className="link-page-title">Liên hệ</p>
+                <p className="link-page-item">
+                  01 2/9 Quận Hải Châu ,Thành Pho đà nẵng
+                </p>
+                <p className="link-page-item">0925306503</p>
+                <p className="link-page-item">nguyenqtthangbinh@gmail.com</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

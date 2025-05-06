@@ -10,11 +10,8 @@ import { putUpdateUser } from "../../../redux/actions/userAction";
 import AlertDialog from "./Dialog";
 import { IUserData } from "../../../redux/reducers/user";
 import { motion } from "framer-motion";
-interface ITableComponentProps {
-  searchCriteria: IUserData;
-}
 
-export const ProfileComponent = ({ searchCriteria }: ITableComponentProps) => {
+export const ProfileComponent = () => {
   const userState = useAppSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUserData | null>(null);

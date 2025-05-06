@@ -9,6 +9,7 @@ import { useAppSelector } from "../../../redux/store";
 import { motion } from "framer-motion";
 
 import "./style.scss";
+import ReactQuill from "react-quill";
 export type DialogProps = {
   open?: boolean;
   title?: string;
@@ -93,6 +94,14 @@ export default function AlertDialog(props: DialogProps) {
   const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement>) => {
     e.currentTarget.style.transform = "scale(1) rotateX(0deg) rotateY(0deg)";
   };
+  const [theme] = useState<string>("snow");
+
+  const handleChangeQuill = (content: string, name: string) => {
+    setUser((prev) => ({
+      ...prev,
+      [name]: content,
+    }));
+  };
 
   return (
     <Dialog
@@ -138,6 +147,7 @@ export default function AlertDialog(props: DialogProps) {
           noValidate
           autoComplete="off"
         >
+          <h1 className="text-from-profile">Chỉnh Sửa Thông Tin Cá Nhân</h1>
           <motion.label
             htmlFor="upload-avatar"
             className="from-avt-profile"
@@ -162,92 +172,131 @@ export default function AlertDialog(props: DialogProps) {
               accept="image/*"
               onChange={handleFileChange}
             />
-            <motion.div
-              className="from-input-profile"
-              variants={container}
-              initial="hidden"
-              animate="show"
-            >
-              <TextField
-                onChange={handleChange}
-                value={user?.lastName || ""}
-                label="Họ và tên"
-                name="lastName"
-                size="small"
-              />
-              <TextField
-                label="Học Vấn"
-                name="education_levels"
-                size="small"
-                onChange={handleChange}
-                value={user?.education_levels || ""}
-              />
+            <motion.div className="from-input-profile">
+              <div className="from-input-lef">
+                <fieldset className="input-fieldset">
+                  <legend>Họ và tên</legend>
+                  <input
+                    className="in-text"
+                    placeholder="Nhập họ và tên"
+                    name="lastName"
+                    onChange={handleChange}
+                    value={user?.lastName || ""}
+                  />
+                </fieldset>
+                <fieldset className="input-fieldset">
+                  <legend>Địa Chỉ</legend>
+                  <input
+                    name="address"
+                    className="in-text"
+                    onChange={handleChange}
+                    placeholder="Nhập họ và tên"
+                    value={user?.address || ""}
+                  />
+                </fieldset>
+                {userState.userData &&
+                  (userState.userData.roleData?.id === 1 ||
+                    userState.userData.roleData?.id === 2) && (
+                    <>
+                      <fieldset className="input-fieldset">
+                        <legend>Quy Mô</legend>
+                        <input
+                          className="in-text"
+                          placeholder="Email"
+                          name="scale"
+                          onChange={handleChange}
+                          value={user?.scale || ""}
+                        />
+                      </fieldset>
+                    </>
+                  )}
+              </div>
+              <div className="from-input-right">
+                <fieldset className="input-fieldset">
+                  <legend>Họ và tên</legend>
+                  <input
+                    className="in-text"
+                    placeholder="Email"
+                    name="email"
+                    onChange={handleChange}
+                    value={user?.email || ""}
+                  />
+                </fieldset>
+                <fieldset className="input-fieldset">
+                  <legend>Học Vấn</legend>
+                  <input
+                    className="in-text"
+                    placeholder="Nhập họ và tên"
+                    name="education_levels"
+                    onChange={handleChange}
+                    value={user?.education_levels || ""}
+                  />
+                </fieldset>
+                {userState.userData &&
+                  (userState.userData.roleData?.id === 1 ||
+                    userState.userData.roleData?.id === 2) && (
+                    <fieldset className="input-fieldset">
+                      <legend>Lĩnh Vực</legend>
+                      <input
+                        className="in-text"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        value={user?.field || ""}
+                        name="field"
+                      />
+                    </fieldset>
+                  )}
+              </div>
             </motion.div>
-            <motion.div
-              className="from-input-profile"
-              variants={container}
-              initial="hidden"
-              animate="show"
-            >
-              <TextField
-                label="Email"
-                name="email"
-                size="small"
-                onChange={handleChange}
-                value={user?.email || ""}
-              />
-              <TextField
-                label="Mô tả"
-                name="description"
-                size="small"
-                onChange={handleChange}
+            <fieldset className="input-fieldset">
+              <legend>Mô tả</legend>
+              <ReactQuill
+                theme={theme}
                 value={user?.description || ""}
+                onChange={(content) =>
+                  handleChangeQuill(content, "description")
+                }
+                style={{
+                  height: "250px",
+                  marginBottom: "10px",
+                }}
+                modules={{
+                  toolbar: [
+                    [{ header: "1" }, { header: "2" }, { font: [] }],
+                    [{ size: [] }],
+                    ["bold", "italic", "underline", "strike", "blockquote"],
+                    [
+                      { list: "ordered" },
+                      { list: "bullet" },
+                      { indent: "-1" },
+                      { indent: "+1" },
+                    ],
+                    [{ align: [] }],
+                    ["link", "image", "video"],
+                    ["clean"],
+                  ],
+                }}
+                formats={[
+                  "header",
+                  "font",
+                  "size",
+                  "bold",
+                  "italic",
+                  "underline",
+                  "strike",
+                  "blockquote",
+                  "list",
+                  "bullet",
+                  "indent",
+                  "link",
+                  "image",
+                  "video",
+                  "align",
+                ]}
+                bounds={"#root"}
+                placeholder="Nội dung bài viết..."
               />
-            </motion.div>
-
-            {userState.userData &&
-              (userState.userData.roleData?.id === 1 ||
-                userState.userData.roleData?.id === 2) && (
-                <>
-                  <motion.div
-                    className="from-input-profile"
-                    variants={container}
-                    initial="hidden"
-                    animate="show"
-                  >
-                    <TextField
-                      label="Quy Mô"
-                      name="scale"
-                      size="small"
-                      onChange={handleChange}
-                      value={user?.scale || ""}
-                    />
-
-                    <TextField
-                      label="Địa Chỉ"
-                      name="address"
-                      size="small"
-                      onChange={handleChange}
-                      value={user?.address || ""}
-                    />
-                  </motion.div>
-
-                  <motion.div
-                    className="from-input-profile"
-                    variants={container}
-                    initial="hidden"
-                    animate="show"
-                  >
-                    <TextField
-                      label="Lĩnh Vực"
-                      name="field"
-                      size="small"
-                      onChange={handleChange}
-                      value={user?.field || ""}
-                    />
-                  </motion.div>
-                </>
-              )}
+            </fieldset>
           </div>
         </Box>
       </DialogContent>

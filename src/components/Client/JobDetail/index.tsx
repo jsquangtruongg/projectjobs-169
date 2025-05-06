@@ -34,6 +34,7 @@ import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
 import { AddDialog } from "./dialog";
 import { IJobData } from "../../../redux/reducers/job";
 import { motion } from "framer-motion";
+import ScrollToTop from "../../../layout/ScrollLayout";
 
 export type IEditDialogProps = {
   open?: boolean;
@@ -112,6 +113,8 @@ export const JobDetailComponent = () => {
   };
   return (
     <>
+      <ScrollToTop />
+
       <div className="header-top">
         <div className="header-main">
           <div className="header-lef">

@@ -14,6 +14,7 @@ export const LOGOUT = "LOGOUT";
 //User
 export const SET_USER_INFO = "GET_USER_INFO";
 export const SET_USER_INIT = "GET_USER_INIT";
+export const GET_ID_DATA_USER = "GET_ID_DATA_USER";
 
 export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
 export const SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN";
@@ -38,6 +39,8 @@ export const GET_BLOG_CATEGORY = "GET_BLOG_CATEGORY";
 
 export const GET_JOB = "GET_JOB";
 export const GET_JOB_ALL = "GET_JOB_ALL";
+export const GET_JOB_USER_ALL = "GET_JOB_USER_ALL";
+
 export const SET_JOB_INIT = "SET_JOB_INIT";
 
 //Blog

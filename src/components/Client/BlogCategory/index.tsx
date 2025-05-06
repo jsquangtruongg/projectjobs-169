@@ -27,6 +27,7 @@ import {
   Keyboard,
   Autoplay,
 } from "swiper/modules";
+import ScrollToTop from "../../../layout/ScrollLayout";
 export const BlogCategoryComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -55,191 +56,197 @@ export const BlogCategoryComponent = () => {
     setFilterBlogs(filtered || []);
   };
   return (
-    <div className="blog-category-container">
-      <div className="section-banner">
-        <Swiper
-          style={{
-            padding: "0px 20px",
-            height: "380px",
-            width: "100%",
-            borderRadius: "50px",
-            marginTop: "20px",
-            marginRight: "20px",
-          }}
-          cssMode={true}
-          pagination={true}
-          mousewheel={true}
-          keyboard={true}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="mySwiper"
-        >
-          <SwiperSlide className="item-swiper-slide">
-            <div className="blog-content">
-              <p className="txt-title">Cố Gắng Để Sau Này Không Hối Tiếc</p>
-              <div className=" from-txt-detail">
-                <p className="txt-detail">
-                  Trên con đường thành công sẽ không có dấu chân của người lười
-                  biến
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="item-swiper-slide">
-            <div className="blog-content">
-              <p className="txt-title">Ngày Hôm Nay Phải Hơn Ngày Hôm Qua</p>
-              <div className=" from-txt-detail">
-                <p className="txt-detail">
-                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
-                  hot và hơn thế nữa tại Đại Học Tốt!
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="item-swiper-slide">
-            <div className="blog-content">
-              <p className="txt-title">Khám phá bài viết mới nhất 2023</p>
-              <div className=" from-txt-detail">
-                <p className="txt-detail">
-                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
-                  hot và hơn thế nữa tại Đại Học Tốt!
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="item-swiper-slide">
-            <div className="blog-content">
-              <p className="txt-title">Khám phá bài viết mới nhất 2024</p>
-              <div className=" from-txt-detail">
-                <p className="txt-detail">
-                  Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành học
-                  hot và hơn thế nữa tại Đại Học Tốt!
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div>
-      <div className=" blog-category-box ">
-        <div className="main">
-          <div className="section-search">
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <SearchIcon onClick={handleSearch} />
-            </div>
-          </div>
-          <p className="title-page"> Danh Mục Bài Đăng Mới Nhất</p>
-          <div className="section-list-blog">
-            <div className="list-blog">
-              {blogCategoryState.blogCategoryDataList.length === 0 ? (
-                <div className="loading-data">
-                  <CircularProgress />
+    <>
+      <ScrollToTop />
+      <div className="blog-category-container">
+        <div className="section-banner">
+          <Swiper
+            style={{
+              padding: "0px 20px",
+              height: "380px",
+              width: "100%",
+              borderRadius: "50px",
+              marginTop: "20px",
+              marginRight: "20px",
+            }}
+            cssMode={true}
+            pagination={true}
+            mousewheel={true}
+            keyboard={true}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
+            className="mySwiper"
+          >
+            <SwiperSlide className="item-swiper-slide">
+              <div className="blog-content">
+                <p className="txt-title">Cố Gắng Để Sau Này Không Hối Tiếc</p>
+                <div className=" from-txt-detail">
+                  <p className="txt-detail">
+                    Trên con đường thành công sẽ không có dấu chân của người
+                    lười biến
+                  </p>
                 </div>
-              ) : (
-                filterBlogs.map(
-                  (blogCategoryItem: IBlogCategoryData, index: number) => (
-                    <div
-                      className="item-blog"
-                      key={index}
-                      onClick={() => handleReadBlogClick(blogCategoryItem.id)}
-                    >
-                      <div className="img-wrap">
-                        {blogCategoryItem.img && (
-                          <img src={blogCategoryItem.img as string} alt="Job" />
-                        )}
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="item-swiper-slide">
+              <div className="blog-content">
+                <p className="txt-title">Ngày Hôm Nay Phải Hơn Ngày Hôm Qua</p>
+                <div className=" from-txt-detail">
+                  <p className="txt-detail">
+                    Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành
+                    học hot và hơn thế nữa tại Đại Học Tốt!
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="item-swiper-slide">
+              <div className="blog-content">
+                <p className="txt-title">Khám phá bài viết mới nhất 2023</p>
+                <div className=" from-txt-detail">
+                  <p className="txt-detail">
+                    Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành
+                    học hot và hơn thế nữa tại Đại Học Tốt!
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="item-swiper-slide">
+              <div className="blog-content">
+                <p className="txt-title">Khám phá bài viết mới nhất 2024</p>
+                <div className=" from-txt-detail">
+                  <p className="txt-detail">
+                    Cập nhật hàng ngày về giáo dục, tuyển sinh đại học, ngành
+                    học hot và hơn thế nữa tại Đại Học Tốt!
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+        <div className=" blog-category-box ">
+          <div className="main">
+            <div className="section-search">
+              <div className="search-box">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <SearchIcon onClick={handleSearch} />
+              </div>
+            </div>
+            <p className="title-page"> Danh Mục Bài Đăng Mới Nhất</p>
+            <div className="section-list-blog">
+              <div className="list-blog">
+                {blogCategoryState.blogCategoryDataList.length === 0 ? (
+                  <div className="loading-data">
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  filterBlogs.map(
+                    (blogCategoryItem: IBlogCategoryData, index: number) => (
+                      <div
+                        className="item-blog"
+                        key={index}
+                        onClick={() => handleReadBlogClick(blogCategoryItem.id)}
+                      >
+                        <div className="img-wrap">
+                          {blogCategoryItem.img && (
+                            <img
+                              src={blogCategoryItem.img as string}
+                              alt="Job"
+                            />
+                          )}
+                        </div>
+                        <div className="from-item-title">
+                          <a className="item-title">{blogCategoryItem.title}</a>
+                        </div>
+                        <p className="item-content">
+                          {blogCategoryItem.describe}
+                        </p>
                       </div>
-                      <div className="from-item-title">
-                        <a className="item-title">{blogCategoryItem.title}</a>
-                      </div>
-                      <p className="item-content">
-                        {blogCategoryItem.describe}
-                      </p>
-                    </div>
+                    )
                   )
-                )
-              )}
+                )}
+              </div>
             </div>
-          </div>
-          <div className="btn-show-all">
-            <button>Tất cả bài viết</button>
-          </div>
-        </div>
-      </div>
-      {/* Footer */}
-      <div className="section-about-us">
-        <div className="layout-container about-us-box">
-          <div className="info">
-            <p className="title">About</p>
-            <p className="describe">
-              Chúng tôi rất vui khi được mọi người <br />
-              đón nhận và quan tâm,đội ngũ của chúng <br />
-              tôi luôn luôn hỗ trợ hết mình trong công cuộc <br />
-              tìm kiếm việc làm
-            </p>
-            <br />
-            <div className="info-contact">
-              <p className="title">Email:</p>
-              <p className="describe">nguyenqtthangbinh@gmail.com</p>
-            </div>
-            <div className="info-contact">
-              <p className="title">Phone:</p>
-              <p className="describe">0925306503</p>
-            </div>
-          </div>
-          <div className="link-page">
-            <div className="link-page-box">
-              <p className="link-page-title">Liên kết nhanh</p>
-              <p className="link-page-item">Trang chủ</p>
-              <p className="link-page-item">Tìm việc</p>
-              <p className="link-page-item">Blog</p>
-              <p className="link-page-item">Trắc nghiêmm</p>
-            </div>
-            <div className="link-page-box">
-              <p className="link-page-title">Việc làm phổ biến</p>
-              <p className="link-page-item">Travel</p>
-              <p className="link-page-item">Marketing</p>
-              <p className="link-page-item">Blog</p>
-              <p className="link-page-item">sale</p>
-            </div>
-          </div>
-          <div className="send-email">
-            <p className="title">Nhập Email</p>
-            <p className="describe">
-              Tôi sẽ câp nhập cho bạn những thông tin mới nhất
-            </p>
-            <div className="field-email">
-              <input type="text" placeholder="Nhập Email..." />
-              <MailOutlinedIcon />
-            </div>
-            <div className="btn-subscribe">
-              <button>Đăng ký</button>
+            <div className="btn-show-all">
+              <button>Tất cả bài viết</button>
             </div>
           </div>
         </div>
-      </div>
-      <div className="section-footer">
-        <div className="footer-box">
-          <div className="footer-logo">
-            <img src={logo} alt="" />
-            <span>Toptimviec.com</span>
+        {/* Footer */}
+        <div className="section-about-us">
+          <div className="layout-container about-us-box">
+            <div className="info">
+              <p className="title">About</p>
+              <p className="describe">
+                Chúng tôi rất vui khi được mọi người <br />
+                đón nhận và quan tâm,đội ngũ của chúng <br />
+                tôi luôn luôn hỗ trợ hết mình trong công cuộc <br />
+                tìm kiếm việc làm
+              </p>
+              <br />
+              <div className="info-contact">
+                <p className="title">Email:</p>
+                <p className="describe">nguyenqtthangbinh@gmail.com</p>
+              </div>
+              <div className="info-contact">
+                <p className="title">Phone:</p>
+                <p className="describe">0925306503</p>
+              </div>
+            </div>
+            <div className="link-page">
+              <div className="link-page-box">
+                <p className="link-page-title">Liên kết nhanh</p>
+                <p className="link-page-item">Trang chủ</p>
+                <p className="link-page-item">Tìm việc</p>
+                <p className="link-page-item">Blog</p>
+                <p className="link-page-item">Trắc nghiêmm</p>
+              </div>
+              <div className="link-page-box">
+                <p className="link-page-title">Việc làm phổ biến</p>
+                <p className="link-page-item">Travel</p>
+                <p className="link-page-item">Marketing</p>
+                <p className="link-page-item">Blog</p>
+                <p className="link-page-item">sale</p>
+              </div>
+            </div>
+            <div className="send-email">
+              <p className="title">Nhập Email</p>
+              <p className="describe">
+                Tôi sẽ câp nhập cho bạn những thông tin mới nhất
+              </p>
+              <div className="field-email">
+                <input type="text" placeholder="Nhập Email..." />
+                <MailOutlinedIcon />
+              </div>
+              <div className="btn-subscribe">
+                <button>Đăng ký</button>
+              </div>
+            </div>
           </div>
-          <div className="footer-info-other">
-            <p>Đội ngũ Adim</p>
-            <p>Terms member</p>
-            <p>Cookie Policy</p>
-            <p>Terms of Use</p>
+        </div>
+        <div className="section-footer">
+          <div className="footer-box">
+            <div className="footer-logo">
+              <img src={logo} alt="" />
+              <span>Toptimviec.com</span>
+            </div>
+            <div className="footer-info-other">
+              <p>Đội ngũ Adim</p>
+              <p>Terms member</p>
+              <p>Cookie Policy</p>
+              <p>Terms of Use</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

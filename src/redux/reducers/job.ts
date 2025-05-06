@@ -62,15 +62,14 @@ const jobReducer = (
         ...state,
         jobData: payload.jobData || [],
       };
-      console.log("Reducer GET_JOB:", updatedState);
       return updatedState;
     case types.GET_JOB_ALL:
       const i = {
         ...state,
         jobDataList: payload.jobDataList || [],
       };
-      console.log(i, "abc");
       return i;
+
     case types.UPDATE_JOB_LIKE:
       return {
         ...state,

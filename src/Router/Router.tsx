@@ -28,6 +28,7 @@ import DeleteApplyPage from "../pages/AppLyManager/deleteApply";
 import BrowseApplyPage from "../pages/AppLyManager/browseApply";
 import BoardsLayout from "../layout/BoardsLayout";
 import BlogPage from "../pages/Client/Blog";
+import ProfileCompanyPage from "../pages/Client/ProfileCompany";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: "/job-detail/:id",
         element: <JobDetailPage />,
+      },
+      {
+        path: "/profile-company/:id",
+        element: <ProfileCompanyPage />,
       },
     ],
   },

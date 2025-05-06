@@ -1,7 +1,6 @@
 import avatarPost from "../../../assets/images/avatar.jpg";
 import map from "../../../assets/images/danh_dau.png";
 import logo from "../../../assets/images/logo.png";
-import poster18 from "../../../assets/images/Rectangle18.png";
 import poster19 from "../../../assets/images/Rectangle19.png";
 import poster20 from "../../../assets/images/Rectangle20.png";
 import poster22 from "../../../assets/images/Rectangle22.png";
@@ -16,11 +15,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MailIcon from "@mui/icons-material/Mail";
-import MarginRoundedIcon from "@mui/icons-material/MarginRounded";
-import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
-import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
-import RamenDiningRoundedIcon from "@mui/icons-material/RamenDiningRounded";
-import WatchLaterSharpIcon from "@mui/icons-material/WatchLaterSharp";
 import BuildIcon from "@mui/icons-material/Build";
 import SchoolIcon from "@mui/icons-material/School";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -63,22 +57,31 @@ import It from "../../../assets/images/tuyenIt.jpg";
 import Seo from "../../../assets/images/Seo.jpg";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import SwiperCore from "swiper";
-interface NavigationProps {
-  swiper: SwiperCore | null;
-}
-export const HomeComponent = ({ swiper }: NavigationProps) => {
+import { getAllJobsAction } from "../../../redux/actions/userAction";
+import { getBlogAll } from "../../../redux/actions/blogActions";
+
+export const HomeComponent = () => {
   const navigate = useNavigate();
+  const stateBlog = useAppSelector((state) => state.blog);
   const jobCategoryState = useAppSelector((state) => state.jobCategory);
   const jobState = useAppSelector((state) => state.job);
-  console.log(jobState.jobDataList, "cccccccc");
+  const jobStateJob = useAppSelector((state) => state.user);
+  const stateJobCategory = useAppSelector((state) => state.jobCategory);
   const jobRef = useRef<HTMLDivElement | null>(null);
-  const jobId: (string | number)[] | undefined = jobState?.jobData?.map(
-    (item) => item.id
-  );
+
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const onClickJob = (id: string | number) => {
     navigate(`/job/${id}`, { state: { scrollTo: id } });
+  };
+  const handleClickProfileCompany = (companyId: number | undefined) => {
+    navigate(`/profile-company/${companyId}`);
+  };
+  const handleBlogClick = () => {
+    navigate("/blog");
+  };
+  const onClickJobDetail = (id: number | string) => {
+    navigate(`/blog-details/${id}`);
   };
 
   const swiperRef = useRef<SwiperCore | null>(null);
@@ -87,7 +90,13 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
   }, []);
 
   useEffect(() => {
+    dispatch(getBlogAll());
+  }, []);
+  useEffect(() => {
     dispatch(getJobAll());
+  }, []);
+  useEffect(() => {
+    dispatch(getAllJobsAction());
   }, []);
   const updateNavigation = (swiper: SwiperCore) => {
     const prevBtn = document.querySelector(".icon-pagination-left");
@@ -106,6 +115,10 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
         nextBtn.classList.remove("disabled");
       }
     }
+  };
+  const getTextFromHTML = (html: string): string => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.innerText;
   };
   const NavigationPage = (swiper: SwiperCore) => {
     const prevBtn = document.querySelector(".icon-pagination-list");
@@ -385,238 +398,37 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
                   modules={[Grid, Navigation]}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
+                  {jobStateJob.jobDataUser
+                    .filter(
+                      (jobUser) =>
+                        jobUser.role_code === "R1" || jobUser.role_code === "R2"
+                    )
+                    .map((jobUser, index) => (
+                      <SwiperSlide key={index}>
+                        <div
+                          className="company-card"
+                          onClick={() => handleClickProfileCompany(jobUser.id)}
+                        >
+                          <div className="item-cart-job">
+                            <div className="from-card">
+                              <div className="logo">
+                                <img src={avatarPost} alt="Company Logo" />
+                              </div>
+                              <div className="info">
+                                <h3>
+                                  {jobUser.firstName} {jobUser.lastName}
+                                </h3>
+                                <p className="industry">{jobUser.email}</p>
+                              </div>
+                            </div>
                           </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
+                          <div className="item-icon-wor">
+                            <BusinessCenterOutlinedIcon className="icon-word" />
+                            <p className="jobs">{jobUser.Jobs?.length}</p>
                           </div>
                         </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>{" "}
-                  <SwiperSlide>
-                    <div className="company-card">
-                      <div className="item-cart-job">
-                        <div className="from-card">
-                          <div className="logo">
-                            <img src={avatarPost} alt="Company Logo" />
-                          </div>
-                          <div className="info">
-                            <h3>CHI NHÁNH HÀ NỘI - CÔNG TY CỔ PHẦN MAISON</h3>
-                            <p className="industry">
-                              Bán lẻ - Hàng tiêu dùng - FMCG
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="item-icon-wor">
-                        <BusinessCenterOutlinedIcon className="icon-word" />
-                        <p className="jobs">1 việc làm</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  {/* Thêm các SwiperSlide khác tương tự */}
+                      </SwiperSlide>
+                    ))}
                 </Swiper>
                 <div className="from-pagination">
                   <div className="custom-prev">
@@ -633,63 +445,56 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
             </div>
           </div>
         </div>
-
-        <div className={styles.form_contact_job}>
-          <div className={styles.outstanding_job_lef}>
-            <div className={styles.outstanding_job}>
-              <p className={styles.line}>____</p>
-              <p className={styles.text_recommended}>Liên hệ đối tác</p>
-            </div>
-            <div className={styles.from_lef_contact}>
-              <p className={styles.employer_job}>Hãy Liên Hệ Với Chúng Tôi!</p>
-              <span className={styles.text_EPCO}>
-                EPCO xin hân hạnh được chào đón các bạn đồng <br />
-                hành với nhà hàng chúng tôi,môi trường thân thiện <br /> và năng
-                động
-              </span>
-              <p className={styles.text_recruitment}>Chi tiết tuyển dụng</p>
-              <div className={styles.form_contact}>
-                <div className={styles.from_job_needed}>
-                  <div className={styles.jobs_needed}>
-                    <Person2RoundedIcon style={{ marginRight: 7 }} />4 Chạy bàn
-                  </div>
-                  <div className={styles.jobs_needed}>
-                    <Person2RoundedIcon style={{ marginRight: 7 }} />2 Lễ Tân
-                  </div>
-                </div>
-                <div className={styles.from_job_needed}>
-                  <div className={styles.jobs_needed}>
-                    <MarginRoundedIcon style={{ marginRight: 7 }} />1 Quản lí
-                  </div>
-                  <div className={styles.jobs_needed}>
-                    <RamenDiningRoundedIcon style={{ marginRight: 7 }} />2 Đầu
-                    bếp
+        <div className="from-information-global">
+          <div className="item-information-global">
+            <div className="form_contact_job">
+              <div className="outstanding_job_lef">
+                <div className="from_lef_contact">
+                  <p className="employer_job">
+                    Hổ Trợ Tìm Kiếm Việc Làm Toàn Quốc
+                  </p>
+                  <div className="item_EPCO">
+                    <span className="text_EPCO">
+                      Chúng tôi mang đến giải pháp kết nối việc làm trên toàn
+                      quốc, giúp bạn dễ dàng tìm thấy cơ hội phù hợp ở mọi ngành
+                      nghề, mọi tỉnh thành. Với hàng nghìn tin tuyển dụng được
+                      cập nhật mỗi ngày, bạn có thể tìm kiếm, ứng tuyển và kết
+                      nối với nhà tuyển dụng một cách nhanh chóng, thuận tiện và
+                      hoàn toàn miễn phí. Hãy để chúng tôi đồng hành cùng bạn
+                      trên hành trình phát triển sự nghiệp.
+                    </span>
                   </div>
                 </div>
               </div>
-              <span className={styles.line_book}>
-                ____________________________________________
-              </span>
-              <div>
-                <div className="poster">
-                  <img src={avatarPost} alt="" className={styles.avatar_post} />
-                  <div className={styles.from_text_name}>
-                    <p className={styles.text_name_post}>Quang Trường</p>
-                    <span>Trưởng phòng nhân sự</span>
-                  </div>
-                  <div className={styles.enter_call}>
-                    <PhoneInTalkRoundedIcon style={{ marginRight: 7 }} />
-                    Liên hệ ngay
-                  </div>
-                </div>
+              <div className="outstanding_job_right">
+                <div className="image_restaurant"></div>
               </div>
             </div>
           </div>
-          <div className={styles.outstanding_job_right}>
-            <div className={styles.image_restaurant}>
-              <img src={poster18} alt="" className={styles.icon_restaurant} />
-              <img src={poster19} alt="" className={styles.icon_restaurant2} />
-              <img src={poster20} alt="" className={styles.icon_restaurant3} />
+          <div className="item-information-global">
+            <div className="form_contact_job">
+              <div className="outstanding_job_right">
+                <div className="image_global"></div>
+              </div>
+              <div className="outstanding_job_lef">
+                <div className="from_lef_contact">
+                  <p className="employer_job">
+                    Hỗ Trợ Tìm Kiếm Việc Làm Freelance Toàn Cầu
+                  </p>
+                  <div className="item_EPCO">
+                    <span className="text_EPCO">
+                      Chúng tôi cung cấp nền tảng kết nối freelancer với khách
+                      hàng trên khắp cả nước, giúp bạn dễ dàng tiếp cận những dự
+                      án phù hợp với chuyên môn và đam mê. Hàng ngàn cơ hội làm
+                      việc linh hoạt được cập nhật liên tục, cho phép bạn chủ
+                      động tìm kiếm, thương lượng và hợp tác chỉ trong vài bước
+                      đơn giản. Hãy để chúng tôi trở thành cầu nối vững chắc,
+                      đồng hành cùng bạn chinh phục những cột mốc mới trong sự
+                      nghiệp freelance.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -697,117 +502,75 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
           <div className={styles.from_new_job}>
             <div className={styles.item_line_job}>
               <p className={styles.line_dash}>______</p>
-              <p className={styles.text_new_job}>Tuyển dụng mới nhất</p>
+              <p className={styles.text_new_job}>Tin Tức mới nhất</p>
               <span className={styles.text_tile_job}>
                 tìm hiểu thêm về các công việc
                 <br /> đang tuyển dụng
               </span>
             </div>
-            <div className={styles.item_btn_welcome}>
-              <div className={styles.item_welcome}>Welcome</div>
-            </div>
 
-            <div className={styles.from_job_apply}>
-              <div className={styles.form_job_apply_lef}>
-                <div className={styles.item_job_apply}>
-                  <img
-                    src={poster22}
-                    alt=""
-                    className={styles.img_poster_job}
-                  />
-                  <div className={styles.form_contact_apply}>
-                    <div className={styles.from_style_contact}>
-                      <img
-                        src={avatarPost}
-                        alt=""
-                        className={styles.img_poster}
-                      />
-                      <div className={styles.text_name_menber}>Linh Nhi</div>
-                    </div>
-                    <p className={styles.text_recruitment_job}>
-                      nhà hàng đang tuyển dụng các vị
-                      <br /> trí lễ tân,chạy bàn...lương cao
-                    </p>
-                    <div className={styles.item_clock}>
-                      <WatchLaterSharpIcon style={{ marginRight: 7 }} />
-                      <p className={styles.text_date}>
-                        4 min read | 25 August 2024
-                      </p>
-                    </div>
+            <div className="from-blog-hot">
+              <div className="item-new-blog">
+                <div className="item-blog-hot">
+                  <h2 className="title-blog">Những tin tức mới về việc làm</h2>
+                  <div className="from-pagination-blog">
+                    <button className="custom-prev-list">
+                      <ArrowBackIosNewIcon className="icon-pagination-list" />
+                    </button>
+                    <button className="custom-next-list">
+                      <ArrowForwardIosIcon className="icon-pagination-next" />
+                    </button>
                   </div>
                 </div>
-                <div className={styles.item_job_apply}>
-                  <img
-                    src={poster22}
-                    alt=""
-                    className={styles.img_poster_job}
-                  />
-                  <div className={styles.form_contact_apply}>
-                    <div className={styles.from_style_contact}>
-                      <img
-                        src={avatarPost}
-                        alt=""
-                        className={styles.img_poster}
-                      />
-                      <div className={styles.text_name_menber}>Linh Nhi</div>
-                    </div>
-                    <p className={styles.text_recruitment_job}>
-                      nhà hàng đang tuyển dụng các vị
-                      <br /> trí lễ tân,chạy bàn...lương cao
-                    </p>
-                    <div className={styles.item_clock}>
-                      <WatchLaterSharpIcon style={{ marginRight: 7 }} />
-                      <p className={styles.text_date}>
-                        4 min read | 25 August 2024
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.item_job_apply}>
-                  <img
-                    src={poster22}
-                    alt=""
-                    className={styles.img_poster_job}
-                  />
-                  <div className={styles.form_contact_apply}>
-                    <div className={styles.from_style_contact}>
-                      <img
-                        src={avatarPost}
-                        alt=""
-                        className={styles.img_poster}
-                      />
-                      <div className={styles.text_name_menber}>Linh Nhi</div>
-                    </div>
-                    <p className={styles.text_recruitment_job}>
-                      nhà hàng đang tuyển dụng các vị
-                      <br /> trí lễ tân,chạy bàn...lương cao
-                    </p>
-                    <div className={styles.item_clock}>
-                      <WatchLaterSharpIcon style={{ marginRight: 7 }} />
-                      <p className={styles.text_date}>
-                        4 min read | 25 August 2024
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.form_job_apply_right}>
-                <img src={poster23} alt="" className={styles.image_poster} />
-                <div className={styles.from_style_contact}>
-                  <img src={avatarPost} alt="" className={styles.img_poster} />
-                  <div className={styles.text_name_menber}>Linh Nhi</div>
-                </div>
-                <p className={styles.text_recruitment_staff}>
-                  Tuyển Dụng Nhân Viên Thiết Kế Đồ Họa
-                </p>
-                <p className={styles.text_content_recruitment}>
-                  Công ty chúng tôi tuyển dụng các vị trí thiết kế game,hoạt
-                  hình,C#
-                </p>
-                <div className={styles.item_clock}>
-                  <WatchLaterSharpIcon style={{ marginRight: 7 }} />
-                  <p className={styles.text_date}>
-                    4 min read | 25 August 2024
+                <Swiper
+                  modules={[Grid, Navigation]}
+                  onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                    NavigationPage(swiper);
+                  }}
+                  onSlideChange={(swiper) => NavigationPage(swiper)}
+                  breakpoints={{
+                    320: { slidesPerView: 1 },
+                    640: { slidesPerView: 2 },
+                    1025: { slidesPerView: 4 },
+                  }}
+                  spaceBetween={30}
+                  slidesPerView={3}
+                  grid={{
+                    rows: 1,
+                    fill: "row",
+                  }}
+                  navigation={{
+                    prevEl: ".custom-prev-list",
+                    nextEl: ".custom-next-list",
+                  }}
+                >
+                  {stateBlog.blogDataList.slice(0, 4).map((blog) => (
+                    <SwiperSlide key={blog.id} className="item-swiperSlide">
+                      <div className="card-blog">
+                        <div className="icon-blog">
+                          <img src={blog.img} className="img-blog" />
+                        </div>
+                        <h3 className="name-blog">{blog.title}</h3>
+                        <p className="item-detail">
+                          {" "}
+                          {getTextFromHTML(blog.content).length > 100
+                            ? `${getTextFromHTML(blog.content).slice(0, 100)}...`
+                            : getTextFromHTML(blog.content)}
+                        </p>
+                        <p
+                          className="btn-blog"
+                          onClick={() => onClickJobDetail(blog.id)}
+                        >
+                          Chi Tiết
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <div className="item-learn-more">
+                  <p onClick={handleBlogClick} className="Learn-more">
+                    Xem Thêm
                   </p>
                 </div>
               </div>
@@ -841,7 +604,7 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
               breakpoints={{
                 320: { slidesPerView: 1 },
                 640: { slidesPerView: 2 },
-                1024: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 },
               }}
               spaceBetween={30}
               slidesPerView={3}
@@ -854,15 +617,17 @@ export const HomeComponent = ({ swiper }: NavigationProps) => {
                 nextEl: ".custom-next-list",
               }}
             >
-              {data.map((item, index) => (
-                <SwiperSlide key={index} className="item-swiperSlide">
-                  <div className="card">
-                    <div className="icon-job">{item.icon}</div>
-                    <h3 className="name">{item.title}</h3>
-                    <p className="jobs">{item.jobs}</p>
-                  </div>
-                </SwiperSlide>
-              ))}
+              {stateJobCategory.jobCategoryDataList.map(
+                (blogCategory, index) => (
+                  <SwiperSlide key={index} className="item-swiperSlide">
+                    <div className="card">
+                      <div className="icon-job"></div>
+                      <h3 className="name">{blogCategory.title}</h3>
+                      <p className="jobs">{blogCategory.Jobs?.length}</p>
+                    </div>
+                  </SwiperSlide>
+                )
+              )}
             </Swiper>
           </div>
         </div>

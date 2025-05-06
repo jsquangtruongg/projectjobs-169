@@ -58,11 +58,11 @@ export const InputFromText: React.FC<InputComponentsProps> = (props) => {
   const [error, setError] = useState(externalError);
 
   useEffect(() => {
-    setError(externalError); 
+    setError(externalError);
   }, [externalError]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (error) setError(""); 
+    if (error) setError("");
     onChange(e); // Cập nhật giá trị từ props
   };
 

@@ -1,3 +1,4 @@
+import { getAllJobsAPI, getIdJobsAPI } from "../../api/job";
 import {
   deleteUserAPI,
   editUser,
@@ -68,7 +69,6 @@ export const removeUser = () => async (dispatch: AppDispatch) => {
     payload: { userData: null },
   });
 };
-
 export const putUpdateUser =
   (data: IUserData, file: File | null) => async (dispatch: AppDispatch) => {
     try {
@@ -78,7 +78,6 @@ export const putUpdateUser =
       console.error(error);
     }
   };
-
 export const deleteUser = (userId: number) => async (dispatch: AppDispatch) => {
   try {
     await deleteUserAPI(userId);
@@ -87,3 +86,37 @@ export const deleteUser = (userId: number) => async (dispatch: AppDispatch) => {
     console.error(error);
   }
 };
+export const getAllJobsAction = () => async (dispatch: AppDispatch) => {
+  try {
+    const res = await getAllJobsAPI();
+    console.log(res, "👉 FULL RES từ API");
+
+    const { jobDataUser } = res;
+    console.log(jobDataUser, "👉 DATA jobDataUser");
+
+    dispatch({
+      type: types.GET_JOB_USER_ALL,
+      payload: { jobDataUser },
+    });
+  } catch (error: any) {
+    console.error("Lỗi khi lấy danh sách công việc:", error);
+    dispatch(setError("Không thể lấy danh sách công việc"));
+  }
+};
+export const getIdDataUserAction =
+  (userId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await getIdJobsAPI(userId);
+      console.log("API response data", response.userIdData);
+      if (response.err === 0) {
+        dispatch({
+          type: types.GET_ID_DATA_USER,
+          payload: { userIdData: response.userIdData },
+        });
+      } else {
+        console.error("Lỗi từ API:", response.mes);
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi getIdJobsAPI:", error);
+    }
+  };

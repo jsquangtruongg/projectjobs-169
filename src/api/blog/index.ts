@@ -45,7 +45,6 @@ export const getBlogAPI = async (id: number): Promise<IResponse> => {
 
 export const getBlogIdDetailAPI = async (id: number): Promise<IResponse> => {
   const res = await API.get(`blog/detail`, { params: { id } });
-  console.log("ppppp", res);
   return {
     blogData: res.data.data,
     mes: res.data.mes,
