@@ -30,6 +30,7 @@ export default function BlogComponent() {
   const handleSearch = (criteria: IBlogData) => {
     setSearchCriteria(criteria);
   };
+  // lỗi
   return (
     <Box
       sx={{
