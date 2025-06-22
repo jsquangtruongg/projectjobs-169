@@ -35,6 +35,10 @@ export type Errors = {
   phone?: string;
   img?: string;
 };
+
+
+
+
 export const AddDialog = (props: IEditDialogProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Errors>({});
