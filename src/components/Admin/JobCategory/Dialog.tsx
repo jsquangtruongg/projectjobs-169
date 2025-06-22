@@ -121,6 +121,7 @@ export type IAddDialogProps = {
 export const AddDialog = (props: IAddDialogProps) => {
   const [addJobCategory, setAddJobCategory] = useState<IJobCategoryData>({
     id: 1,
+    img: "",
     title: "",
     user_id: 1,
     createdAt: "",
@@ -131,23 +132,51 @@ export const AddDialog = (props: IAddDialogProps) => {
       lastName: "",
       id: 1,
     },
-    Jobs: {
+    jobs: {
       id: 1,
       img: "",
       content: "",
     },
   });
   const dispatch = useAppDispatch();
+
+  const createJobWrapper = (
+    jobCategoryData: IJobCategoryData,
+    file: File | null
+  ) => {
+    return postCreateJobCategory(jobCategoryData, file as File);
+  };
   const handleAccepts = async () => {
-    if (!addJobCategory) return;
-    await dispatch(postCreateJobCategory(addJobCategory));
+    console.log("Dữ liệu gửi lên server:", addJobCategory);
+
+    if (!addJobCategory.title || !addJobCategory.user_id) {
+      alert("Vui lòng nhập đầy đủ Tên bài viết và User ID");
+      return;
+    }
+
+    await dispatch(createJobWrapper(addJobCategory, file));
     props.handleClose();
   };
+
   const handleChangeTextField = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
-    setAddJobCategory((prevData) => ({ ...prevData, [name]: value }));
+    setAddJobCategory((prevData) => {
+      const newData = {
+        ...prevData,
+        [name]: name === "user_id" ? Number(value) : value,
+      };
+      console.log("Dữ liệu addJobCategory sau khi đổi:", newData);
+      return newData;
+    });
+  };
+
+  const [file, setFile] = useState<File | null>(null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
   };
   return (
     <Dialog
@@ -173,11 +202,12 @@ export const AddDialog = (props: IAddDialogProps) => {
         >
           <TextField
             label="ID"
-            name="user_id"
+            name="id"
             size="small"
             value={addJobCategory.id}
             onChange={handleChangeTextField}
           />
+
           <TextField
             label="Tên bài viết"
             name="title"
@@ -194,7 +224,16 @@ export const AddDialog = (props: IAddDialogProps) => {
             onChange={handleChangeTextField}
           />
 
-          <TextField label="" name="createdAt" type="date" size="small" />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+
+          <TextField
+            label="Ngày tạo"
+            name="createdAt"
+            type="date"
+            size="small"
+            value={addJobCategory.createdAt}
+            onChange={handleChangeTextField}
+          />
         </Box>
       </DialogContent>
       <DialogActions>

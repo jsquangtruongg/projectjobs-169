@@ -5,7 +5,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Autoplay, Keyboard, Mousewheel, Pagination } from "swiper/modules";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 import "swiper/css";
 
 import "./style.scss";

@@ -22,7 +22,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { getIdDataUserAction } from "../../../redux/actions/userAction";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import { IUserData } from "../../../redux/reducers/user";
+import { AddDialog } from "./Dialog";
 
 const container = {
   hidden: { opacity: 0, y: 40 },
@@ -63,10 +64,18 @@ const ProfileCompanyComponent = () => {
       dispatch(getIdDataUserAction(Number(id))); // Chuyển đổi sang số nếu cần
     }
   }, [dispatch, id]);
+  const [open, setOpen] = useState(false);
+
+  const [jobItem, setJobItem] = useState<IUserData | null>(null);
+  const handleOpen = (item: IUserData) => {
+    setOpen(true);
+    setJobItem(item);
+  };
+
+  const handleCloseAdd = () => setOpen(false);
+  const handleAcceptAdd = () => setOpen(false);
   return (
     <>
-      <ScrollToTop />
-
       <div className="from-header-top">
         <div className="from-heading">
           {stateJobProfile.userIdData && (
@@ -172,7 +181,10 @@ const ProfileCompanyComponent = () => {
                                   </p>
                                 </div>
                                 <div className="from-save-apply">
-                                  <button className="btn-apply">
+                                  <button
+                                    className="btn-apply"
+                                    onClick={() => handleOpen(job)}
+                                  >
                                     Ứng tuyển
                                   </button>
                                   <div className="item-love">
@@ -338,6 +350,13 @@ const ProfileCompanyComponent = () => {
             </div>
           </motion.div>
         </div>
+
+        <AddDialog
+          open={open}
+          jobItem={jobItem}
+          handleClose={handleCloseAdd}
+          handleAccept={handleAcceptAdd}
+        />
       </div>
     </>
   );

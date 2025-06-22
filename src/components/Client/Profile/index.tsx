@@ -19,7 +19,6 @@ export const ProfileComponent = () => {
   const [currentTime, setCurrentTime] = useState<string>(
     new Date().toLocaleString()
   );
-
   let isAuthenticated = false;
   if (localStorage.getItem("profile")) {
     const accessToken = JSON.parse(
@@ -32,7 +31,7 @@ export const ProfileComponent = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date().toLocaleString()); // Cập nhật giờ hiện tại
+      setCurrentTime(new Date().toLocaleString());
     }, 1000);
 
     return () => clearInterval(timer);

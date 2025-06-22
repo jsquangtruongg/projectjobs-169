@@ -23,7 +23,6 @@ export const getJobALLCategoryAPI = async (
   const params = new URLSearchParams();
   if (title) params.append("title", title);
   const res = await API.get("/job-category");
-  console.log(res, "truongg");
   return {
     mes: res.data.mes,
     jobCategoryDataList: res.data.data || [],
@@ -31,18 +30,48 @@ export const getJobALLCategoryAPI = async (
   };
 };
 
+export const getJobCategoryIdAPI = async (id: number): Promise<IResponse> => {
+  const res = await API.get(`job-category/${id}`);
+  console.log(res);
+  return {
+    jobCategoryData: res.data.data,
+    mes: res.data.mes,
+    err: res.data.err,
+  };
+};
 export const createJobCategoryAPI = async (
-  jobCategoryData: IJobCategoryData
+  jobCategoryData: IJobCategoryData,
+  file: File | null
 ): Promise<IResponse> => {
-  const { data } = await API.post(
-    "/job-category",
-    { ...jobCategoryData },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const formData = new FormData();
+
+  for (const key in jobCategoryData) {
+    if (Object.prototype.hasOwnProperty.call(jobCategoryData, key)) {
+      if (key === "img" && file) continue;
+
+      const value = (jobCategoryData as any)[key];
+      formData.append(
+        key,
+        typeof value === "object" ? JSON.stringify(value) : String(value)
+      );
     }
-  );
+  }
+
+  if (file) {
+    formData.append("img", file);
+  }
+
+  console.log("Nội dung formData gửi lên:");
+  for (const [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+
+  const { data } = await API.post("/job-category", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
   return {
     mes: data.mes,
     jobCategoryData: data.data || {},

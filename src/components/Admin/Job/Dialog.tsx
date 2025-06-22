@@ -12,11 +12,13 @@ import { IJobData } from "../../../redux/reducers/job";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { createJob } from "../../../redux/actions/jobActions";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { Quill } from "react-quill";
 
 import "./style.scss";
+import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
 export type IDeleteDialogProps = {
   open?: boolean;
   title?: string;
@@ -232,10 +234,10 @@ export const AddDialog = (props: IAddDialogProps) => {
     salary: "",
     experience: "",
     location: "",
-    Education:"",
-    Grade:"",
-    positions_needed:"",
-    work_type:"",
+    Education: "",
+    Grade: "",
+    positions_needed: "",
+    work_type: "",
     like_count: 0,
     createdAt: new Date().toISOString().split("T")[0],
     updatedAt: "",
@@ -290,7 +292,12 @@ export const AddDialog = (props: IAddDialogProps) => {
     setEditorHtml(html);
     handleQuillChange(html);
   };
-
+  const jobCategoryList = useAppSelector(
+    (state) => state.jobCategory.jobCategoryDataList
+  );
+  useEffect(() => {
+    dispatch(getJobALLCategory());
+  }, []);
   return (
     <Dialog
       open={props.open ?? false}
@@ -391,6 +398,43 @@ export const AddDialog = (props: IAddDialogProps) => {
           <div className="from-input">
             <TextField
               className="field-text"
+              label="Cấp Bậc"
+              name="Grade"
+              size="small"
+              value={addJob.Grade}
+              onChange={handleChange}
+            />
+            <TextField
+              className="field-text"
+              label="Học"
+              name="Education"
+              size="small"
+              value={addJob.Education}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="from-input">
+            <TextField
+              className="field-text"
+              label="Số lượng"
+              name="positions_needed"
+              size="small"
+              value={addJob.positions_needed}
+              onChange={handleChange}
+            />
+            <TextField
+              className="field-text"
+              label="Giờ làm"
+              name="work_type"
+              size="small"
+              value={addJob.work_type}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="from-input">
+            <TextField
+              className="field-text"
               label="Ngày tạo"
               name="createdAt"
               size="small"
@@ -431,13 +475,27 @@ export const AddDialog = (props: IAddDialogProps) => {
               value={addJob.user_id}
               onChange={handleChange}
             />
-            <TextField
-              label="Danh Mục Job"
-              name="JobCategory_id"
-              size="small"
-              value={addJob.jobCategory_id}
-              onChange={handleChange}
-            />
+            <FormControl size="small">
+              <InputLabel id="jobCategory-label">Danh mục công việc</InputLabel>
+              <Select
+                labelId="jobCategory-label"
+                name="jobCategory_id"
+                value={addJob.jobCategory_id}
+                label="Danh mục công việc"
+                onChange={(e) =>
+                  setAddJob({
+                    ...addJob,
+                    jobCategory_id: Number(e.target.value),
+                  })
+                }
+              >
+                {jobCategoryList.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    {category.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="from-input">
             <TextField

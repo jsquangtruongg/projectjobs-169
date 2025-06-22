@@ -1,4 +1,3 @@
-import { AccountCircle, ManageAccounts } from "@mui/icons-material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SendIcon from "@mui/icons-material/Send";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -7,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import PersonIcon from "@mui/icons-material/Person";
-import avt from "../../assets/images/avatar.jpg";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
@@ -25,16 +23,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
   Collapse,
 } from "@mui/material";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import InboxIcon from "@mui/icons-material/Inbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
-import React from "react";
+import Lenis from "@studio-freight/lenis";
 import "./style.scss";
 const PrivateRoute = () => {
   const [showFrom, setShowFrom] = useState(false);
@@ -95,7 +90,7 @@ const PrivateRoute = () => {
   const handleNavigateAppLyMember = () => {
     navigate("/apply-member-layout");
   };
-
+  
   return user || !!isAuthenticated ? (
     <div className="client-layout">
       <div className="header-container">
@@ -131,7 +126,9 @@ const PrivateRoute = () => {
                         className="img-avt"
                       />
                       <div className="from-concat">
-                        <p className="item-name">Trường Nguyễn</p>
+                        <p className="item-name">
+                          {userState.userData?.lastName}
+                        </p>
                         <p className="check-successfully">
                           Tài khoản đã xác thực
                         </p>
@@ -357,7 +354,7 @@ const PrivateRoute = () => {
           </div>
         </div>
       </div>
-      <div className="from-outlet" >
+      <div className="from-outlet">
         <Outlet />
       </div>
     </div>

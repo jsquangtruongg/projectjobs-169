@@ -504,6 +504,7 @@
               font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
                 serif;
               font-weight: 600;
+              line-height: 1.5;
             }
           }
           .from-scale {
@@ -623,14 +624,15 @@
             font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
               serif;
             color: black;
+            margin-bottom: 20px;
           }
           .from-btn-job {
-            margin-top: 20px;
             align-items: center;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 8px;
+
             .btn-click {
               align-items: center;
               background: #f4f5f5;
@@ -644,13 +646,10 @@
               letter-spacing: 0.12px;
               line-height: 16px;
               padding: 4px;
-              cursor: pointer;
-              transition:
-                background-color 0.3s ease,
-                color 0.3s ease;
-            }
-            .btn-click:hover {
-              background-color: #e9eaec;
+
+              &:hover {
+                background-color: #e0e0e0; /* hover nhẹ nhàng hơn */
+              }
             }
           }
         }

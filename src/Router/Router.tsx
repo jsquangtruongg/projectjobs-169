@@ -29,6 +29,7 @@ import BrowseApplyPage from "../pages/AppLyManager/browseApply";
 import BoardsLayout from "../layout/BoardsLayout";
 import BlogPage from "../pages/Client/Blog";
 import ProfileCompanyPage from "../pages/Client/ProfileCompany";
+import JobsPage from "../pages/Client/Jobs";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "/profile-company/:id",
         element: <ProfileCompanyPage />,
+      },
+      {
+        path: "/jobs/:id",
+        element: <JobsPage />,
       },
     ],
   },

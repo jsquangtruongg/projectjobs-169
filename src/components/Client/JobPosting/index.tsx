@@ -38,7 +38,7 @@ import {
 } from "@mui/material";
 import { API, socket } from "../../../api/config";
 import "./style.scss";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 
 const locations: Record<string, string[]> = {
   "Hà Nội": [
@@ -63,6 +63,7 @@ export const JobPostingComponent = () => {
   const [filteredJobs, setFilteredJobs] = useState<IJobData[]>(
     jobState.jobData
   );
+  const userState = useAppSelector((state) => state.user);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedDistricts, setSelectedDistricts] = useState<string[]>([]);
@@ -361,51 +362,58 @@ export const JobPostingComponent = () => {
             </SwiperSlide>
           </Swiper>
         </div>
-        <div className="job-posting-box">
-          <motion.div
-            className="from-nav"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            <div onClick={handleClickProfile} className="item-concat">
-              <img src={avatarPost} alt="" className="img-avt" />
-              <p className="txt-name">Nguyen Admin</p>
-            </div>
-            <div className="item-concat">
-              <MailOutlinedIcon className="img-boards" />
-              <p className="txt-name">Tin nhắn</p>
-            </div>
-            <div className="item-concat" onClick={handleClickBoards}>
-              <DashboardCustomizeOutlinedIcon className="img-boards" />
-              <p className="txt-name">Bảng báo cáo</p>
-            </div>
-            <div className="item-concat">
-              <AccessTimeOutlinedIcon className="img-boards" />
-              <p className="txt-name">Cập Nhập</p>
-            </div>
 
-            <div className="item-concat">
-              <PaymentOutlinedIcon className="img-boards" />
-              <p className="txt-name">Tiền điện tử</p>
-            </div>
-            <div className="item-concat">
-              <DashboardCustomizeOutlinedIcon className="img-boards" />
-              <p className="txt-name">Công việc</p>
-            </div>
-            <div className="item-concat">
-              <SettingsOutlinedIcon className="img-boards" />
-              <p className="txt-name">Cài đặt</p>
-            </div>
-            <div className="item-concat">
-              <CloudUploadOutlinedIcon className="img-boards" />
-              <p className="txt-name">Tải File</p>
-            </div>
-            <div className="item-concat">
-              <WaterfallChartOutlinedIcon className="img-boards" />
-              <p className="txt-name">Phân tích</p>
-            </div>
-          </motion.div>
+        <div className="job-posting-box">
+          {userState.userData && (
+            <motion.div
+              className="from-nav"
+              variants={container}
+              initial="hidden"
+              animate="show"
+            >
+              <div onClick={handleClickProfile} className="item-concat">
+                <img
+                  src={userState.userData.avatar}
+                  alt=""
+                  className="img-avt"
+                />
+                <p className="txt-name">{userState.userData.lastName}</p>
+              </div>
+              <div className="item-concat">
+                <MailOutlinedIcon className="img-boards" />
+                <p className="txt-name">Tin nhắn</p>
+              </div>
+              <div className="item-concat" onClick={handleClickBoards}>
+                <DashboardCustomizeOutlinedIcon className="img-boards" />
+                <p className="txt-name">Bảng báo cáo</p>
+              </div>
+              <div className="item-concat">
+                <AccessTimeOutlinedIcon className="img-boards" />
+                <p className="txt-name">Cập Nhập</p>
+              </div>
+
+              <div className="item-concat">
+                <PaymentOutlinedIcon className="img-boards" />
+                <p className="txt-name">Tiền điện tử</p>
+              </div>
+              <div className="item-concat">
+                <DashboardCustomizeOutlinedIcon className="img-boards" />
+                <p className="txt-name">Công việc</p>
+              </div>
+              <div className="item-concat">
+                <SettingsOutlinedIcon className="img-boards" />
+                <p className="txt-name">Cài đặt</p>
+              </div>
+              <div className="item-concat">
+                <CloudUploadOutlinedIcon className="img-boards" />
+                <p className="txt-name">Tải File</p>
+              </div>
+              <div className="item-concat">
+                <WaterfallChartOutlinedIcon className="img-boards" />
+                <p className="txt-name">Phân tích</p>
+              </div>
+            </motion.div>
+          )}
           <motion.div
             className="from-main"
             variants={container}
@@ -426,12 +434,12 @@ export const JobPostingComponent = () => {
                   >
                     <div className="author-information">
                       <div className="author-info">
-                        <img src={avatarPost} alt="" />
+                        <img src={job.userData.avatar as string} />
                         <div className="author-name">
                           <p className="item-name">
-                            {job.userData
-                              ? `${job.userData.lastName}`
-                              : "Ẩn danh"}
+                            {getTextFromHTML(job.userData.lastName).length > 20
+                              ? `${getTextFromHTML(job.userData.lastName).slice(0, 20)}...`
+                              : getTextFromHTML(job.userData.lastName)}
                           </p>{" "}
                           <p className="item-date">
                             {new Date(job.createdAt).toLocaleDateString(

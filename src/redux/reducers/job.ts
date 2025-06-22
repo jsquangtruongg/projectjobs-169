@@ -2,10 +2,15 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
 export type IUser = {
   id: number;
-  avatar: string;
   firstName: string;
   lastName: string;
   email: string;
+  avatar: string;
+  field: string;
+  address: string;
+  description: string;
+  scale: string;
+  education_levels: string;
 };
 
 export type ICategory = {

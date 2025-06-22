@@ -33,6 +33,7 @@ import { API, socket } from "../../../api/config";
 import { useParams } from "react-router-dom";
 import "./main.scss";
 import SendSharpIcon from "@mui/icons-material/SendSharp";
+import Lenis from "@studio-freight/lenis";
 
 export type IEditDialogProps = {
   open?: boolean;
@@ -145,9 +146,12 @@ export const AddDialog = (props: IEditDialogProps) => {
       setErrors({ email: "Failed to submit the form" }); // Set submission error
     }
   };
-
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+ 
+ 
   return (
     <Dialog
+      ref={scrollRef}
       open={props.open ?? false}
       onClose={props.handleClose}
       aria-labelledby="responsive-dialog-title"
@@ -178,7 +182,7 @@ export const AddDialog = (props: IEditDialogProps) => {
         Thông tin tuyển dụng
       </DialogTitle>
       <form onSubmit={handleSubmit}>
-        <div className="edit-form">
+        <div className="edit-form" ref={scrollRef}>
           <DialogContent>
             <Box
               component="form"

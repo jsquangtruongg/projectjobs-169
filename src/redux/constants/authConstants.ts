@@ -55,6 +55,8 @@ export const CREATE_BLOG = "CREATE_BLOG";
 //JobCategory
 
 export const GET_JOB_CATEGORY_ALL = "GET_JOB_CATEGORY_ALL";
+export const GET_JOB_CATEGORY_ID = "GET_JOB_CATEGORY_ID";
+
 
 //Apply
 export const GET_APPLY = "GET_APPLY";

@@ -80,6 +80,9 @@ export const HomeComponent = () => {
   const handleBlogClick = () => {
     navigate("/blog");
   };
+  const handleJobsClick = (id: number | string) => {
+    navigate(`/jobs/${id}`);
+  };
   const onClickJobDetail = (id: number | string) => {
     navigate(`/blog-details/${id}`);
   };
@@ -140,84 +143,13 @@ export const HomeComponent = () => {
   };
   const logos = [slush, pum, phuclong, water, koithe, hura, trasua, tea, pata];
   const verticalOffsets = ["up", "down", "mid", "up", "down"];
-  const data = [
-    {
-      title: "Sản xuất",
-      jobs: "3.099 việc làm",
-      icon: <BuildIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Giáo dục - Đào tạo",
-      jobs: "1.884 việc làm",
-      icon: <SchoolIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Bán lẻ - Dịch vụ đời sống",
-      jobs: "783 việc làm",
-      icon: <LocalOfferIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Phim & Truyền hình",
-      jobs: "323 việc làm",
-      icon: <LiveTvIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Điện - Điện tử - Viễn thông",
-      jobs: "1.538 việc làm",
-      icon: <WifiIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Logistics - Thu mua",
-      jobs: "2.245 việc làm",
-      icon: <LocalShippingIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Tư vấn chuyên môn",
-      jobs: "115 việc làm",
-      icon: <ChatIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-    {
-      title: "Dược - Y tế",
-      jobs: "816 việc làm",
-      icon: <MedicalServicesIcon fontSize="large" color="success" />,
-    },
-  ];
+
   return (
     <div className="home-container">
       <div className="from-container-top">
         <div className="banner-container">
           <div className="banner-box">
-            <div style={{ display: "flex" }}>
+            <div   style={{ display: "flex" }}>
               <div className="form-search">
                 <span className="banner-title">
                   Bạn Muốn Tìm Việc Làm Theo Sở Thích
@@ -279,7 +211,7 @@ export const HomeComponent = () => {
         </div>
       </div>
       <div className="job-category">
-        <div className="from-job-category">
+        {/* <div className="from-job-category">
           <div className="from-job-top">
             <div className="title">
               <p>____</p>
@@ -358,7 +290,7 @@ export const HomeComponent = () => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="from-branch-job">
           <div className="from-company-top">
             <div className="item-company">
@@ -384,7 +316,7 @@ export const HomeComponent = () => {
                   onSlideChange={(swiper) => updateNavigation(swiper)}
                   slidesPerView={3}
                   grid={{
-                    rows: 3,
+                    rows: 2,
                     fill: "row",
                   }}
                   navigation={{
@@ -412,17 +344,25 @@ export const HomeComponent = () => {
                           <div className="item-cart-job">
                             <div className="from-card">
                               <div className="logo">
-                                <img src={avatarPost} alt="Company Logo" />
+                                <img src={jobUser.avatar} alt="Company Logo" />
                               </div>
                               <div className="info">
                                 <h3>
-                                  {jobUser.firstName} {jobUser.lastName}
+                                  {(() => {
+                                    const text = jobUser.lastName ?? "";
+                                    const words = text.split(" ");
+                                    return (
+                                      words.slice(0, 5).join(" ") +
+                                      (words.length > 5 ? "..." : "")
+                                    );
+                                  })()}
                                 </h3>
                                 <p className="industry">{jobUser.email}</p>
                               </div>
                             </div>
                           </div>
                           <div className="item-icon-wor">
+                            <p className="txt-word">Việc làm:</p>
                             <BusinessCenterOutlinedIcon className="icon-word" />
                             <p className="jobs">{jobUser.Jobs?.length}</p>
                           </div>
@@ -438,9 +378,6 @@ export const HomeComponent = () => {
                     <ArrowForwardIosIcon className="icon-pagination-right" />
                   </div>
                 </div>
-              </div>
-              <div className="from-btn-more">
-                <button className="btn-more">Xem thêm</button>
               </div>
             </div>
           </div>
@@ -618,12 +555,16 @@ export const HomeComponent = () => {
               }}
             >
               {stateJobCategory.jobCategoryDataList.map(
-                (blogCategory, index) => (
-                  <SwiperSlide key={index} className="item-swiperSlide">
+                (jobsCategory, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className="item-swiperSlide"
+                    onClick={() => handleJobsClick(jobsCategory.id)}
+                  >
                     <div className="card">
-                      <div className="icon-job"></div>
-                      <h3 className="name">{blogCategory.title}</h3>
-                      <p className="jobs">{blogCategory.Jobs?.length}</p>
+                      <img src={jobsCategory.img} alt="" className="icon-job" />
+                      <h3 className="name">{jobsCategory.title}</h3>
+                      <p className="jobs">{jobsCategory.jobs?.length}</p>
                     </div>
                   </SwiperSlide>
                 )
@@ -636,7 +577,7 @@ export const HomeComponent = () => {
             {[...logos, ...logos].map((logo, index) => {
               const offsetClass =
                 verticalOffsets[index % verticalOffsets.length];
-              const delay = (index % 5) * 0.3; // Mỗi logo trễ thêm 0.3s
+              const delay = (index % 5) * 0.3;
 
               return (
                 <div

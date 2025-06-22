@@ -27,7 +27,7 @@ import {
   Keyboard,
   Autoplay,
 } from "swiper/modules";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 export const BlogCategoryComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();

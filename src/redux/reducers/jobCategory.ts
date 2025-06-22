@@ -1,15 +1,20 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import * as types from "../constants/authConstants";
-import { JSX } from "react/jsx-runtime";
 
 export type IJob = {
-  map(
-    arg0: (jobItem: any, index: any) => JSX.Element
-  ): import("react").ReactNode;
-  length: number;
   id: number;
+  title: string;
   img: string;
   content: string;
+  salary: string;
+  experience: string;
+  location: string;
+  Grade: string;
+  Education: string;
+  positions_needed: string;
+  work_type: string;
+  user_id: number;
+  jobCategory_id: number;
 };
 export type IUser = {
   id: number;
@@ -21,22 +26,23 @@ export type IUser = {
 export type IJobCategoryData = {
   id: number;
   title: string;
+  img: string;
   user_id: number;
   createdAt: string;
   updatedAt: string;
   userData: IUser;
-  Jobs: IJob;
+  jobs: IJob[];
 };
 
 export type IJobCategory = {
   isLoading: boolean;
-  jobCategoryData: IJobCategoryData[];
+  jobCategoryData: IJobCategoryData | null;
   jobCategoryDataList: IJobCategoryData[];
 };
 
 const initialState: IJobCategory = {
   isLoading: false,
-  jobCategoryData: [],
+  jobCategoryData: null,
   jobCategoryDataList: [],
 };
 
@@ -52,6 +58,13 @@ const jobCategoryReducer = (
         jobCategoryDataList: payload.jobCategoryDataList || [],
       };
       return newState;
+    case types.GET_JOB_CATEGORY_ID:
+      const a = {
+        ...state,
+        jobCategoryData: payload.jobCategoryData,
+      };
+      console.log("first", a);
+      return a;
 
     default:
       return state;

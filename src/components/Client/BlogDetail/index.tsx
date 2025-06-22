@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { getBlogDetail } from "../../../redux/actions/blogActions";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 
 const BlogDetailComponent = () => {
   const { id } = useParams<{ id: string }>();

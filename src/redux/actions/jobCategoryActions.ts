@@ -3,6 +3,7 @@ import {
   createJobCategoryAPI,
   deleteJobCategoryAPI,
   getJobALLCategoryAPI,
+  getJobCategoryIdAPI,
   updateJobCategoryAPI,
 } from "../../api/job-category";
 import { AppDispatch } from "../store";
@@ -23,10 +24,22 @@ export const getJobALLCategory =
     }
   };
 
-export const postCreateJobCategory =
-  (data: IJobCategoryData) => async (dispatch: AppDispatch) => {
+export const getIdJobCategoryAction =
+  (id: number) => async (dispatch: AppDispatch) => {
     try {
-      await createJobCategoryAPI(data);
+      const response = await getJobCategoryIdAPI(id);
+      if (response.err === 0) {
+        dispatch({
+          type: types.GET_JOB_CATEGORY_ID,
+          payload: { jobCategoryData: response.jobCategoryData },
+        });
+      }
+    } catch (error) {}
+  };
+export const postCreateJobCategory =
+  (data: IJobCategoryData, file: File) => async (dispatch: AppDispatch) => {
+    try {
+      await createJobCategoryAPI(data, file);
       dispatch(getJobALLCategory());
     } catch (error: any) {
       dispatch(setError(error.response?.data.mess));

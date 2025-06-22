@@ -130,7 +130,7 @@ export const createJobAPI = async (
   const formData = new FormData();
 
   if (file) {
-    formData.append("img", file); // Chỉ thêm ảnh nếu có
+    formData.append("img", file);
   }
 
   const { id, img, updatedAt, userData, createdAt, ...restJobData } = jobData;

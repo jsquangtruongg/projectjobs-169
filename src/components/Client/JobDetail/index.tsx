@@ -34,7 +34,7 @@ import { getJobALLCategory } from "../../../redux/actions/jobCategoryActions";
 import { AddDialog } from "./dialog";
 import { IJobData } from "../../../redux/reducers/job";
 import { motion } from "framer-motion";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 
 export type IEditDialogProps = {
   open?: boolean;
@@ -95,6 +95,9 @@ export const JobDetailComponent = () => {
   const handleClickJobDetail = (id: number | string) => {
     navigate(`/job-detail/${id}`);
   };
+  const handleClickProfileCompany = (companyId: number | undefined) => {
+    navigate(`/profile-company/${companyId}`);
+  };
   const container = {
     hidden: { opacity: 0, y: 40 },
     show: {
@@ -107,9 +110,8 @@ export const JobDetailComponent = () => {
     },
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
+  const handleJobsClick = (id: number | string) => {
+    navigate(`/jobs/${id}`);
   };
   return (
     <>
@@ -250,7 +252,11 @@ export const JobDetailComponent = () => {
                         onClick={() => handleClickJobDetail(job.id)}
                       >
                         <div className="from-avt">
-                          <img src={avatar} alt="" className="item-img" />
+                          <img
+                            src={job.userData.avatar}
+                            alt=""
+                            className="item-img"
+                          />
                         </div>
                         <div className="from-concat-detail">
                           <div className="from-concat-job">
@@ -383,127 +389,136 @@ export const JobDetailComponent = () => {
             </motion.div>
           </div>
           <div className="header-right">
-            {!UserState.userData ? (
+            {JobDetailState.jobData.length === 0 ? (
               <CircularProgress />
             ) : (
-              <motion.div
-                className="item-company-concat"
-                variants={container}
-                initial="hidden"
-                animate="show"
-              >
-                <div className="from-concat-company">
-                  <div className="from-txt-name">
-                    <img src={avatar} alt="" className="item-img" />
-                    <p className="item-txt-name">
-                      {UserState.userData.firstName +
-                        " " +
-                        UserState.userData.lastName}
-                    </p>
-                  </div>
-                  <div className="from-scale">
-                    <div className="item-scale">
-                      <PeopleIcon className="item-icon" />
-                      <p className="txt-scale">Quy mô:</p>
+              JobDetailState.jobData.map((JobDetail) => (
+                <motion.div
+                  key={JobDetail.id}
+                  ref={JobDetail.id === Number(id) ? jobRef : null}
+                  className="item-company-concat"
+                  variants={container}
+                  initial="hidden"
+                  animate="show"
+                >
+                  <div className="from-concat-company">
+                    <div className="from-txt-name">
+                      <img
+                        src={JobDetail.userData.avatar}
+                        alt=""
+                        className="item-img"
+                      />
+                      <p className="item-txt-name">
+                        {JobDetail.userData.firstName +
+                          " " +
+                          JobDetail.userData.lastName}
+                      </p>
                     </div>
-                    <div className="item-detail-scale">
-                      {UserState.userData?.scale}
+                    <div className="from-scale">
+                      <div className="item-scale">
+                        <PeopleIcon className="item-icon" />
+                        <p className="txt-scale">Quy mô:</p>
+                      </div>
+                      <div className="item-detail-scale">
+                        {JobDetail.userData.scale}
+                      </div>
                     </div>
-                  </div>
-                  <div className="from-scale">
-                    <div className="item-scale">
-                      <TokenIcon className="item-icon" />
-                      <p className="txt-scale">Lĩnh vực:</p>
+                    <div className="from-scale">
+                      <div className="item-scale">
+                        <TokenIcon className="item-icon" />
+                        <p className="txt-scale">Lĩnh vực:</p>
+                      </div>
+                      <div className="item-detail-scale">
+                        {JobDetail.userData.field}
+                      </div>
                     </div>
-                    <div className="item-detail-scale">Giáo dục/Đào tạo</div>
-                  </div>
-                  <div className="from-scale">
-                    <div className="item-scale">
-                      <LocationOnIcon className="item-icon" />
-                      <p className="txt-scale">Địa điểm:</p>
+                    <div className="from-scale">
+                      <div className="item-scale">
+                        <LocationOnIcon className="item-icon" />
+                        <p className="txt-scale">Địa điểm:</p>
+                      </div>
+                      <div className="item-detail-scale">
+                        {JobDetail.userData.address}
+                      </div>
                     </div>
-                    <div className="item-detail-scale">
-                      Tầng 3, Tòa nhà HUD3 Số 121 - 123 Đường Tô Hiệu, Phường
-                      Nguyễn
-                    </div>
-                  </div>
-                  <button className="from-check-company">
-                    <p className="txt-check-company">Xem thông tin công ty</p>
-                    <NorthEastIcon className="img-icon" />
-                  </button>
-                </div>
-                {JobDetailState.jobData.length === 0 ? (
-                  <CircularProgress />
-                ) : (
-                  JobDetailState.jobData.map((JobDetail) => (
-                    <div
-                      className="from-information"
-                      key={JobDetail.id}
-                      ref={JobDetail.id === Number(id) ? jobRef : null}
+                    <button
+                      className="from-check-company"
+                      onClick={() =>
+                        handleClickProfileCompany(JobDetail.userData?.id)
+                      }
                     >
-                      <p className="txt-information">Thông tin chung</p>
-                      <div className="from-concat-information">
-                        <div className="from-icon">
-                          <DiscountIcon className="item-icon" />
-                        </div>
-                        <div className="from-txt-information">
-                          <p className="txt-information">Cấp bậc</p>
-                          <p className="txt-member">{JobDetail.Grade}</p>
-                        </div>
+                      <p className="txt-check-company">Xem thông tin công ty</p>
+                      <NorthEastIcon className="img-icon" />
+                    </button>
+                  </div>
+
+                  <div className="from-information">
+                    <p className="txt-information">Thông tin chung</p>
+                    <div className="from-concat-information">
+                      <div className="from-icon">
+                        <DiscountIcon className="item-icon" />
                       </div>
-                      <div className="from-concat-information">
-                        <div className="from-icon">
-                          <SchoolIcon className="item-icon" />
-                        </div>
-                        <div className="from-txt-information">
-                          <p className="txt-information">Học Vấn</p>
-                          <p className="txt-member">{JobDetail.Education}</p>
-                        </div>
-                      </div>
-                      <div className="from-concat-information">
-                        <div className="from-icon">
-                          <GroupIcon className="item-icon" />
-                        </div>
-                        <div className="from-txt-information">
-                          <p className="txt-information">
-                            Số lượng người tuyển
-                          </p>
-                          <p className="txt-member">
-                            {JobDetail.positions_needed}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="from-concat-information">
-                        <div className="from-icon">
-                          <WorkIcon className="item-icon" />
-                        </div>
-                        <div className="from-txt-information">
-                          <p className="txt-information">Hình thức làm việc</p>
-                          <p className="txt-member">{JobDetail.work_type}</p>
-                        </div>
+                      <div className="from-txt-information">
+                        <p className="txt-information">Cấp bậc</p>
+                        <p className="txt-member">{JobDetail.Grade}</p>
                       </div>
                     </div>
-                  ))
-                )}
-                {jobCategoryState.jobCategoryDataList.length === 0 ? (
-                  <CircularProgress />
-                ) : (
-                  jobCategoryState.jobCategoryDataList.map(
-                    (jobCategory, index) => (
-                      <div className="from-category" key={index}>
-                        <p className="txt-title-category">
-                          Danh mục nghề liên quan
-                        </p>
-                        <div className="from-btn-job">
-                          <a className="btn-click">{jobCategory.title}</a>
-                          <a className="btn-click">Giáo dục/Đào tạo</a>
-                          <a className="btn-click">Khóa học</a>
-                        </div>
+                    <div className="from-concat-information">
+                      <div className="from-icon">
+                        <SchoolIcon className="item-icon" />
                       </div>
-                    )
-                  )
-                )}
-              </motion.div>
+                      <div className="from-txt-information">
+                        <p className="txt-information">Học Vấn</p>
+                        <p className="txt-member">{JobDetail.Education}</p>
+                      </div>
+                    </div>
+                    <div className="from-concat-information">
+                      <div className="from-icon">
+                        <GroupIcon className="item-icon" />
+                      </div>
+                      <div className="from-txt-information">
+                        <p className="txt-information">Số lượng người tuyển</p>
+                        <p className="txt-member">
+                          {JobDetail.positions_needed}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="from-concat-information">
+                      <div className="from-icon">
+                        <WorkIcon className="item-icon" />
+                      </div>
+                      <div className="from-txt-information">
+                        <p className="txt-information">Hình thức làm việc</p>
+                        <p className="txt-member">{JobDetail.work_type}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="from-category">
+                    <p className="txt-title-category">
+                      Danh mục nghề liên quan
+                    </p>
+
+                    <div className="from-btn-job">
+                      {jobCategoryState.jobCategoryDataList.length === 0 ? (
+                        <CircularProgress />
+                      ) : (
+                        jobCategoryState.jobCategoryDataList.map(
+                          (jobCategory, index) => (
+                            <a
+                              className="btn-click"
+                              onClick={() => handleJobsClick(jobCategory.id)}
+                              key={index}
+                            >
+                              {jobCategory.title}
+                            </a>
+                          )
+                        )
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))
             )}
           </div>
         </div>

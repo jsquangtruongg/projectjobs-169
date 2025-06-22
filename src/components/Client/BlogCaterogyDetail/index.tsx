@@ -10,7 +10,7 @@ import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDiss
 import { getBlogCategoryIdDetail } from "../../../redux/actions/blogCategoryAction";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Keyboard, Mousewheel, Pagination } from "swiper/modules";
-import ScrollToTop from "../../../layout/ScrollLayout";
+import ScrollToTop from "../../../layout/Scroll";
 
 export const BlogCategoryDetailComponent = () => {
   const blogDetailState = useAppSelector((state) => state.blogCategory);
